@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<score-partwise xmlns:ns2="http://www.w3.org/1999/xlink">
+    <work>
+        <work-title>Songtitle</work-title>
+    </work>
+    <part-list>
+        <score-part id="P1">
+            <part-name>Music</part-name>
+        </score-part>
+    </part-list>
+    <part id="P1">
+        <measure number="1">
+            <attributes>
+                <divisions>4</divisions>
+                <key number="1">
+                    <fifths>0</fifths>
+                </key>
+                <key number="2">
+                    <fifths>0</fifths>
+                </key>
+                <time number="1">
+                    <beats>4</beats>
+                    <beat-type>4</beat-type>
+                </time>
+                <time number="2">
+                    <beats>4</beats>
+                    <beat-type>4</beat-type>
+                </time>
+                <staves>2</staves>
+                <clef number="1">
+                    <sign>G</sign>
+                    <line>2</line>
+                </clef>
+                <clef number="2">
+                    <sign>F</sign>
+                    <line>4</line>
+                </clef>
+            </attributes>
+            <attributes>
+                <key number="1">
+                    <fifths>0</fifths>
+                </key>
+                <clef number="1">
+                    <sign>G</sign>
+                    <line>2</line>
+                </clef>
+            </attributes>
+            <note>
+                <pitch>
+                    <step>C</step>
+                    <octave>4</octave>
+                </pitch>
+                <duration>16</duration>
+                <voice>0</voice>
+                <type>whole</type>
+                <stem>down</stem>
+                <staff>1</staff>
+            </note>
+            <backup>
+                <duration>16</duration>
+            </backup>
+            <attributes>
+                <key number="2">
+                    <fifths>0</fifths>
+                </key>
+                <clef number="2">
+                    <sign>F</sign>
+                    <line>4</line>
+                </clef>
+            </attributes>
+            <note>
+                <pitch>
+                    <step>F</step>
+                    <octave>3</octave>
+                </pitch>
+                <duration>16</duration>
+                <voice>1</voice>
+                <type>whole</type>
+                <stem>down</stem>
+                <staff>2</staff>
+            </note>
+        </measure>
+        <measure number="2">
+            <note>
+                <pitch>
+                    <step>D</step>
+                    <octave>4</octave>
+                </pitch>
+                <duration>4</duration>
+                <voice>0</voice>
+                <type>quarter</type>
+                <stem>up</stem>
+                <staff>1</staff>
+            </note>
+            <note>
+                <pitch>
+                    <step>D</step>
+                    <octave>4</octave>
+                </pitch>
+                <duration>4</duration>
+                <voice>0</voice>
+                <type>quarter</type>
+                <stem>up</stem>
+                <staff>1</staff>
+            </note>
+            <note>
+                <rest/>
+                <duration>8</duration>
+                <voice>0</voice>
+                <type>half</type>
+                <staff>1</staff>
+            </note>
+            <backup>
+                <duration>16</duration>
+            </backup>
+            <note>
+                <pitch>
+                    <step>C</step>
+                    <octave>3</octave>
+                </pitch>
+                <duration>8</duration>
+                <voice>1</voice>
+                <type>half</type>
+                <stem>up</stem>
+                <staff>2</staff>
+            </note>
+            <note>
+                <pitch>
+                    <step>E</step>
+                    <octave>2</octave>
+                </pitch>
+                <duration>8</duration>
+                <voice>1</voice>
+                <type>half</type>
+                <stem>up</stem>
+                <staff>2</staff>
+            </note>
+        </measure>
+    </part>
+</score-partwise>

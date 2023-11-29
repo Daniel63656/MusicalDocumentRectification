@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Interpreter:jar" />
+      <artifact name="Tokenizer:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="included parsing tools from other project" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="OpticalMusicRecognition" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="OpticalMusicRecognition" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="wanderingMeanShift" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="fc3f1c0cf16d182664fc7c15e2de52d775490da0" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="ff04b29c-37e3-4c96-a0a1-188801ffc22c" />
+        <option name="url" value="https://github.com/Daniel63656/OpticalMusicRecognition.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Fqjf1PjnO0aK5c717zaUYscsnV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Daniel/AppDevelopment/scoreworks/OpticalMusicRecognition&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.26206896&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/Daniel/AppDevelopment/immersive/OpticalMusicRecognition/src/main/java/com/immersive/omr/utils/QuadraticCurveModel.java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.immersive.omr.stages" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\test\java\net\scoreworks\omr\parsing" />
+      <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\main\java\net\scoreworks\parsing" />
+      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\resources" />
+      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\java\com\immersive\omr\utils" />
+      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\java\com\immersive\omr\utils\discriminantFunctions\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\test\resources" />
+      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\java\com\immersive\omr\stages" />
+      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\jmathplot" />
+      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\openCV" />
+      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\java\com\immersive\omr\discriminationFunctions\templates" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.immersive.omr.utils" />
+      <recent name="com.immersive.omr.stages" />
+      <recent name="com.immersive.omr.stages.objectDetection" />
+      <recent name="com.immersive.omr" />
+      <recent name="com.immersive.omr.clustering" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.net.scoreworks.omr.rectification.DocumentRectification">
+    <configuration name="DocumentRectification" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="net.scoreworks.omr.rectification.stages.DocumentRectification" />
+      <module name="OpticalMusicRecognition.main" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=openCV" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.scoreworks.omr.rectification.stages.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="net.scoreworks.omr.rectification.DocumentRectification" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="net.scoreworks.omr.rectification.DocumentRectification" />
+      <module name="OpticalMusicRecognition.main" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=openCV" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.scoreworks.omr.rectification.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EigenvalueDecompositionTests" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;net.scoreworks.omr.EigenvalueDecompositionTests&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" value="-Djava.library.path=openCV" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="EigenvalueDecompositionTests.testInverse" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;net.scoreworks.omr.EigenvalueDecompositionTests.testInverse&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="InterpreterTest.testInterpreter" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;net.scoreworks.omr.parsing.InterpreterTest.testInterpreter&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="TokenizerTest.testTokenizer" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;net.scoreworks.omr.parsing.TokenizerTest.testTokenizer&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.net.scoreworks.omr.rectification.DocumentRectification" />
+      <item itemvalue="Application.DocumentRectification" />
+      <item itemvalue="Gradle.EigenvalueDecompositionTests" />
+      <item itemvalue="Gradle.InterpreterTest.testInterpreter" />
+      <item itemvalue="Gradle.TokenizerTest.testTokenizer" />
+      <item itemvalue="Gradle.EigenvalueDecompositionTests.testInverse" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.net.scoreworks.omr.rectification.DocumentRectification" />
+        <item itemvalue="Gradle.InterpreterTest.testInterpreter" />
+        <item itemvalue="Gradle.TokenizerTest.testTokenizer" />
+        <item itemvalue="Gradle.EigenvalueDecompositionTests.testInverse" />
+        <item itemvalue="Application.DocumentRectification" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="included parsing tools from other project" />
+      <created>1665226607864</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1665226607864</updated>
+      <workItem from="1676117934133" duration="211000" />
+      <workItem from="1676198941876" duration="19000" />
+      <workItem from="1680787156853" duration="619000" />
+      <workItem from="1680793057915" duration="23000" />
+      <workItem from="1683051731291" duration="13000" />
+      <workItem from="1683096743781" duration="6113000" />
+      <workItem from="1684131128381" duration="18966000" />
+      <workItem from="1684396861375" duration="57347000" />
+      <workItem from="1684668272684" duration="117320000" />
+      <workItem from="1685196453915" duration="3277000" />
+      <workItem from="1685199795548" duration="1261000" />
+      <workItem from="1685202899893" duration="386000" />
+      <workItem from="1685203299256" duration="566000" />
+      <workItem from="1685204406069" duration="318000" />
+      <workItem from="1685204739366" duration="231108000" />
+      <workItem from="1687075172325" duration="9000" />
+      <workItem from="1687112583342" duration="42015000" />
+      <workItem from="1687447835705" duration="91592000" />
+      <workItem from="1688719751482" duration="9291000" />
+      <workItem from="1688972950710" duration="33578000" />
+      <workItem from="1689331908874" duration="308000" />
+      <workItem from="1689332636302" duration="7593000" />
+      <workItem from="1689524333019" duration="68000" />
+      <workItem from="1689524412195" duration="10333000" />
+      <workItem from="1689590952575" duration="41350000" />
+      <workItem from="1690799319514" duration="2799000" />
+      <workItem from="1698261781491" duration="40000000" />
+      <workItem from="1698487143403" duration="415000" />
+      <workItem from="1698500021005" duration="1691000" />
+      <workItem from="1699282001398" duration="246000" />
+      <workItem from="1699434230079" duration="3437000" />
+      <workItem from="1699959011410" duration="7000" />
+      <workItem from="1700581536266" duration="18000" />
+      <workItem from="1700752901127" duration="5169000" />
+      <workItem from="1701274034814" duration="2770000" />
+      <workItem from="1701277694894" duration="43000" />
+    </task>
+    <task id="LOCAL-00154" summary="some renaming asas">
+      <created>1687269406691</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1687269406692</updated>
+    </task>
+    <task id="LOCAL-00155" summary="some renaming asas">
+      <created>1687275774313</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1687275774313</updated>
+    </task>
+    <task id="LOCAL-00156" summary="introduced NaturalCubicSpline">
+      <created>1687606731758</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1687606731758</updated>
+    </task>
+    <task id="LOCAL-00157" summary="better NaturalCubicSpline">
+      <created>1687637578004</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1687637578004</updated>
+    </task>
+    <task id="LOCAL-00158" summary="NaturalCubicSpline working but not as stable as QuadraticCurveModel">
+      <created>1687681422874</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1687681422874</updated>
+    </task>
+    <task id="LOCAL-00159" summary="rolled back to QuadraticCurveModel">
+      <created>1687681534742</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1687681534742</updated>
+    </task>
+    <task id="LOCAL-00160" summary="introduced numeric arc length parametrization">
+      <created>1687683965665</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1687683965665</updated>
+    </task>
+    <task id="LOCAL-00161" summary="rectification working">
+      <created>1687699818920</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1687699818920</updated>
+    </task>
+    <task id="LOCAL-00162" summary="afsdfas">
+      <created>1687796141279</created>
+      <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
+      <option name="project" value="LOCAL" />
+      <updated>1687796141279</updated>
+    </task>
+    <task id="LOCAL-00163" summary="aeda">
+      <created>1687808833579</created>
+      <option name="number" value="00163" />
+      <option name="presentableId" value="LOCAL-00163" />
+      <option name="project" value="LOCAL" />
+      <updated>1687808833579</updated>
+    </task>
+    <task id="LOCAL-00164" summary="3d plot of 3d estimate">
+      <created>1687856471158</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1687856471158</updated>
+    </task>
+    <task id="LOCAL-00165" summary="3d plot is somewhat working">
+      <created>1687878992590</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
+      <option name="project" value="LOCAL" />
+      <updated>1687878992590</updated>
+    </task>
+    <task id="LOCAL-00166" summary="some cleaning up">
+      <created>1687879239639</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1687879239639</updated>
+    </task>
+    <task id="LOCAL-00167" summary="implemented regularized approach as well">
+      <created>1687988248391</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1687988248391</updated>
+    </task>
+    <task id="LOCAL-00168" summary="switching to double precision and regularization minimizes numerical errors at principal points">
+      <created>1688035767511</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1688035767511</updated>
+    </task>
+    <task id="LOCAL-00169" summary="curve refactoring and class remodelling">
+      <created>1688062422425</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1688062422425</updated>
+    </task>
+    <task id="LOCAL-00170" summary="fixed -1 error">
+      <created>1688720446910</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1688720446910</updated>
+    </task>
+    <task id="LOCAL-00171" summary="improved longitude spacing">
+      <created>1688737629077</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1688737629077</updated>
+    </task>
+    <task id="LOCAL-00172" summary="working pipeline with non linear rulings">
+      <created>1688920977199</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1688920977199</updated>
+    </task>
+    <task id="LOCAL-00173" summary="good hough results">
+      <created>1688923280514</created>
+      <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
+      <option name="project" value="LOCAL" />
+      <updated>1688923280514</updated>
+    </task>
+    <task id="LOCAL-00174" summary="sfg">
+      <created>1688975266936</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1688975266936</updated>
+    </task>
+    <task id="LOCAL-00175" summary="sfgada">
+      <created>1688987194149</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
+      <option name="project" value="LOCAL" />
+      <updated>1688987194149</updated>
+    </task>
+    <task id="LOCAL-00176" summary="somewhat working">
+      <created>1688989221219</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
+      <option name="project" value="LOCAL" />
+      <updated>1688989221219</updated>
+    </task>
+    <task id="LOCAL-00177" summary="good results">
+      <created>1688994750537</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1688994750537</updated>
+    </task>
+    <task id="LOCAL-00178" summary="removed unfavoured approaches (classes)">
+      <created>1688994797834</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1688994797834</updated>
+    </task>
+    <task id="LOCAL-00179" summary="complete pipeline with nonlinear rulings">
+      <created>1689013072864</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1689013072864</updated>
+    </task>
+    <task id="LOCAL-00180" summary="kind of works">
+      <created>1689182313282</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1689182313282</updated>
+    </task>
+    <task id="LOCAL-00181" summary="joa">
+      <created>1689190582118</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1689190582118</updated>
+    </task>
+    <task id="LOCAL-00182" summary="simpler but effective approach">
+      <created>1689193728291</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1689193728291</updated>
+    </task>
+    <task id="LOCAL-00183" summary="broke it">
+      <created>1689332061100</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
+      <option name="project" value="LOCAL" />
+      <updated>1689332061101</updated>
+    </task>
+    <task id="LOCAL-00184" summary="fixed IDE error">
+      <created>1689332777083</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
+      <option name="project" value="LOCAL" />
+      <updated>1689332777083</updated>
+    </task>
+    <task id="LOCAL-00185" summary="added correct margins for rectified image">
+      <created>1689588666058</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1689588666059</updated>
+    </task>
+    <task id="LOCAL-00186" summary="preparing for linemodel changes">
+      <created>1689678486332</created>
+      <option name="number" value="00186" />
+      <option name="presentableId" value="LOCAL-00186" />
+      <option name="project" value="LOCAL" />
+      <updated>1689678486332</updated>
+    </task>
+    <task id="LOCAL-00187" summary="some changes to intersections">
+      <created>1689702466228</created>
+      <option name="number" value="00187" />
+      <option name="presentableId" value="LOCAL-00187" />
+      <option name="project" value="LOCAL" />
+      <updated>1689702466228</updated>
+    </task>
+    <task id="LOCAL-00188" summary="some changes to intersections">
+      <created>1689702488581</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
+      <option name="project" value="LOCAL" />
+      <updated>1689702488581</updated>
+    </task>
+    <task id="LOCAL-00189" summary="removed duplicate code from meshpoint creation">
+      <created>1689703936519</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1689703936519</updated>
+    </task>
+    <task id="LOCAL-00190" summary="renaming">
+      <created>1689769442752</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1689769442752</updated>
+    </task>
+    <task id="LOCAL-00191" summary="some experiments with staff model">
+      <created>1689773738703</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1689773738704</updated>
+    </task>
+    <task id="LOCAL-00192" summary="deleted object detection">
+      <created>1697619729446</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
+      <option name="project" value="LOCAL" />
+      <updated>1697619729446</updated>
+    </task>
+    <task id="LOCAL-00193" summary="made QuadraticCurveModel unclamped">
+      <created>1698147131527</created>
+      <option name="number" value="00193" />
+      <option name="presentableId" value="LOCAL-00193" />
+      <option name="project" value="LOCAL" />
+      <updated>1698147131527</updated>
+    </task>
+    <task id="LOCAL-00194" summary="better lighting correction">
+      <created>1698337362735</created>
+      <option name="number" value="00194" />
+      <option name="presentableId" value="LOCAL-00194" />
+      <option name="project" value="LOCAL" />
+      <updated>1698337362735</updated>
+    </task>
+    <task id="LOCAL-00195" summary="scale adaptive lighting correction">
+      <created>1698344521207</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
+      <option name="project" value="LOCAL" />
+      <updated>1698344521207</updated>
+    </task>
+    <task id="LOCAL-00196" summary="even better lighing rectification with dilation">
+      <created>1698358484444</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1698358484444</updated>
+    </task>
+    <task id="LOCAL-00197" summary="corrected FOV formula and added cases for camera orientation">
+      <created>1698360786959</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1698360786960</updated>
+    </task>
+    <task id="LOCAL-00198" summary="inverted image during pipeline to eliminate black rectification borders and follow conventions">
+      <created>1698395256770</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1698395256770</updated>
+    </task>
+    <task id="LOCAL-00199" summary="better longitude parameters">
+      <created>1698397249277</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1698397249277</updated>
+    </task>
+    <task id="LOCAL-00200" summary="changed C_fg to 60">
+      <created>1698423224568</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1698423224568</updated>
+    </task>
+    <task id="LOCAL-00201" summary="changed group to my company domain">
+      <created>1698500565994</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1698500565994</updated>
+    </task>
+    <task id="LOCAL-00202" summary="included parsing tools from other project">
+      <created>1701275329608</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
+      <option name="project" value="LOCAL" />
+      <updated>1701275329608</updated>
+    </task>
+    <option name="localTasksCounter" value="203" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="publish" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="morph" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/dynamicMS" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="good results" />
+    <MESSAGE value="removed unfavoured approaches (classes)" />
+    <MESSAGE value="complete pipeline with nonlinear rulings" />
+    <MESSAGE value="kind of works" />
+    <MESSAGE value="joa" />
+    <MESSAGE value="simpler but effective approach" />
+    <MESSAGE value="broke it" />
+    <MESSAGE value="fixed IDE error" />
+    <MESSAGE value="added correct margins for rectified image" />
+    <MESSAGE value="preparing for linemodel changes" />
+    <MESSAGE value="some changes to intersections" />
+    <MESSAGE value="removed duplicate code from meshpoint creation" />
+    <MESSAGE value="renaming" />
+    <MESSAGE value="some experiments with staff model" />
+    <MESSAGE value="deleted object detection" />
+    <MESSAGE value="made QuadraticCurveModel unclamped" />
+    <MESSAGE value="better lighting correction" />
+    <MESSAGE value="scale adaptive lighting correction" />
+    <MESSAGE value="even better lighing rectification with dilation" />
+    <MESSAGE value="corrected FOV formula and added cases for camera orientation" />
+    <MESSAGE value="inverted image during pipeline to eliminate black rectification borders and follow conventions" />
+    <MESSAGE value="better longitude parameters" />
+    <MESSAGE value="changed C_fg to 60" />
+    <MESSAGE value="changed group to my company domain" />
+    <MESSAGE value="included parsing tools from other project" />
+    <option name="LAST_COMMIT_MESSAGE" value="included parsing tools from other project" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/clust4j/algo/MeanShift.java</url>
+          <line>851</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/clust4j/algo/MeanShift.java</url>
+          <line>149</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/clust4j/algo/MeanShift.java</url>
+          <line>829</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/openCV/opencv-460.jar!/org/opencv/core/Core.class</url>
+          <line>269</line>
+          <option name="timeStamp" value="246" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.6.1/8fab23986ea8886af34818daf32a718e81dc98ba/commons-math3-3.6.1-sources.jar!/org/apache/commons/math3/analysis/differentiation/GradientFunction.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="288" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.6.1/8fab23986ea8886af34818daf32a718e81dc98ba/commons-math3-3.6.1-sources.jar!/org/apache/commons/math3/optim/nonlinear/scalar/gradient/NonLinearConjugateGradientOptimizer.java</url>
+          <line>296</line>
+          <option name="timeStamp" value="301" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.haifengl/smile-interpolation/2.6.0/ac86ffdf4f480c2724057d3b38ac9940fc11d63a/smile-interpolation-2.6.0-sources.jar!/smile/interpolation/RBFInterpolation2D.java</url>
+          <line>150</line>
+          <option name="timeStamp" value="455" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.haifengl/smile-interpolation/2.6.0/ac86ffdf4f480c2724057d3b38ac9940fc11d63a/smile-interpolation-2.6.0-sources.jar!/smile/interpolation/RBFInterpolation2D.java</url>
+          <line>146</line>
+          <option name="timeStamp" value="461" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.haifengl/smile-interpolation/2.6.0/ac86ffdf4f480c2724057d3b38ac9940fc11d63a/smile-interpolation-2.6.0-sources.jar!/smile/interpolation/RBFInterpolation2D.java</url>
+          <line>168</line>
+          <option name="timeStamp" value="462" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.haifengl/smile-math/2.6.0/4ede8948462877d1108e524a67e2a53c98c320ab/smile-math-2.6.0-sources.jar!/smile/math/rbf/GaussianRadialBasis.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="466" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.immersive.StaffDetection$Slice" memberName="sliceEnd" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>
