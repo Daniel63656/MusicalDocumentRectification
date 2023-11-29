@@ -10,7 +10,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="included parsing tools from other project" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="initial commit">
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/DocumentRectification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/stages/LineModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/stages/LongitudeDetection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/stages/Rectification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/stages/StaffDetection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/stages/StegerPointDetection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/stages/SurfaceReconstruction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/LightingCorrection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/LinePoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/Utils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/VanishingPoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/arpackj/LinearOperation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/arpackj/Utils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/arpackj/eig/ArpackException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/arpackj/eig/ArpackSolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/arpackj/eig/EigenvalueDecomposition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/arpackj/eig/SymmetricArpackSolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/clustering/DBSCAN.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/clustering/DBSCAN_Clusterable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/clustering/MeanShift.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/clustering/MomentumClustering.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/curves/LinearCurveModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/curves/NaturalCubicSpline.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/curves/QuadraticCurveModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/curves/RegularCurveModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/utils/curves/SegmentedCurveModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/EigenvalueDecompositionTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/out.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -269,9 +299,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.net.scoreworks.omr.rectification.DocumentRectification" />
-        <item itemvalue="Gradle.InterpreterTest.testInterpreter" />
         <item itemvalue="Gradle.TokenizerTest.testTokenizer" />
+        <item itemvalue="Gradle.InterpreterTest.testInterpreter" />
+        <item itemvalue="Application.net.scoreworks.omr.rectification.DocumentRectification" />
         <item itemvalue="Gradle.EigenvalueDecompositionTests.testInverse" />
         <item itemvalue="Application.DocumentRectification" />
       </list>
@@ -321,13 +351,7 @@
       <workItem from="1700752901127" duration="5169000" />
       <workItem from="1701274034814" duration="2770000" />
       <workItem from="1701277694894" duration="43000" />
-    </task>
-    <task id="LOCAL-00154" summary="some renaming asas">
-      <created>1687269406691</created>
-      <option name="number" value="00154" />
-      <option name="presentableId" value="LOCAL-00154" />
-      <option name="project" value="LOCAL" />
-      <updated>1687269406692</updated>
+      <workItem from="1701277826830" duration="335000" />
     </task>
     <task id="LOCAL-00155" summary="some renaming asas">
       <created>1687275774313</created>
@@ -665,7 +689,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701275329608</updated>
     </task>
-    <option name="localTasksCounter" value="203" />
+    <task id="LOCAL-00203" summary="initial commit">
+      <created>1701277907209</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1701277907210</updated>
+    </task>
+    <option name="localTasksCounter" value="204" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -745,7 +776,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="good results" />
     <MESSAGE value="removed unfavoured approaches (classes)" />
     <MESSAGE value="complete pipeline with nonlinear rulings" />
     <MESSAGE value="kind of works" />
@@ -770,7 +800,8 @@
     <MESSAGE value="changed C_fg to 60" />
     <MESSAGE value="changed group to my company domain" />
     <MESSAGE value="included parsing tools from other project" />
-    <option name="LAST_COMMIT_MESSAGE" value="included parsing tools from other project" />
+    <MESSAGE value="initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
