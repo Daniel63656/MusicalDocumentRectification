@@ -10,50 +10,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="same output for Bella Ciao">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Bermuda Blues.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Can Can.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Canon In D.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Carmen Habanera.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Clementi Sonatina.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Concerto No1.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Csikos Post.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Dance Of The Sugar Plum Fairy.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Die Moldau.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Eine Kleine Nachtmusik.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Fur Elise.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/G Minor Bach.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Greensleeves.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Humoresque.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/If My Complaints Could Passions Move.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Impromptu In Ges-Dur.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/In The Hall Of The Mountain King.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Jingle Bells.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Korobeiniki.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Liebestraum.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Lough Erin Shore.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Memoires.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Minuet In G Major.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Mondschein Sonata.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Mozart Arioso.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Nocturne Op9 No2.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/O Holy Night.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Pair Of Wintry Winds.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Pensee.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Prelude In C.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Prelude Op28 No20 In C Minor.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Rondeau Abdelazar Suite.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Scarborough Fair.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Sonata Op28 No15.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/The Entertainer.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Twinkle Twinkle Little Star.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Valse En La Mineur.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Waltz In A Major.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/Waltz No17.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/When The Saints Go Marching In.musicxml" afterDir="false" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="asdsdsa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +141,7 @@
       <recent name="com.immersive.omr" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ParsingTest.testOneSong">
+  <component name="RunManager" selected="Gradle.ParsingTest.testDataset">
     <configuration name="EigenvalueDecompositionTests" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -331,8 +290,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ParsingTest.testOneSong" />
         <item itemvalue="Gradle.ParsingTest.testDataset" />
+        <item itemvalue="Gradle.ParsingTest.testOneSong" />
         <item itemvalue="Gradle.ParsingTest.testTokenizer" />
         <item itemvalue="Gradle.InterpreterTest.tt" />
         <item itemvalue="Gradle.InterpreterTest.tttt" />
@@ -385,14 +344,7 @@
       <workItem from="1701277694894" duration="43000" />
       <workItem from="1701277826830" duration="3021000" />
       <workItem from="1701287950033" duration="1130000" />
-      <workItem from="1701289093279" duration="37140000" />
-    </task>
-    <task id="LOCAL-00159" summary="rolled back to QuadraticCurveModel">
-      <created>1687681534742</created>
-      <option name="number" value="00159" />
-      <option name="presentableId" value="LOCAL-00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1687681534742</updated>
+      <workItem from="1701289093279" duration="39793000" />
     </task>
     <task id="LOCAL-00160" summary="introduced numeric arc length parametrization">
       <created>1687683965665</created>
@@ -730,7 +682,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701363741471</updated>
     </task>
-    <option name="localTasksCounter" value="208" />
+    <task id="LOCAL-00208" summary="asdsdsa">
+      <created>1701373727112</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1701373727112</updated>
+    </task>
+    <option name="localTasksCounter" value="209" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -813,7 +772,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="simpler but effective approach" />
     <MESSAGE value="broke it" />
     <MESSAGE value="fixed IDE error" />
     <MESSAGE value="added correct margins for rectified image" />
@@ -838,7 +796,8 @@
     <MESSAGE value="antrl, before removing old systems" />
     <MESSAGE value="good template for antlr interpreter" />
     <MESSAGE value="same output for Bella Ciao" />
-    <option name="LAST_COMMIT_MESSAGE" value="same output for Bella Ciao" />
+    <MESSAGE value="asdsdsa" />
+    <option name="LAST_COMMIT_MESSAGE" value="asdsdsa" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -897,41 +856,6 @@
           <url>jar://$MAVEN_REPOSITORY$/net/scoreworks/MusicModel/1.1.0/MusicModel-1.1.0.jar!/net/scoreworks/xml/XmlExport.class</url>
           <line>158</line>
           <option name="timeStamp" value="483" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>302</line>
-          <option name="timeStamp" value="535" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>189</line>
-          <option name="timeStamp" value="536" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="537" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="540" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="541" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>321</line>
-          <option name="timeStamp" value="542" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>316</line>
-          <option name="timeStamp" value="543" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

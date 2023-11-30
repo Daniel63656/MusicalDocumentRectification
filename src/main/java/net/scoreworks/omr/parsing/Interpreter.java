@@ -17,7 +17,6 @@ import java.io.*;
 import java.util.*;
 
 public class Interpreter implements MusicScriptListener {
-    private MusicScriptParser.EventContext dispatchEvent;
     private final Score score = new Score();
     private final Track track;
     private int currentStaffId;
@@ -45,32 +44,44 @@ public class Interpreter implements MusicScriptListener {
     @Override
     public void enterScore(MusicScriptParser.ScoreContext ctx) {}
     @Override
-    public void exitScore(MusicScriptParser.ScoreContext ctx) {
-        //dispatch final event
-        dispatchEvent(dispatchEvent);
-    }
+    public void exitScore(MusicScriptParser.ScoreContext ctx) {}
     @Override
     public void enterEvent(MusicScriptParser.EventContext ctx) {}
     @Override
     public void exitEvent(MusicScriptParser.EventContext ctx) {
-
-
-        //new voices
-        ctx.
-
-
-
-
         //calculate voice demand of this event to process last
         int voiceDemand = 0;
         for (MusicScriptParser.StaffContext staffCtx : ctx.staff()) {
             voiceDemand += staffCtx.group().size();
         }
-        if (dispatchEvent != null) {
-            dispatchEvent(dispatchEvent);
-            updateVoiceBindings(voiceDemand);
+
+        //create a new list of active voices sorted by the offset tick
+        currentVoices.clear();
+        currentVoices.addAll(activeVoices);
+        currentVoices.sort(Comparator.comparing(Voice::getEnd)); //this keeps insertion order for elements with same tick
+
+        //check for new voices and register them AFTER sorting as they have no duration
+        int currentVoiceIndex = 0;
+        for (MusicScriptParser.StaffContext staffCtx : ctx.staff()) {
+            for (MusicScriptParser.GroupContext groupCtx : staffCtx.group()) {
+                if (groupCtx.NEWV() != null)
+                    newVoice(currentVoiceIndex);
+                currentVoiceIndex++;
+            }
         }
-        dispatchEvent = ctx;
+
+        //check if all demanded voices agree on offset tick and then advance current tick
+        if (voiceDemand > currentVoices.size())
+            throw new RuntimeException(String.format("Not enough voices at tick = %s. Expected %d, found %d", currentTick, voiceDemand, currentVoices.size()));
+
+        for (int i=voiceDemand-1; i>=0; i--) {
+            Voice voice = currentVoices.get(i);
+            if (voice.getNoteGroupOrRests().findAny().isEmpty())
+                continue;   //skip new (empty voices)
+            currentTick = voice.getEnd();
+            break;
+        }
+        dispatchEvent(ctx);
     }
 
     @Override
@@ -194,8 +205,6 @@ public class Interpreter implements MusicScriptListener {
             }
 
             for (MusicScriptParser.GroupContext groupCtx : staffCtx.group()) {
-                if (groupCtx.NEWV() != null)
-                    newVoice(currentVoiceIndex);
                 if (groupCtx.rest() != null) {
                     MusicScriptParser.RestContext restCtx = groupCtx.rest();
                     NoteType noteType = NoteType.fromExponent(-Integer.parseInt(restCtx.REST().getText().substring(1)));
@@ -312,27 +321,6 @@ public class Interpreter implements MusicScriptListener {
             insertIndex = activeVoices.indexOf(currentVoices.get(currentVoiceIndex-1)) + 1;
         activeVoices.add(insertIndex, newVoice);
         currentVoices.add(currentVoiceIndex, newVoice);
-    }
-
-    private void updateVoiceBindings(int voiceDemand) {
-        //create a new list of active voices sorted by the offset tick
-        currentVoices.clear();
-        currentVoices.addAll(activeVoices);
-        currentVoices.sort(Comparator.comparing(Voice::getEnd)); //this keeps insertion order for elements with same tick
-
-        //check if all voiceDemand current voices agree on offset tick and then advance current tick
-        //if (voiceDemand > currentVoices.size())
-        //throw new RuntimeException(String.format("Not enough voices at tick = %s. Expected %d, found %d", currentTick, voiceDemand, currentVoices.size()));
-        Fraction offsetTick = currentTick;
-        for (int i=0; i<voiceDemand; i++) {
-            if (i == 0) offsetTick = currentVoices.get(i).getEnd();
-
-
-            //Fraction t = currentVoices.get(i).getEnd();
-            //if (offsetTick.compareTo(t) != 0)   //TODO tolerate and establish a common offset tick
-                //throw new RuntimeException(String.format("Voices don't agree on offset tick at tick = %s", currentTick));
-        }
-        currentTick = offsetTick;
     }
 
     private int calculatePitch(NoteName name, OctaveRegion octave, Accidental accidental) {
