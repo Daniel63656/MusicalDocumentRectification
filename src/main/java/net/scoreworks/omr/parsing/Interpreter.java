@@ -79,6 +79,11 @@ public class Interpreter {
         urgentVoices.addAll(activeVoices);
         urgentVoices.sort(Comparator.comparing(Voice::getEnd)); //this keeps insertion order for elements with same tick
         if (!urgentVoices.isEmpty()) {  // catch begin of song
+
+            for (NoteGroupOrRest ng : urgentVoices.get(0).getNoteGroupOrRests().toList()) {
+                System.out.println(ng.getStart() + ", " + ng.getDuration());
+            }
+
             currentTick = urgentVoices.get(0).getEnd();
         }
     }

@@ -1,6 +1,7 @@
 package net.scoreworks.omr.parsing;
 
 import net.scoreworks.music.model.*;
+import net.scoreworks.music.utils.Controller;
 import net.scoreworks.music.utils.Fraction;
 import net.scoreworks.xml.CorruptXmlException;
 import net.scoreworks.xml.XmlImport;
@@ -111,7 +112,7 @@ public class Tokenizer {
                         tokens.append("dn,");
                     if (base2exp < -2) {
                         tokenizeBeam(tokens, ngor);
-                        tokens.append("~,".repeat(-base2exp - 2));
+                        tokens.append("f").append(-base2exp - 2).append(",");
                     }
                 }
                 // notes
@@ -131,8 +132,8 @@ public class Tokenizer {
                     }
                     if (note.getPreviousTied() != null)
                         tokens.append("),");
-                    tokens.append(note.getNoteName().name()).append(",");
-                    tokens.append(note.getOctaveRegion().getRegionNumber()).append(",");
+                    int referenceLine = Controller.getStaffLine(ngor.getClefRange().getClef(), ngor.getOctaveShiftRange().getOctavation(), note.getNoteName(), note.getOctaveRegion());
+                    tokens.append("l").append(referenceLine).append(",");
                     if (note.getNextTied() != null)
                         tokens.append("(,");
                 }
