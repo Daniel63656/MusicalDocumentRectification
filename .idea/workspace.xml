@@ -10,27 +10,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="antrl, before removing old systems">
-      <change afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="good template for antlr interpreter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MyListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Terminal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Token.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Tokenizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/InterpreterTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/TokenizerTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -362,14 +344,7 @@
       <workItem from="1701277694894" duration="43000" />
       <workItem from="1701277826830" duration="3021000" />
       <workItem from="1701287950033" duration="1130000" />
-      <workItem from="1701289093279" duration="30562000" />
-    </task>
-    <task id="LOCAL-00157" summary="better NaturalCubicSpline">
-      <created>1687637578004</created>
-      <option name="number" value="00157" />
-      <option name="presentableId" value="LOCAL-00157" />
-      <option name="project" value="LOCAL" />
-      <updated>1687637578004</updated>
+      <workItem from="1701289093279" duration="32434000" />
     </task>
     <task id="LOCAL-00158" summary="NaturalCubicSpline working but not as stable as QuadraticCurveModel">
       <created>1687681422874</created>
@@ -707,7 +682,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701343537874</updated>
     </task>
-    <option name="localTasksCounter" value="206" />
+    <task id="LOCAL-00206" summary="good template for antlr interpreter">
+      <created>1701361904322</created>
+      <option name="number" value="00206" />
+      <option name="presentableId" value="LOCAL-00206" />
+      <option name="project" value="LOCAL" />
+      <updated>1701361904322</updated>
+    </task>
+    <option name="localTasksCounter" value="207" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -790,7 +772,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="kind of works" />
     <MESSAGE value="joa" />
     <MESSAGE value="simpler but effective approach" />
     <MESSAGE value="broke it" />
@@ -815,7 +796,8 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="running and testing complete" />
     <MESSAGE value="antrl, before removing old systems" />
-    <option name="LAST_COMMIT_MESSAGE" value="antrl, before removing old systems" />
+    <MESSAGE value="good template for antlr interpreter" />
+    <option name="LAST_COMMIT_MESSAGE" value="good template for antlr interpreter" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -879,26 +861,6 @@
           <url>file://$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java</url>
           <line>35</line>
           <option name="timeStamp" value="486" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>291</line>
-          <option name="timeStamp" value="488" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>275</line>
-          <option name="timeStamp" value="497" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="505" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>55</line>
-          <option name="timeStamp" value="506" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

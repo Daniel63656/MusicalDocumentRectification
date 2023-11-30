@@ -16,7 +16,7 @@ public class Interpreter implements MusicScriptListener {
     private final Track track;
     private MusicScriptParser.EventContext dispatchEvent;
     private int currentStaffId;
-    private Fraction currentTick = Fraction.ZERO;
+    private Fraction currentTick = Fraction.ZERO, barStartTick = Fraction.ZERO;
     private final List<Voice> activeVoices = new ArrayList<>();
     private final List<Voice> currentVoices = new ArrayList<>();
     private int currentVoiceIndex;  //point to the location of next voice to add a group to in urgentVoices
@@ -41,7 +41,10 @@ public class Interpreter implements MusicScriptListener {
     @Override
     public void enterScore(MusicScriptParser.ScoreContext ctx) {}
     @Override
-    public void exitScore(MusicScriptParser.ScoreContext ctx) {}
+    public void exitScore(MusicScriptParser.ScoreContext ctx) {
+        //dispatch final event
+        dispatchEvent(dispatchEvent);
+    }
     @Override
     public void enterEvent(MusicScriptParser.EventContext ctx) {}
     @Override
@@ -112,15 +115,14 @@ public class Interpreter implements MusicScriptListener {
         if (ctx.BARL() != null) {
             // handle irregular bars / up beats
             for (Staff staff : track.getStaffs()) {
-                Bar currentBar = staff.getBar(currentTick);
-                Fraction barDuration = currentTick.subtract(currentBar.getStart());
+                Bar currentBar = staff.getBar(barStartTick);
+                Fraction barDuration = currentTick.subtract(barStartTick);
                 if (barDuration.compareTo(currentBar.getDuration()) != 0) {
                     TimeSignatureRange tsr = currentBar.getOwner();
                     //make first in TimeSignatureRange if not already
                     if (currentBar.getKey() != 0)
                         tsr = new TimeSignatureRange(staff, currentTick, tsr.getTimeSignature());
-                    Fraction z = barDuration.subtract(currentBar.getDuration());
-                    tsr.setUpBeatCorrect(z);
+                    tsr.setUpBeatCorrect(barDuration.subtract(currentBar.getDuration()));
                 }
             }
             pendingTies.clear();
@@ -130,6 +132,7 @@ public class Interpreter implements MusicScriptListener {
             for (Staff staff : track.getStaffs()) {
                 pendingAccidentals.put(staff.getKey(), new HashMap<>());
             }
+            barStartTick = currentTick;
         }
         currentStaffId = ctx.STAFF().getText().equals("T") ? 0 : 1;
 
@@ -167,7 +170,7 @@ public class Interpreter implements MusicScriptListener {
                     if (!keyCtx.KEY_SHP().isEmpty())
                         fifths = keyCtx.KEY_SHP().size();
                     else if (!keyCtx.KEY_FLT().isEmpty())
-                        fifths = -keyCtx.KEY_SHP().size();
+                        fifths = -keyCtx.KEY_FLT().size();
                     new TonalityRange(track.getStaff(currentStaffId), currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
                     // reset active accidentals on that staff
                     pendingAccidentals.put(currentStaffId, new HashMap<>());
