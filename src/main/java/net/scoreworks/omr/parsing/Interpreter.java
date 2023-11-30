@@ -1,25 +1,29 @@
 package net.scoreworks.omr.parsing;
 
+import jakarta.xml.bind.JAXBException;
 import net.scoreworks.music.model.*;
 import net.scoreworks.music.utils.Fraction;
 import net.scoreworks.omr.parsing.antlr.MusicScriptLexer;
 import net.scoreworks.omr.parsing.antlr.MusicScriptListener;
 import net.scoreworks.omr.parsing.antlr.MusicScriptParser;
+import net.scoreworks.xml.XmlExport;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.io.*;
 import java.util.*;
 
 public class Interpreter implements MusicScriptListener {
+    private MusicScriptParser.EventContext dispatchEvent;
     private final Score score = new Score();
     private final Track track;
-    private MusicScriptParser.EventContext dispatchEvent;
     private int currentStaffId;
     private Fraction currentTick = Fraction.ZERO, barStartTick = Fraction.ZERO;
     private final List<Voice> activeVoices = new ArrayList<>();
     private final List<Voice> currentVoices = new ArrayList<>();
-    private int currentVoiceIndex;  //point to the location of next voice to add a group to in urgentVoices
     private final List<Note> pendingTies = new ArrayList<>();
     private final Map<Voice, NoteGroupOrRest> pendingBeams = new HashMap<>();
     private final Map<Integer, Map<Integer, Accidental>> pendingAccidentals = new HashMap<>();
@@ -49,6 +53,14 @@ public class Interpreter implements MusicScriptListener {
     public void enterEvent(MusicScriptParser.EventContext ctx) {}
     @Override
     public void exitEvent(MusicScriptParser.EventContext ctx) {
+
+
+        //new voices
+        ctx.
+
+
+
+
         //calculate voice demand of this event to process last
         int voiceDemand = 0;
         for (MusicScriptParser.StaffContext staffCtx : ctx.staff()) {
@@ -102,7 +114,10 @@ public class Interpreter implements MusicScriptListener {
     @Override
     public void exitOttavaend(MusicScriptParser.OttavaendContext ctx) {}
     @Override
-    public void visitTerminal(TerminalNode node) {}
+    public void visitTerminal(TerminalNode node) {
+        //String type = MusicScriptLexer.VOCABULARY.getSymbolicName(node.getSymbol().getType());
+        //if (type == null) return;
+    }
     @Override
     public void visitErrorNode(ErrorNode node) {}
     @Override
@@ -112,6 +127,7 @@ public class Interpreter implements MusicScriptListener {
 
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
+        int currentVoiceIndex = 0;  //point to the location of next voice to add a group to in urgentVoices
         if (ctx.BARL() != null) {
             // handle irregular bars / up beats
             for (Staff staff : track.getStaffs()) {
@@ -179,14 +195,14 @@ public class Interpreter implements MusicScriptListener {
 
             for (MusicScriptParser.GroupContext groupCtx : staffCtx.group()) {
                 if (groupCtx.NEWV() != null)
-                    newVoice();
+                    newVoice(currentVoiceIndex);
                 if (groupCtx.rest() != null) {
                     MusicScriptParser.RestContext restCtx = groupCtx.rest();
                     NoteType noteType = NoteType.fromExponent(-Integer.parseInt(restCtx.REST().getText().substring(1)));
-                    if (currentVoiceIndex >= currentVoices.size()) {
+                    /*if (currentVoiceIndex >= currentVoices.size()) {
                         newVoice();
                         System.out.printf("Missing voice start inserted at %s%n", currentTick.toString());
-                    }
+                    }*/
                     Voice voice = currentVoices.get(currentVoiceIndex);
                     Rest rest = new Rest(currentTick, voice, track.getStaff(currentStaffId), noteType, restCtx.DOT().size());
                     if (restCtx.BEAM() != null)
@@ -227,10 +243,10 @@ public class Interpreter implements MusicScriptListener {
                         // instantiate Notes and NoteGroup
                         Note note;
                         if (noteGroup == null) {
-                            if (currentVoiceIndex >= currentVoices.size()) {
+                            /*if (currentVoiceIndex >= currentVoices.size()) {
                                 newVoice();
                                 System.out.printf("Missing voice start inserted at %s%n", currentTick.toString());
-                            }
+                            }*/
                             Voice voice = currentVoices.get(currentVoiceIndex);
                             note = new Note(currentTick, voice, track.getStaff(currentStaffId), noteType, chordCtx.DOT().size(), calculatePitch(name, octave, accidental), name, octave, accidental);
                             noteGroup = note.getOwner();
@@ -254,8 +270,24 @@ public class Interpreter implements MusicScriptListener {
         }
     }
 
+    public static void main(String[] args) throws FileNotFoundException, JAXBException {
+        if (args.length < 2) {
+            System.out.println("Please provide sentence and output file path");
+            return;
+        }
+        MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(args[0]));
+        MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
+        Interpreter interpreter = new Interpreter();
+        parser.addParseListener(interpreter);
+        parser.score(); //do the parsing
+        Score score = interpreter.getScore();
 
-    private void newVoice() {
+        XmlExport export = new XmlExport(score);
+        export.writeToFile(new FileOutputStream(args[1]));
+    }
+
+
+    private void newVoice(int currentVoiceIndex) {
         Voice newVoice = null;
         Set<Integer> occupiedIds = new HashSet<>();
         //use inactive voices first before creating new ones
@@ -283,7 +315,6 @@ public class Interpreter implements MusicScriptListener {
     }
 
     private void updateVoiceBindings(int voiceDemand) {
-        currentVoiceIndex = 0;
         //create a new list of active voices sorted by the offset tick
         currentVoices.clear();
         currentVoices.addAll(activeVoices);
@@ -291,13 +322,15 @@ public class Interpreter implements MusicScriptListener {
 
         //check if all voiceDemand current voices agree on offset tick and then advance current tick
         //if (voiceDemand > currentVoices.size())
-            //throw new RuntimeException(String.format("Not enough voices at tick = %s. Expected %d, found %d", currentTick, voiceDemand, currentVoices.size()));
+        //throw new RuntimeException(String.format("Not enough voices at tick = %s. Expected %d, found %d", currentTick, voiceDemand, currentVoices.size()));
         Fraction offsetTick = currentTick;
         for (int i=0; i<voiceDemand; i++) {
             if (i == 0) offsetTick = currentVoices.get(i).getEnd();
-            Fraction t = currentVoices.get(i).getEnd();
-            if (offsetTick.compareTo(t) != 0)   //TODO tolerate and establish a common offset tick
-                throw new RuntimeException(String.format("Voices don't agree on offset tick at tick = %s", currentTick));
+
+
+            //Fraction t = currentVoices.get(i).getEnd();
+            //if (offsetTick.compareTo(t) != 0)   //TODO tolerate and establish a common offset tick
+                //throw new RuntimeException(String.format("Voices don't agree on offset tick at tick = %s", currentTick));
         }
         currentTick = offsetTick;
     }
