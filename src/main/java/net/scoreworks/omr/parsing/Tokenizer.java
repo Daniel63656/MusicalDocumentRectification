@@ -15,7 +15,6 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Tokenizer {
-
     private static class TokenGroup implements Comparable<TokenGroup> {
         Fraction tick;
         int staffId, voiceId;
@@ -41,13 +40,14 @@ public class Tokenizer {
             return Integer.compare(this.voiceId, other.voiceId);
         }
     }
-    public static void main(String[] args) throws XmlPullParserException, CorruptXmlException, IOException {
-        if (args.length < 2) {
-            System.out.println("Please provide file paths as command-line arguments");
-            return;
-        }
-        Score score = new XmlImport().skipRepetitions(true).decodeXML(Paths.get(args[0]));
-        assert Integer.parseInt(args[2]) == score.getTrack(0).getStaff(0).getBars().count() : "Number of measures disagree";
+    private final String sentence;
+
+    public String getSentence() {
+        return sentence;
+    }
+
+    public Tokenizer(Score score, int numMeasures, List<Integer> systemLineBreaks) {
+        //assert numMeasures == score.getTrack(0).getStaff(0).getBars().count() : "Number of measures disagree";
         Set<TokenGroup> sentence = new TreeSet<>();
 
         // add meta events
@@ -71,10 +71,9 @@ public class Tokenizer {
         });
 
         // add line break each system and context if not changing anyway
-        for (int i=4; i<args.length; i++) {
-            int finalI = i;
+        for (int i : systemLineBreaks) {
             score.getStaffs().forEach(s -> {
-                Bar bar = s.getBarByBarNumber(Integer.parseInt(args[finalI]));
+                Bar bar = s.getBarByBarNumber(i);
                 sentence.add(new TokenGroup(bar.getStart(), -1, -2, "eos\nbos,"));
                 Fraction tick = bar.getStart();
                 tokenizeClef(sentence, s.getClefRange(tick), tick, s.getKey());
@@ -132,7 +131,7 @@ public class Tokenizer {
                     }
                     if (note.getPreviousTied() != null)
                         tokens.append("),");
-                    int referenceLine = Controller.getStaffLine(ngor.getClefRange().getClef(), ngor.getOctaveShiftRange().getOctavation(), note.getNoteName(), note.getOctaveRegion());
+                    int referenceLine = Controller.getReferenceLine(ngor.getClefRange().getClef(), ngor.getOctaveShiftRange(), note.getNoteName(), note.getOctaveRegion());
                     tokens.append("l").append(referenceLine).append(",");
                     if (note.getNextTied() != null)
                         tokens.append("(,");
@@ -165,13 +164,24 @@ public class Tokenizer {
             combined.append(group.tokens);
         }
         combined.append("eos");
-        String result = combined.toString();
-        result = result.replace("bos,|,", "bos,");  // remove redundant bar token at bos
-        //System.out.println(result);
+        this.sentence = combined.toString().replace("bos,|,", "bos,");  // remove redundant bar token at bos
+    }
+
+    public static void main(String[] args) throws XmlPullParserException, CorruptXmlException, IOException {
+        if (args.length < 2) {
+            System.out.println("Please provide file paths as command-line arguments");
+            return;
+        }
+        List<Integer> systemLineBreaks = new ArrayList<>();
+        for (int i=4; i<args.length; i++)   //ignore trivial first system bar = 0
+            systemLineBreaks.add(Integer.parseInt(args[i]));
+        // load score and tokenize
+        Score score = new XmlImport().skipRepetitions(true).decodeXML(Paths.get(args[0]));
+        Tokenizer tokenizer = new Tokenizer(score, Integer.parseInt(args[2]), systemLineBreaks);
 
         // write to file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]))) {
-            writer.write(result);
+            writer.write(tokenizer.sentence);
             System.out.println("String written to file successfully!");
         } catch (IOException e) {
             e.printStackTrace();
@@ -189,13 +199,13 @@ public class Tokenizer {
         StringBuilder tokens = new StringBuilder();
         Tonality tonality = range.getTonality();
         if (tonality.getFifths() > 0) {
-            tokens.append("#,".repeat(range.getTonality().getFifths()));
+            tokens.append("k#,".repeat(range.getTonality().getFifths()));
         }
         else if (tonality.getFifths() < 0) {
-            tokens.append("b,".repeat(-range.getTonality().getFifths()));
+            tokens.append("kb,".repeat(-range.getTonality().getFifths()));
         }
         else if (prior != null) {
-            tokens.append("n,".repeat(Math.abs(prior.getTonality().getFifths())));
+            tokens.append("kn,".repeat(Math.abs(prior.getTonality().getFifths())));
         }
         sentence.add(new TokenGroup(tick, staffId, -9, tokens.toString()));
     }

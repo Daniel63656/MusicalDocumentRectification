@@ -41,6 +41,18 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStaff(MusicScriptParser.StaffContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStaff(MusicScriptParser.StaffContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterGroup(MusicScriptParser.GroupContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -1,7 +1,8 @@
 grammar MusicScript;
 
 score: 'bos' event+ 'eos';
-event: BARL? STAFF meta* ottavastart? group+ ottavaend?;
+event: BARL? STAFF staff ('&' staff)?;
+staff: meta* ottavastart? group+ ottavaend?;
 group: NEWV? rest VEND? | NEWV? chord VEND? | GRACE chord group;
 rest: REST BEAM? DOT*;
 chord: WHOLE note+ DOT* | HALF STEM note+ DOT* | STEM note+ DOT* | STEM BEAM? FLAG+ note+ DOT*;
@@ -13,7 +14,7 @@ ottavastart: OTTV;
 ottavaend: OTTV;
 
 // TERMINALS
-STAFF: 'T' | 'L' | '&';
+STAFF: 'T' | 'L';
 BARL: '|';
 NEWV: '<';
 VEND: '>';
