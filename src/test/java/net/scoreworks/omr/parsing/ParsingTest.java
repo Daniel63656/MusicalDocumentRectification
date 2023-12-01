@@ -1,9 +1,11 @@
 package net.scoreworks.omr.parsing;
 
+import jakarta.xml.bind.JAXBException;
 import net.scoreworks.music.model.Score;
 import net.scoreworks.omr.parsing.antlr.MusicScriptLexer;
 import net.scoreworks.omr.parsing.antlr.MusicScriptParser;
 import net.scoreworks.xml.CorruptXmlException;
+import net.scoreworks.xml.XmlExport;
 import net.scoreworks.xml.XmlImport;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -12,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,8 +31,8 @@ public class ParsingTest {
     }
 
     @Test
-    public void testOneSong() throws XmlPullParserException, CorruptXmlException, IOException {
-        Score score = new XmlImport().skipRepetitions(true).decodeXML(Paths.get("src/test/resources/Bermuda Blues.musicxml"));
+    public void testOneSong() throws XmlPullParserException, CorruptXmlException, IOException, JAXBException {
+        Score score = new XmlImport().skipRepetitions(true).decodeXML(Paths.get("src/test/java/Test.musicxml"));
         List<Integer> lineBreaks = new ArrayList<>();
         Tokenizer tokenizer = new Tokenizer(score, 21, lineBreaks);
 
@@ -42,6 +45,9 @@ public class ParsingTest {
         parser.addParseListener(interpreter);
         parser.score(); //do the parsing
         score = interpreter.getScore();
+
+        XmlExport export = new XmlExport(score);
+        export.writeToFile(new FileOutputStream("src/test/java/out.musicxml"));
 
         Tokenizer tokenizer2 = new Tokenizer(score, 21, lineBreaks);
         Assertions.assertEquals(sentence, tokenizer2.getSentence().replace(",", ""));

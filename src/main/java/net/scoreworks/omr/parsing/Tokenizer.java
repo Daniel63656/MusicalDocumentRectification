@@ -50,7 +50,7 @@ public class Tokenizer {
         //assert numMeasures == score.getTrack(0).getStaff(0).getBars().count() : "Number of measures disagree";
         Set<TokenGroup> sentence = new TreeSet<>();
 
-        // add meta events
+        //add meta events
         score.getStaffs().forEach(s -> {
             // add bars only once (first and last barline will be omitted))
             if (s.getKey() == 0)
@@ -70,7 +70,7 @@ public class Tokenizer {
             }
         });
 
-        // add line break each system and context if not changing anyway
+        //add line break each system and context if not changing anyway
         for (int i : systemLineBreaks) {
             score.getStaffs().forEach(s -> {
                 Bar bar = s.getBarByBarNumber(i);
@@ -78,7 +78,7 @@ public class Tokenizer {
                 Fraction tick = bar.getStart();
                 tokenizeClef(sentence, s.getClefRange(tick), tick, s.getKey());
                 tokenizeKey(sentence, null, s.getTonalityRange(tick), tick, s.getKey());
-                tokenizeTime(sentence, s.getTimeSignatureRange(tick), tick, s.getKey());
+                // time signature is not added at system breaks
                 if (s.getOctaveShiftRange(tick) != null)
                     tokenizeShift(sentence, s.getOctaveShiftRange(tick), tick, s.getKey(), true);
             });
@@ -199,13 +199,13 @@ public class Tokenizer {
         StringBuilder tokens = new StringBuilder();
         Tonality tonality = range.getTonality();
         if (tonality.getFifths() > 0) {
-            tokens.append("k#,".repeat(range.getTonality().getFifths()));
+            tokens.append("#,".repeat(range.getTonality().getFifths()));
         }
         else if (tonality.getFifths() < 0) {
-            tokens.append("kb,".repeat(-range.getTonality().getFifths()));
+            tokens.append("b,".repeat(-range.getTonality().getFifths()));
         }
         else if (prior != null) {
-            tokens.append("kn,".repeat(Math.abs(prior.getTonality().getFifths())));
+            tokens.append("n,".repeat(Math.abs(prior.getTonality().getFifths())));
         }
         sentence.add(new TokenGroup(tick, staffId, -9, tokens.toString()));
     }

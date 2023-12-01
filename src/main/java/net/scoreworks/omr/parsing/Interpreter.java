@@ -15,6 +15,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Interpreter implements MusicScriptListener {
     private final Score score = new Score();
@@ -49,17 +50,15 @@ public class Interpreter implements MusicScriptListener {
     public void enterEvent(MusicScriptParser.EventContext ctx) {}
     @Override
     public void exitEvent(MusicScriptParser.EventContext ctx) {
-        //calculate voice demand of this event to process last
+        //calculate voice demand of this event
         int voiceDemand = 0;
         for (MusicScriptParser.StaffContext staffCtx : ctx.staff()) {
             voiceDemand += staffCtx.group().size();
         }
-
-        //create a new list of active voices sorted by the offset tick
+        //create a new list of current voices sorted by the offset tick
         currentVoices.clear();
         currentVoices.addAll(activeVoices);
         currentVoices.sort(Comparator.comparing(Voice::getEnd)); //this keeps insertion order for elements with same tick
-
         //check for new voices and register them AFTER sorting as they have no duration
         int currentVoiceIndex = 0;
         for (MusicScriptParser.StaffContext staffCtx : ctx.staff()) {
@@ -69,11 +68,9 @@ public class Interpreter implements MusicScriptListener {
                 currentVoiceIndex++;
             }
         }
-
-        //check if all demanded voices agree on offset tick and then advance current tick
         if (voiceDemand > currentVoices.size())
             throw new RuntimeException(String.format("Not enough voices at tick = %s. Expected %d, found %d", currentTick, voiceDemand, currentVoices.size()));
-
+        //advance current tick to be the greatest offset tick of demanded voices
         for (int i=voiceDemand-1; i>=0; i--) {
             Voice voice = currentVoices.get(i);
             if (voice.getNoteGroupOrRests().findAny().isEmpty())
@@ -81,6 +78,7 @@ public class Interpreter implements MusicScriptListener {
             currentTick = voice.getEnd();
             break;
         }
+        //finally, dispatch the event
         dispatchEvent(ctx);
     }
 
@@ -104,6 +102,10 @@ public class Interpreter implements MusicScriptListener {
     public void enterNote(MusicScriptParser.NoteContext ctx) {}
     @Override
     public void exitNote(MusicScriptParser.NoteContext ctx) {}
+    @Override
+    public void enterAccidental(MusicScriptParser.AccidentalContext ctx) {}
+    @Override
+    public void exitAccidental(MusicScriptParser.AccidentalContext ctx) {}
     @Override
     public void enterMeta(MusicScriptParser.MetaContext ctx) {}
     @Override
@@ -140,21 +142,30 @@ public class Interpreter implements MusicScriptListener {
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
         int currentVoiceIndex = 0;  //point to the location of next voice to add a group to in urgentVoices
         if (ctx.BARL() != null) {
-            // handle irregular bars / up beats
+            //handle irregular bars / up beats
+            Fraction realBarDuration = currentTick.subtract(barStartTick);
             for (Staff staff : track.getStaffs()) {
                 Bar currentBar = staff.getBar(barStartTick);
-                Fraction barDuration = currentTick.subtract(barStartTick);
-                if (barDuration.compareTo(currentBar.getDuration()) != 0) {
+                if (realBarDuration.compareTo(currentBar.getDuration()) != 0) {
                     TimeSignatureRange tsr = currentBar.getOwner();
                     //make first in TimeSignatureRange if not already
                     if (currentBar.getKey() != 0)
                         tsr = new TimeSignatureRange(staff, currentTick, tsr.getTimeSignature());
-                    tsr.setUpBeatCorrect(barDuration.subtract(currentBar.getDuration()));
+                    tsr.setUpBeatCorrect(realBarDuration.subtract(currentBar.getDuration()));
                 }
             }
+            //check for whole rests that have a different duration than their appearance and correct them to have duration of now corrected bar
+            /*for (Voice voice : track.getVoices()) {
+                List<NoteGroupOrRest> elements = voice.getNoteGroupOrRests(barStartTick, true, currentTick, false).toList();
+                if (elements.size() == 1 && elements.get(0) instanceof Rest && elements.get(0).getNoteType() == NoteType.WHOLE && realBarDuration.compareTo(Fraction.ONE) != 0) {
+                    Staff staff = elements.get(0).getStaff();
+                    elements.get(0).remove();
+                    new Rest(barStartTick, voice, staff, realBarDuration);
+                }
+            }*/
+            //reset bar specific pending collections
             pendingTies.clear();
             pendingBeams.clear();
-            // reset active accidentals
             pendingAccidentals.clear();
             for (Staff staff : track.getStaffs()) {
                 pendingAccidentals.put(staff.getKey(), new HashMap<>());
@@ -194,10 +205,10 @@ public class Interpreter implements MusicScriptListener {
                 if (metaCtx.key() != null) {
                     MusicScriptParser.KeyContext keyCtx = metaCtx.key();
                     int fifths = 0;     // default/naturals
-                    if (!keyCtx.KEY_SHP().isEmpty())
-                        fifths = keyCtx.KEY_SHP().size();
-                    else if (!keyCtx.KEY_FLT().isEmpty())
-                        fifths = -keyCtx.KEY_FLT().size();
+                    if (!keyCtx.SHARP().isEmpty())
+                        fifths = keyCtx.SHARP().size();
+                    else if (!keyCtx.FLAT().isEmpty())
+                        fifths = -keyCtx.FLAT().size();
                     new TonalityRange(track.getStaff(currentStaffId), currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
                     // reset active accidentals on that staff
                     pendingAccidentals.put(currentStaffId, new HashMap<>());
@@ -213,7 +224,15 @@ public class Interpreter implements MusicScriptListener {
                         System.out.printf("Missing voice start inserted at %s%n", currentTick.toString());
                     }*/
                     Voice voice = currentVoices.get(currentVoiceIndex);
-                    Rest rest = new Rest(currentTick, voice, track.getStaff(currentStaffId), noteType, restCtx.DOT().size());
+                    //handle the case rest is first in bar, whole and too long for bar -> whole appearance but different duration
+                    //TODO currently bar duration can only be estimated to be normal, so these rests are only allowed to happen in normal bars
+                    //TODO better would be to do this when true bar length is known but then I need to change the control flow to cache and dispatch once the bar is known
+                    Rest rest;
+                    TimeSignature timeSignature = track.getStaff(currentStaffId).getTimeSignatureRange(currentTick).getTimeSignature();
+                    if (currentTick.compareTo(barStartTick) == 0 && noteType == NoteType.WHOLE && timeSignature.getFraction().compareTo(Fraction.ONE) < 0)
+                        rest = new Rest(currentTick, voice, track.getStaff(currentStaffId), timeSignature.getFraction());
+                    //or normal rest
+                    else rest = new Rest(currentTick, voice, track.getStaff(currentStaffId), noteType, restCtx.DOT().size());
                     if (restCtx.BEAM() != null)
                         processBeam(voice, rest, restCtx.BEAM().getText());
                     currentVoiceIndex++;
@@ -225,23 +244,21 @@ public class Interpreter implements MusicScriptListener {
                         noteType = NoteType.WHOLE;
                     else if (chordCtx.HALF() != null)
                         noteType = NoteType.HALF;
-                    int flags = chordCtx.FLAG().size();
-                    if (flags > 0)
-                        noteType = NoteType.fromExponent(-flags - 2);
+                    if (chordCtx.FLAG() != null) {
+                        noteType = NoteType.fromExponent(-Integer.parseInt(chordCtx.FLAG().getText().substring(1)) - 2);
+                    }
 
                     //parse notes
                     NoteGroup noteGroup = null;
                     for (MusicScriptParser.NoteContext noteCtx : chordCtx.note()) {
                         Accidental accidental = Accidental.NONE;
-                        if (noteCtx.ACC() != null) {
-                            switch (noteCtx.ACC().getText()) {
-                                case "#", "b", "n", "x" -> accidental = Accidental.fromString(noteCtx.ACC().getText());
+                        if (noteCtx.accidental() != null) {
+                            switch (noteCtx.accidental().getText()) {
+                                case "#", "b", "n", "x" -> accidental = Accidental.fromString(noteCtx.accidental().getText());
                                 case "-" -> accidental = Accidental.FLAT_FLAT;
                             }
                         }
-
                         int referenceLine = Integer.parseInt(noteCtx.LINE().getText().substring(1));
-
                         referenceLine -= track.getStaff(currentStaffId).getClefRange(currentTick).getClef().getC0_referenceLine();
                         OctaveShiftRange osr = track.getStaff(currentStaffId).getOctaveShiftRange(currentTick);
                         if (osr != null)
