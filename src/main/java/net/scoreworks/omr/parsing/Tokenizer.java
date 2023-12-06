@@ -46,7 +46,7 @@ public class Tokenizer {
         return sentence;
     }
 
-    public Tokenizer(Score score, int numMeasures, List<Integer> systemLineBreaks) {
+    public Tokenizer(Score score, List<Integer> systemLineBreaks) {
         //assert numMeasures == score.getTrack(0).getStaff(0).getBars().count() : "Number of measures disagree";
         Set<TokenGroup> sentence = new TreeSet<>();
 
@@ -85,66 +85,73 @@ public class Tokenizer {
         }
 
         // add NoteGroupOrRest from voices
-        score.getVoices().forEach(v -> v.getNoteGroupOrRests().forEach(ngor -> {
-            StringBuilder tokens = new StringBuilder();
-            // check for voice start
-            NoteGroupOrRest prior = v.lowerNoteGroupOrRest(ngor.getStart());
-            if (prior == null || prior.getEnd().compareTo(ngor.getStart()) < 0)
-                tokens.append("<,");
-            // go on with Rest or NoteGroup
-            if (ngor instanceof Rest) {
-                tokens.append("r").append(-ngor.getNoteType().getBase2Exponent()).append(",");
-                tokenizeBeam(tokens, ngor);
-            }
-            else {
-                NoteGroup ng = (NoteGroup) ngor;
-                if (ngor.getNoteType() == NoteType.WHOLE)
-                    tokens.append("w,");
-                else if (ngor.getNoteType() == NoteType.HALF)
-                    tokens.append("h,");
-                int base2exp = ngor.getNoteType().getBase2Exponent();
-                if (base2exp < 0) {
-                    // stem
-                    if (ng.getStem() == Stem.UP)
-                        tokens.append("up,");
-                    else
-                        tokens.append("dn,");
-                    if (base2exp < -2) {
-                        tokenizeBeam(tokens, ngor);
-                        tokens.append("f").append(-base2exp - 2).append(",");
-                    }
-                }
-                // notes
-                List<Note> notes = new ArrayList<>(ng.getNotes());
-                notes.sort(Comparator.comparingInt(Note::getPitch));    // sort by pitch
-                for (Note note : notes) {
-                    Accidental accidental = note.getAccidental();
-                    if (accidental != null && accidental != Accidental.NONE) {
-                        switch (accidental) {
-                            case SHARP -> tokens.append("#,");
-                            case FLAT -> tokens.append("b,");
-                            case NATURAL -> tokens.append("n,");
-                            case DOUBLE_SHARP -> tokens.append("x,");
-                            case FLAT_FLAT -> tokens.append("-,");
-                            default -> throw new IllegalArgumentException("Invalid accidental: " + accidental);
+        score.getVoices().forEach(v -> {
+            //if (!v.getTuplets().isEmpty())
+                //throw new RuntimeException("Found tuplets which currently are not modelled!");
+            v.getNoteGroupOrRests().forEach(ngor -> {
+                StringBuilder tokens = new StringBuilder();
+                // check for voice start
+                NoteGroupOrRest prior = v.lowerNoteGroupOrRest(ngor.getStart());
+                if (prior == null || prior.getEnd().compareTo(ngor.getStart()) < 0)
+                    tokens.append("<,");
+                // go on with Rest or NoteGroup
+                if (ngor instanceof Rest) {
+                    tokens.append("r").append(-ngor.getNoteType().getBase2Exponent()).append(",");
+                    tokenizeBeam(tokens, ngor);
+                } else {
+                    NoteGroup ng = (NoteGroup) ngor;
+                    if (ngor.getNoteType() == NoteType.WHOLE)
+                        tokens.append("w,");
+                    else if (ngor.getNoteType() == NoteType.HALF)
+                        tokens.append("h,");
+                    int base2exp = ngor.getNoteType().getBase2Exponent();
+                    if (base2exp < 0) {
+                        // stem
+                        if (ng.getStem() == Stem.UP)
+                            tokens.append("up,");
+                        else
+                            tokens.append("dn,");
+                        if (base2exp < -2) {
+                            tokenizeBeam(tokens, ngor);
+                            tokens.append("f").append(-base2exp - 2).append(",");
                         }
                     }
-                    if (note.getPreviousTied() != null)
-                        tokens.append("),");
-                    int referenceLine = Controller.getReferenceLine(ngor.getClefRange().getClef(), ngor.getOctaveShiftRange(), note.getNoteName(), note.getOctaveRegion());
-                    tokens.append("l").append(referenceLine).append(",");
-                    if (note.getNextTied() != null)
-                        tokens.append("(,");
+                    // notes
+                    List<Note> notes = new ArrayList<>(ng.getNotes());
+                    notes.sort(Comparator.comparingInt(Note::getPitch));    // sort by pitch
+                    for (Note note : notes) {
+                        Accidental accidental = note.getAccidental();
+                        if (accidental != null && accidental != Accidental.NONE) {
+                            switch (accidental) {
+                                case SHARP -> tokens.append("#,");
+                                case FLAT -> tokens.append("b,");
+                                case NATURAL -> tokens.append("n,");
+                                case DOUBLE_SHARP -> tokens.append("x,");
+                                case FLAT_FLAT -> tokens.append("-,");
+                                default -> throw new IllegalArgumentException("Invalid accidental: " + accidental);
+                            }
+                        }
+                        if (note.getPreviousTied() != null)
+                            tokens.append("),");
+                        int referenceLine = Controller.getReferenceLine(ngor.getClefRange().getClef(), ngor.getOctaveShiftRange(), note.getNoteName(), note.getOctaveRegion());
+                        if (referenceLine < -14)
+                            throw new RuntimeException(String.format("Found too low reference line %d", referenceLine));
+                        if (referenceLine > 22)
+                            throw new RuntimeException(String.format("Found too high reference line %d", referenceLine));
+                        tokens.append("l").append(referenceLine).append(",");
+                        if (note.getNextTied() != null)
+                            tokens.append("(,");
+                    }
                 }
-            }
-            // continue with similar tokens again
-            tokens.append(".,".repeat(ngor.getDots()));
-            //check for voice end
-            NoteGroupOrRest next = v.higherNoteGroupOrRest(ngor.getStart());
-            if (next == null || ngor.getEnd().compareTo(next.getStart()) < 0)
-                tokens.append(">,");
-            sentence.add(new TokenGroup(ngor.getStart(), ngor.getStaff().getKey(), v.getKey(), tokens.toString()));
-        }));
+                // continue with similar tokens again
+                tokens.append(".,".repeat(ngor.getDots()));
+                //check for voice end
+                NoteGroupOrRest next = v.higherNoteGroupOrRest(ngor.getStart());
+                if (next == null || ngor.getEnd().compareTo(next.getStart()) < 0)
+                    tokens.append(">,");
+                sentence.add(new TokenGroup(ngor.getStart(), ngor.getStaff().getKey(), v.getKey(), tokens.toString()));
+            });
+        });
 
         StringBuilder combined = new StringBuilder("bos,");
         int lastStaffId = -1;
@@ -173,11 +180,11 @@ public class Tokenizer {
             return;
         }
         List<Integer> systemLineBreaks = new ArrayList<>();
-        for (int i=4; i<args.length; i++)   //ignore trivial first system bar = 0
+        for (int i=3; i<args.length; i++)   //ignore trivial first system bar = 0
             systemLineBreaks.add(Integer.parseInt(args[i]));
         // load score and tokenize
         Score score = new XmlImport().skipRepetitions(true).decodeXML(Paths.get(args[0]));
-        Tokenizer tokenizer = new Tokenizer(score, Integer.parseInt(args[2]), systemLineBreaks);
+        Tokenizer tokenizer = new Tokenizer(score, systemLineBreaks);
 
         // write to file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]))) {

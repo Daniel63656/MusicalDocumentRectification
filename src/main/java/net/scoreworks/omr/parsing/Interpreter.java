@@ -34,6 +34,8 @@ public class Interpreter implements MusicScriptListener {
         new Staff(track, 1);
         for (Staff staff : track.getStaffs()) {
             new TonalityRange(staff, currentTick, Tonality.Cmajor); // no visual signs is C major by default
+            //TODO no time signature at system breaks, read system by system and keep time
+            new TimeSignatureRange(staff, currentTick, new TimeSignature(4, 4));
             pendingAccidentals.put(staff.getKey(), new HashMap<>());
         }
     }
@@ -65,6 +67,10 @@ public class Interpreter implements MusicScriptListener {
             for (MusicScriptParser.GroupContext groupCtx : staffCtx.group()) {
                 if (groupCtx.NEWV() != null)
                     newVoice(currentVoiceIndex);
+                if (currentVoiceIndex >= currentVoices.size()) {
+                    newVoice(currentVoiceIndex);
+                    System.out.printf("Missing voice start inserted at %s%n", currentTick.toString());
+                }
                 currentVoiceIndex++;
             }
         }
@@ -73,8 +79,8 @@ public class Interpreter implements MusicScriptListener {
         //advance current tick to be the greatest offset tick of demanded voices
         for (int i=voiceDemand-1; i>=0; i--) {
             Voice voice = currentVoices.get(i);
-            if (voice.getNoteGroupOrRests().findAny().isEmpty())
-                continue;   //skip new (empty voices)
+            if (voice.getNoteGroupOrRests().isEmpty() || voice.getEnd().compareTo(currentTick) < 0)
+                continue;   //skip new (empty) and recycled voices
             currentTick = voice.getEnd();
             break;
         }
@@ -128,8 +134,7 @@ public class Interpreter implements MusicScriptListener {
     public void exitOttavaend(MusicScriptParser.OttavaendContext ctx) {}
     @Override
     public void visitTerminal(TerminalNode node) {
-        //String type = MusicScriptLexer.VOCABULARY.getSymbolicName(node.getSymbol().getType());
-        //if (type == null) return;
+        //String type = MusicScriptLexer.VOCABULARY.getSymbolicName(node.getSymbol().getType()); if (type == null) return;
     }
     @Override
     public void visitErrorNode(ErrorNode node) {}
@@ -154,17 +159,7 @@ public class Interpreter implements MusicScriptListener {
                     tsr.setUpBeatCorrect(realBarDuration.subtract(currentBar.getDuration()));
                 }
             }
-            //check for whole rests that have a different duration than their appearance and correct them to have duration of now corrected bar
-            /*for (Voice voice : track.getVoices()) {
-                List<NoteGroupOrRest> elements = voice.getNoteGroupOrRests(barStartTick, true, currentTick, false).toList();
-                if (elements.size() == 1 && elements.get(0) instanceof Rest && elements.get(0).getNoteType() == NoteType.WHOLE && realBarDuration.compareTo(Fraction.ONE) != 0) {
-                    Staff staff = elements.get(0).getStaff();
-                    elements.get(0).remove();
-                    new Rest(barStartTick, voice, staff, realBarDuration);
-                }
-            }*/
             //reset bar specific pending collections
-            pendingTies.clear();
             pendingBeams.clear();
             pendingAccidentals.clear();
             for (Staff staff : track.getStaffs()) {
@@ -178,7 +173,7 @@ public class Interpreter implements MusicScriptListener {
             MusicScriptParser.StaffContext staffCtx = ctx.staff(i);
             if (i == 1) {
                 if (currentStaffId == 1)
-                    throw new RuntimeException("Can not staff change if already in bass");
+                    throw new RuntimeException(String.format("Can not staff change if already in bass at %s", currentTick));
                 currentStaffId = 1;
             }
 
@@ -219,14 +214,10 @@ public class Interpreter implements MusicScriptListener {
                 if (groupCtx.rest() != null) {
                     MusicScriptParser.RestContext restCtx = groupCtx.rest();
                     NoteType noteType = NoteType.fromExponent(-Integer.parseInt(restCtx.REST().getText().substring(1)));
-                    /*if (currentVoiceIndex >= currentVoices.size()) {
-                        newVoice();
-                        System.out.printf("Missing voice start inserted at %s%n", currentTick.toString());
-                    }*/
                     Voice voice = currentVoices.get(currentVoiceIndex);
                     //handle the case rest is first in bar, whole and too long for bar -> whole appearance but different duration
-                    //TODO currently bar duration can only be estimated to be normal, so these rests are only allowed to happen in normal bars
-                    //TODO better would be to do this when true bar length is known but then I need to change the control flow to cache and dispatch once the bar is known
+                    //currently bar duration can only be estimated to be normal, so these rests are only allowed to happen in normal bars
+                    //TODO overcome or remove Liebestraum
                     Rest rest;
                     TimeSignature timeSignature = track.getStaff(currentStaffId).getTimeSignatureRange(currentTick).getTimeSignature();
                     if (currentTick.compareTo(barStartTick) == 0 && noteType == NoteType.WHOLE && timeSignature.getFraction().compareTo(Fraction.ONE) < 0)
@@ -269,10 +260,6 @@ public class Interpreter implements MusicScriptListener {
                         // instantiate Notes and NoteGroup
                         Note note;
                         if (noteGroup == null) {
-                            /*if (currentVoiceIndex >= currentVoices.size()) {
-                                newVoice();
-                                System.out.printf("Missing voice start inserted at %s%n", currentTick.toString());
-                            }*/
                             Voice voice = currentVoices.get(currentVoiceIndex);
                             note = new Note(currentTick, voice, track.getStaff(currentStaffId), noteType, chordCtx.DOT().size(), calculatePitch(name, octave, accidental), name, octave, accidental);
                             noteGroup = note.getOwner();
@@ -335,7 +322,7 @@ public class Interpreter implements MusicScriptListener {
         //add at right index (before current voice)
         int insertIndex = 0;
         if (!currentVoices.isEmpty())
-            insertIndex = activeVoices.indexOf(currentVoices.get(currentVoiceIndex-1)) + 1;
+            insertIndex = activeVoices.indexOf(currentVoices.get(Math.max(0, currentVoiceIndex-1))) + 1;    //TODO math max only quick fix! Investigate!
         activeVoices.add(insertIndex, newVoice);
         currentVoices.add(currentVoiceIndex, newVoice);
     }
@@ -353,7 +340,7 @@ public class Interpreter implements MusicScriptListener {
         }
         else {
             Tonality tonality = track.getStaff(currentStaffId).getTonalityRange(currentTick).getTonality();
-            if (!tonality.pitchIsNaturalInTonality(pitch)) {
+            if (tonality.pitchHasAccidental(pitch)) {
                 if (tonality.getFifths() > 0)
                     pitch++;
                 else

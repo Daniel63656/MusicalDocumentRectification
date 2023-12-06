@@ -3,31 +3,39 @@
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="Interpreter:jar" />
-      <artifact name="Tokenizer:jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="progress">
-      <change afterPath="$PROJECT_DIR$/src/test/java/Test.musicxml" afterDir="false" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="consider whole rests with different duration">
+      <change afterPath="$PROJECT_DIR$/output.musicxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/manifest/interpreter/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Interpreter_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Interpreter_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Tokenizer_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Tokenizer_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Tokenizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/manifest/tokenizer/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Test.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Test.musicxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/out.musicxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Carmen Habanera.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Concerto No1.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Csikos Post.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/G Minor Bach.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Greensleeves.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Minuet In G Major.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Mondschein Sonata.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/O Holy Night.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Sonata Op28 No15.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Valse En La Mineur.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Waltz In A Major.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Waltz No17.musicxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,39 +115,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "last_opened_file_path": "C:/Users/Daniel/AppDevelopment/scoreworks/MusicModel",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.26206896",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "two.files.diff.last.used.file": "C:/Users/Daniel/AppDevelopment/immersive/OpticalMusicRecognition/src/main/java/com/immersive/omr/utils/QuadraticCurveModel.java",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Daniel/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.13.1/17125bae1d965624e265ef49552f6465a2bfa307/antlr4-runtime-4.13.1.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.26206896&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/Daniel/AppDevelopment/immersive/OpticalMusicRecognition/src/main/java/com/immersive/omr/utils/QuadraticCurveModel.java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.immersive.omr.stages" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\main\resources" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\test\java\net\scoreworks\omr\parsing" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\main\java\net\scoreworks\parsing" />
       <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\resources" />
       <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\java\com\immersive\omr\utils" />
-      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\java\com\immersive\omr\utils\discriminantFunctions\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\test\resources" />
@@ -156,7 +164,21 @@
       <recent name="com.immersive.omr" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ParsingTest.testOneSong">
+  <component name="RunManager" selected="Gradle.ParsingTest.testDataset">
+    <configuration name="DocumentRectification" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="net.scoreworks.omr.rectification.DocumentRectification" />
+      <module name="OpticalMusicRecognition.main" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=openCV" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.scoreworks.omr.rectification.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EigenvalueDecompositionTests" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -180,7 +202,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="InterpreterTest.tt" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ParsingTest.interpret" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -193,30 +215,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;net.scoreworks.omr.parsing.InterpreterTest.tt&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="InterpreterTest.tttt" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;net.scoreworks.omr.parsing.InterpreterTest.tttt&quot;" />
+            <option value="&quot;net.scoreworks.omr.parsing.ParsingTest.interpret&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -296,20 +295,20 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.DocumentRectification" />
       <item itemvalue="Gradle.EigenvalueDecompositionTests" />
-      <item itemvalue="Gradle.InterpreterTest.tt" />
-      <item itemvalue="Gradle.InterpreterTest.tttt" />
+      <item itemvalue="Gradle.ParsingTest.interpret" />
       <item itemvalue="Gradle.ParsingTest.testDataset" />
       <item itemvalue="Gradle.ParsingTest.testOneSong" />
       <item itemvalue="Gradle.ParsingTest.testTokenizer" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ParsingTest.testOneSong" />
         <item itemvalue="Gradle.ParsingTest.testDataset" />
+        <item itemvalue="Gradle.ParsingTest.interpret" />
+        <item itemvalue="Gradle.ParsingTest.testOneSong" />
+        <item itemvalue="Application.DocumentRectification" />
         <item itemvalue="Gradle.ParsingTest.testTokenizer" />
-        <item itemvalue="Gradle.InterpreterTest.tt" />
-        <item itemvalue="Gradle.InterpreterTest.tttt" />
       </list>
     </recent_temporary>
   </component>
@@ -359,14 +358,10 @@
       <workItem from="1701277694894" duration="43000" />
       <workItem from="1701277826830" duration="3021000" />
       <workItem from="1701287950033" duration="1130000" />
-      <workItem from="1701289093279" duration="47236000" />
-    </task>
-    <task id="LOCAL-00161" summary="rectification working">
-      <created>1687699818920</created>
-      <option name="number" value="00161" />
-      <option name="presentableId" value="LOCAL-00161" />
-      <option name="project" value="LOCAL" />
-      <updated>1687699818920</updated>
+      <workItem from="1701289093279" duration="60982000" />
+      <workItem from="1701527376302" duration="200000" />
+      <workItem from="1701683999354" duration="13463000" />
+      <workItem from="1701877860509" duration="460000" />
     </task>
     <task id="LOCAL-00162" summary="afsdfas">
       <created>1687796141279</created>
@@ -704,7 +699,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701387283781</updated>
     </task>
-    <option name="localTasksCounter" value="210" />
+    <task id="LOCAL-00210" summary="consider whole rests with different duration">
+      <created>1701432493283</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1701432493283</updated>
+    </task>
+    <option name="localTasksCounter" value="211" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -787,7 +789,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="fixed IDE error" />
     <MESSAGE value="added correct margins for rectified image" />
     <MESSAGE value="preparing for linemodel changes" />
     <MESSAGE value="some changes to intersections" />
@@ -812,7 +813,8 @@
     <MESSAGE value="same output for Bella Ciao" />
     <MESSAGE value="asdsdsa" />
     <MESSAGE value="progress" />
-    <option name="LAST_COMMIT_MESSAGE" value="progress" />
+    <MESSAGE value="consider whole rests with different duration" />
+    <option name="LAST_COMMIT_MESSAGE" value="consider whole rests with different duration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -868,34 +870,14 @@
           <option name="timeStamp" value="466" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/net/scoreworks/MusicModel/1.1.0/MusicModel-1.1.0.jar!/net/scoreworks/xml/XmlExport.class</url>
-          <line>158</line>
-          <option name="timeStamp" value="483" />
+          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="624" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>160</line>
-          <option name="timeStamp" value="567" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>157</line>
-          <option name="timeStamp" value="569" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>162</line>
-          <option name="timeStamp" value="574" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>232</line>
-          <option name="timeStamp" value="575" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>230</line>
-          <option name="timeStamp" value="576" />
+          <line>251</line>
+          <option name="timeStamp" value="628" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
