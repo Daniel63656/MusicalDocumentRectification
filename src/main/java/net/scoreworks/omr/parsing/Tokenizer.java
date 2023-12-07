@@ -108,12 +108,12 @@ public class Tokenizer {
                     if (base2exp < 0) {
                         // stem
                         if (ng.getStem() == Stem.UP)
-                            tokens.append("up,");
+                            tokens.append("u,");
                         else
-                            tokens.append("dn,");
+                            tokens.append("d,");
                         if (base2exp < -2) {
-                            tokenizeBeam(tokens, ngor);
                             tokens.append("f").append(-base2exp - 2).append(",");
+                            tokenizeBeam(tokens, ngor);
                         }
                     }
                     // notes
@@ -197,8 +197,8 @@ public class Tokenizer {
 
     private static void tokenizeClef(Set<TokenGroup> sentence, ClefRange range, Fraction tick, int staffId) {
         switch (range.getClef()) {
-            case TREBLE -> sentence.add(new TokenGroup(tick, staffId, -10, "gclef,"));
-            case BASS -> sentence.add(new TokenGroup(tick, staffId, -10, "fclef,"));
+            case TREBLE -> sentence.add(new TokenGroup(tick, staffId, -10, "G,"));
+            case BASS -> sentence.add(new TokenGroup(tick, staffId, -10, "F,"));
             default -> throw new IllegalArgumentException("Invalid clef: " + range.getClef());
         }
     }
@@ -227,12 +227,14 @@ public class Tokenizer {
         sentence.add(new TokenGroup(tick, staffId, -8, tokens.toString()));
     }
     private static void tokenizeShift(Set<TokenGroup> sentence, OctaveShiftRange range, Fraction tick, int staffId, boolean start) {
-        /*int voiceId = start ? -7 : 100; // apply start before and end after groups
+        int voiceId = start ? -7 : 100; // apply start before and end after groups
         switch (range.getOctavation()) {
-            case O8va -> sentence.add(new TokenGroup(tick, staffId, voiceId, "8va,"));
-            case O8vb -> sentence.add(new TokenGroup(tick, staffId, voiceId, "8vb,"));
+            case O8va  -> sentence.add(new TokenGroup(tick, staffId, voiceId, "va,"));
+            case O8vb  -> sentence.add(new TokenGroup(tick, staffId, voiceId, "vb,"));
+            case O15ma -> sentence.add(new TokenGroup(tick, staffId, voiceId, "ma,"));
+            case O15mb -> sentence.add(new TokenGroup(tick, staffId, voiceId, "mb,"));
             default -> throw new IllegalArgumentException("Invalid octave shift: " + range.getOctavation());
-        }*/
+        }
     }
 
     private static void tokenizeBeam(StringBuilder tokens, NoteGroupOrRest ngor) {
@@ -243,7 +245,7 @@ public class Tokenizer {
             else if (beam.getEnd().equals(ngor.getStart()))
                 tokens.append("],");
             else
-                tokens.append("=,");
+                tokens.append("+,");
         }
     }
 }

@@ -175,21 +175,30 @@ public class Interpreter implements MusicScriptListener {
             if (staffCtx.CLEF() != null) {
                 String value = staffCtx.CLEF().getText();
                 switch (value) {
-                    case "gclef" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.TREBLE);
-                    case "fclef" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.BASS);
+                    case "G" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.TREBLE);
+                    case "F" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.BASS);
                     default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
                 }
             }
             if (staffCtx.time() != null) {
-                int slashLocation = staffCtx.time().SLASH().getSymbol().getStartIndex();
-                StringBuilder numerator = new StringBuilder();
-                StringBuilder denominator = new StringBuilder();
-                for (TerminalNode digit : staffCtx.time().DIGIT()) {
-                    if (digit.getSymbol().getStartIndex() < slashLocation)
-                        numerator.append(digit.getText());
-                    else denominator.append(digit.getText());
+                if (staffCtx.time().SLASH() != null) {
+                    int slashLocation = staffCtx.time().SLASH().getSymbol().getStartIndex();
+                    StringBuilder numerator = new StringBuilder();
+                    StringBuilder denominator = new StringBuilder();
+                    for (TerminalNode digit : staffCtx.time().DIGIT()) {
+                        if (digit.getSymbol().getStartIndex() < slashLocation)
+                            numerator.append(digit.getText());
+                        else denominator.append(digit.getText());
+                    }
+                    new TimeSignatureRange(track.getStaff(currentStaffId), currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
                 }
-                new TimeSignatureRange(track.getStaff(currentStaffId), currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
+                else {
+                    String value = staffCtx.time().getText();
+                    if (value.equals("c"))
+                        new TimeSignatureRange(track.getStaff(currentStaffId), currentTick, TimeSignature.createAllaSemibrevis());
+                    if (value.equals("/c"))
+                        new TimeSignatureRange(track.getStaff(currentStaffId), currentTick, TimeSignature.createAllaBreve());
+                }
             }
             if (staffCtx.key() != null) {
                 MusicScriptParser.KeyContext keyCtx = staffCtx.key();
@@ -257,7 +266,7 @@ public class Interpreter implements MusicScriptListener {
                             note = new Note(currentTick, voice, track.getStaff(currentStaffId), noteType, chordCtx.DOT().size(), calculatePitch(name, octave, accidental), name, octave, accidental);
                             noteGroup = note.getOwner();
                             if (chordCtx.STEM() != null)
-                                noteGroup.setStem(chordCtx.STEM().getText().equals("up") ? Stem.UP : Stem.DOWN);
+                                noteGroup.setStem(chordCtx.STEM().getText().equals("u") ? Stem.UP : Stem.DOWN);
                             if (chordCtx.BEAM() != null)
                                 processBeam(voice, noteGroup, chordCtx.BEAM().getText());
                             currentVoiceIndex++;
@@ -355,6 +364,7 @@ public class Interpreter implements MusicScriptListener {
     }
 
     private void processBeam(Voice voice, NoteGroupOrRest ngor, String beamValue) {
+        //TODO close if beam is not continued?
         if (beamValue.equals("["))
             pendingBeams.put(voice, ngor);
         else if (beamValue.equals("]")) {
