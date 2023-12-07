@@ -9,33 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="consider whole rests with different duration">
-      <change afterPath="$PROJECT_DIR$/output.musicxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/manifest/interpreter/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Interpreter_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Interpreter_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Tokenizer_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Tokenizer_jar.xml" afterDir="false" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="changed LINE rule to be more general">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Tokenizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/manifest/tokenizer/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Test.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Test.musicxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/out.musicxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Carmen Habanera.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Concerto No1.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Csikos Post.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/G Minor Bach.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Greensleeves.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Minuet In G Major.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Mondschein Sonata.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/O Holy Night.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Sonata Op28 No15.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Valse En La Mineur.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Waltz In A Major.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Waltz No17.musicxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -305,8 +292,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ParsingTest.testDataset" />
-        <item itemvalue="Gradle.ParsingTest.interpret" />
         <item itemvalue="Gradle.ParsingTest.testOneSong" />
+        <item itemvalue="Gradle.ParsingTest.interpret" />
         <item itemvalue="Application.DocumentRectification" />
         <item itemvalue="Gradle.ParsingTest.testTokenizer" />
       </list>
@@ -361,14 +348,7 @@
       <workItem from="1701289093279" duration="60982000" />
       <workItem from="1701527376302" duration="200000" />
       <workItem from="1701683999354" duration="13463000" />
-      <workItem from="1701877860509" duration="460000" />
-    </task>
-    <task id="LOCAL-00162" summary="afsdfas">
-      <created>1687796141279</created>
-      <option name="number" value="00162" />
-      <option name="presentableId" value="LOCAL-00162" />
-      <option name="project" value="LOCAL" />
-      <updated>1687796141279</updated>
+      <workItem from="1701877860509" duration="2066000" />
     </task>
     <task id="LOCAL-00163" summary="aeda">
       <created>1687808833579</created>
@@ -706,7 +686,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701432493283</updated>
     </task>
-    <option name="localTasksCounter" value="211" />
+    <task id="LOCAL-00211" summary="changed LINE rule to be more general">
+      <created>1701878369080</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1701878369080</updated>
+    </task>
+    <option name="localTasksCounter" value="212" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -789,7 +776,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="added correct margins for rectified image" />
     <MESSAGE value="preparing for linemodel changes" />
     <MESSAGE value="some changes to intersections" />
     <MESSAGE value="removed duplicate code from meshpoint creation" />
@@ -814,7 +800,8 @@
     <MESSAGE value="asdsdsa" />
     <MESSAGE value="progress" />
     <MESSAGE value="consider whole rests with different duration" />
-    <option name="LAST_COMMIT_MESSAGE" value="consider whole rests with different duration" />
+    <MESSAGE value="changed LINE rule to be more general" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed LINE rule to be more general" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -873,11 +860,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
           <line>77</line>
           <option name="timeStamp" value="624" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>251</line>
-          <option name="timeStamp" value="628" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

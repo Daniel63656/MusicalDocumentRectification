@@ -88,16 +88,6 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 */
 	void exitAccidental(MusicScriptParser.AccidentalContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#meta}.
-	 * @param ctx the parse tree
-	 */
-	void enterMeta(MusicScriptParser.MetaContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#meta}.
-	 * @param ctx the parse tree
-	 */
-	void exitMeta(MusicScriptParser.MetaContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#time}.
 	 * @param ctx the parse tree
 	 */

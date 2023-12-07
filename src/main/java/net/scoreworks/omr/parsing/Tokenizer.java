@@ -227,12 +227,12 @@ public class Tokenizer {
         sentence.add(new TokenGroup(tick, staffId, -8, tokens.toString()));
     }
     private static void tokenizeShift(Set<TokenGroup> sentence, OctaveShiftRange range, Fraction tick, int staffId, boolean start) {
-        int voiceId = start ? -7 : 100; // apply start before and end after groups
+        /*int voiceId = start ? -7 : 100; // apply start before and end after groups
         switch (range.getOctavation()) {
             case O8va -> sentence.add(new TokenGroup(tick, staffId, voiceId, "8va,"));
             case O8vb -> sentence.add(new TokenGroup(tick, staffId, voiceId, "8vb,"));
             default -> throw new IllegalArgumentException("Invalid octave shift: " + range.getOctavation());
-        }
+        }*/
     }
 
     private static void tokenizeBeam(StringBuilder tokens, NoteGroupOrRest ngor) {

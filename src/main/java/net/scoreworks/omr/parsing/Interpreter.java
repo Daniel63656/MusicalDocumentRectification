@@ -113,10 +113,6 @@ public class Interpreter implements MusicScriptListener {
     @Override
     public void exitAccidental(MusicScriptParser.AccidentalContext ctx) {}
     @Override
-    public void enterMeta(MusicScriptParser.MetaContext ctx) {}
-    @Override
-    public void exitMeta(MusicScriptParser.MetaContext ctx) {}
-    @Override
     public void enterTime(MusicScriptParser.TimeContext ctx) {}
     @Override
     public void exitTime(MusicScriptParser.TimeContext ctx) {}
@@ -176,38 +172,35 @@ public class Interpreter implements MusicScriptListener {
                     throw new RuntimeException(String.format("Can not staff change if already in bass at %s", currentTick));
                 currentStaffId = 1;
             }
-
-            for (MusicScriptParser.MetaContext metaCtx : staffCtx.meta()) {
-                if (metaCtx.CLEF() != null) {
-                    String value = metaCtx.CLEF().getText();
-                    switch (value) {
-                        case "gclef" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.TREBLE);
-                        case "fclef" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.BASS);
-                        default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
-                    }
+            if (staffCtx.CLEF() != null) {
+                String value = staffCtx.CLEF().getText();
+                switch (value) {
+                    case "gclef" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.TREBLE);
+                    case "fclef" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.BASS);
+                    default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
                 }
-                if (metaCtx.time() != null) {
-                    int slashLocation = metaCtx.time().SLASH().getSymbol().getStartIndex();
-                    StringBuilder numerator = new StringBuilder();
-                    StringBuilder denominator = new StringBuilder();
-                    for (TerminalNode digit : metaCtx.time().DIGIT()) {
-                        if (digit.getSymbol().getStartIndex() < slashLocation)
-                            numerator.append(digit.getText());
-                        else denominator.append(digit.getText());
-                    }
-                    new TimeSignatureRange(track.getStaff(currentStaffId), currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
+            }
+            if (staffCtx.time() != null) {
+                int slashLocation = staffCtx.time().SLASH().getSymbol().getStartIndex();
+                StringBuilder numerator = new StringBuilder();
+                StringBuilder denominator = new StringBuilder();
+                for (TerminalNode digit : staffCtx.time().DIGIT()) {
+                    if (digit.getSymbol().getStartIndex() < slashLocation)
+                        numerator.append(digit.getText());
+                    else denominator.append(digit.getText());
                 }
-                if (metaCtx.key() != null) {
-                    MusicScriptParser.KeyContext keyCtx = metaCtx.key();
-                    int fifths = 0;     // default/naturals
-                    if (!keyCtx.SHARP().isEmpty())
-                        fifths = keyCtx.SHARP().size();
-                    else if (!keyCtx.FLAT().isEmpty())
-                        fifths = -keyCtx.FLAT().size();
-                    new TonalityRange(track.getStaff(currentStaffId), currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
-                    // reset active accidentals on that staff
-                    pendingAccidentals.put(currentStaffId, new HashMap<>());
-                }
+                new TimeSignatureRange(track.getStaff(currentStaffId), currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
+            }
+            if (staffCtx.key() != null) {
+                MusicScriptParser.KeyContext keyCtx = staffCtx.key();
+                int fifths = 0;     // default/naturals
+                if (!keyCtx.SHARP().isEmpty())
+                    fifths = keyCtx.SHARP().size();
+                else if (!keyCtx.FLAT().isEmpty())
+                    fifths = -keyCtx.FLAT().size();
+                new TonalityRange(track.getStaff(currentStaffId), currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
+                // reset active accidentals on that staff
+                pendingAccidentals.put(currentStaffId, new HashMap<>());
             }
 
             for (MusicScriptParser.GroupContext groupCtx : staffCtx.group()) {

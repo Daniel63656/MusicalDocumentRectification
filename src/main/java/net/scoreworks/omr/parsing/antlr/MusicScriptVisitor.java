@@ -59,12 +59,6 @@ public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAccidental(MusicScriptParser.AccidentalContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#meta}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMeta(MusicScriptParser.MetaContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link MusicScriptParser#time}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

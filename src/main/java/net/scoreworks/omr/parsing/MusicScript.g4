@@ -2,13 +2,12 @@ grammar MusicScript;
 
 score: 'bos' event+ 'eos';
 event: BARL? STAFF staff ('&' staff)?;
-staff: meta* ottavastart? group+ ottavaend?;
+staff: CLEF? key? time? ottavastart? group+ ottavaend?;
 group: NEWV? rest VEND? | NEWV? chord VEND? | GRACE chord group;
 rest: REST BEAM? DOT*;
 chord: WHOLE note+ DOT* | HALF STEM note+ DOT* | STEM note+ DOT* | STEM BEAM? FLAG? note+ DOT*;
 note: accidental? TIE_END? LINE TIE_START?;
 accidental: SHARP | FLAT |NATURAL | 'x' | '-';
-meta: CLEF | time | key;
 time: DIGIT+ SLASH DIGIT+;
 key: SHARP+ | FLAT+ | NATURAL+;
 ottavastart: OTTV;
