@@ -7,7 +7,7 @@ group: NEWV? TUPL? rest VEND? | NEWV? TUPL? chord VEND? | GRACE chord group;
 rest: REST BEAM? DOT*;
 chord: WHOLE note+ DOT* | HALF STEM note+ DOT* | STEM note+ DOT* | STEM FLAG? BEAM? note+ DOT*;
 note: accidental? TIE_END? LINE TIE_START?;
-accidental: SHARP | FLAT |NATURAL | 'x' | '-';
+accidental: SHARP | FLAT | NATURAL | 'x' | '-';
 time: DIGIT+ SLASH DIGIT+ | 'c' | '/c';
 key: SHARP+ | FLAT+ | NATURAL+;
 ottavastart: OTTV;

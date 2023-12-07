@@ -9,17 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="removed indirect meta rule">
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="added tuplet to grammar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Tokenizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/out.musicxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +142,7 @@
       <recent name="com.immersive.omr" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ParsingTest.testOneSong">
+  <component name="RunManager" selected="Gradle.ParsingTest.testDataset">
     <configuration name="DocumentRectification" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.scoreworks.omr.rectification.DocumentRectification" />
       <module name="OpticalMusicRecognition.main" />
@@ -289,8 +282,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ParsingTest.testOneSong" />
         <item itemvalue="Gradle.ParsingTest.testDataset" />
+        <item itemvalue="Gradle.ParsingTest.testOneSong" />
         <item itemvalue="Gradle.ParsingTest.interpret" />
         <item itemvalue="Application.DocumentRectification" />
         <item itemvalue="Gradle.ParsingTest.testTokenizer" />
@@ -346,14 +339,7 @@
       <workItem from="1701289093279" duration="60982000" />
       <workItem from="1701527376302" duration="200000" />
       <workItem from="1701683999354" duration="13463000" />
-      <workItem from="1701877860509" duration="8218000" />
-    </task>
-    <task id="LOCAL-00164" summary="3d plot of 3d estimate">
-      <created>1687856471158</created>
-      <option name="number" value="00164" />
-      <option name="presentableId" value="LOCAL-00164" />
-      <option name="project" value="LOCAL" />
-      <updated>1687856471158</updated>
+      <workItem from="1701877860509" duration="10706000" />
     </task>
     <task id="LOCAL-00165" summary="3d plot is somewhat working">
       <created>1687878992590</created>
@@ -691,7 +677,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701950977175</updated>
     </task>
-    <option name="localTasksCounter" value="213" />
+    <task id="LOCAL-00213" summary="added tuplet to grammar">
+      <created>1701957579541</created>
+      <option name="number" value="00213" />
+      <option name="presentableId" value="LOCAL-00213" />
+      <option name="project" value="LOCAL" />
+      <updated>1701957579541</updated>
+    </task>
+    <option name="localTasksCounter" value="214" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -774,7 +767,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="some changes to intersections" />
     <MESSAGE value="removed duplicate code from meshpoint creation" />
     <MESSAGE value="renaming" />
     <MESSAGE value="some experiments with staff model" />
@@ -799,7 +791,8 @@
     <MESSAGE value="consider whole rests with different duration" />
     <MESSAGE value="changed LINE rule to be more general" />
     <MESSAGE value="removed indirect meta rule" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed indirect meta rule" />
+    <MESSAGE value="added tuplet to grammar" />
+    <option name="LAST_COMMIT_MESSAGE" value="added tuplet to grammar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -853,11 +846,6 @@
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.haifengl/smile-math/2.6.0/4ede8948462877d1108e524a67e2a53c98c320ab/smile-math-2.6.0-sources.jar!/smile/math/rbf/GaussianRadialBasis.java</url>
           <line>69</line>
           <option name="timeStamp" value="466" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>77</line>
-          <option name="timeStamp" value="624" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

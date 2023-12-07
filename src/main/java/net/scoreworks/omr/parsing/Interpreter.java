@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Interpreter implements MusicScriptListener {
+    private record ShiftInfo(Fraction start, Octavation octavation){}
     private final Score score = new Score();
     private final Track track;
     private int currentStaffId;
@@ -26,6 +27,7 @@ public class Interpreter implements MusicScriptListener {
     private final List<Voice> currentVoices = new ArrayList<>();
     private final List<Note> pendingTies = new ArrayList<>();
     private final Map<Voice, NoteGroupOrRest> pendingBeams = new HashMap<>();
+    private final Map<Staff, ShiftInfo> pendingOctaveShifts = new HashMap<>();
     private final Map<Integer, Map<Integer, Accidental>> pendingAccidentals = new HashMap<>();
 
     public Interpreter() {
@@ -172,11 +174,12 @@ public class Interpreter implements MusicScriptListener {
                     throw new RuntimeException(String.format("Can not staff change if already in bass at %s", currentTick));
                 currentStaffId = 1;
             }
+            Staff staff = track.getStaff(currentStaffId);
             if (staffCtx.CLEF() != null) {
                 String value = staffCtx.CLEF().getText();
                 switch (value) {
-                    case "G" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.TREBLE);
-                    case "F" -> new ClefRange(track.getStaff(currentStaffId), currentTick, Clef.BASS);
+                    case "G" -> new ClefRange(staff, currentTick, Clef.TREBLE);
+                    case "F" -> new ClefRange(staff, currentTick, Clef.BASS);
                     default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
                 }
             }
@@ -190,14 +193,14 @@ public class Interpreter implements MusicScriptListener {
                             numerator.append(digit.getText());
                         else denominator.append(digit.getText());
                     }
-                    new TimeSignatureRange(track.getStaff(currentStaffId), currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
+                    new TimeSignatureRange(staff, currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
                 }
                 else {
                     String value = staffCtx.time().getText();
                     if (value.equals("c"))
-                        new TimeSignatureRange(track.getStaff(currentStaffId), currentTick, TimeSignature.createAllaSemibrevis());
+                        new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaSemibrevis());
                     if (value.equals("/c"))
-                        new TimeSignatureRange(track.getStaff(currentStaffId), currentTick, TimeSignature.createAllaBreve());
+                        new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaBreve());
                 }
             }
             if (staffCtx.key() != null) {
@@ -207,11 +210,22 @@ public class Interpreter implements MusicScriptListener {
                     fifths = keyCtx.SHARP().size();
                 else if (!keyCtx.FLAT().isEmpty())
                     fifths = -keyCtx.FLAT().size();
-                new TonalityRange(track.getStaff(currentStaffId), currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
+                new TonalityRange(staff, currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
                 // reset active accidentals on that staff
                 pendingAccidentals.put(currentStaffId, new HashMap<>());
             }
-
+            if (staffCtx.ottavastart() != null) {
+                Octavation octavation;
+                switch(staffCtx.ottavastart().getText()) {
+                    case "va" -> octavation = Octavation.O8va;
+                    case "vb" -> octavation = Octavation.O8vb;
+                    case "ma" -> octavation = Octavation.O15ma;
+                    case "mb" -> octavation = Octavation.O15mb;
+                    default -> throw new RuntimeException(String.format("Octavation %s not recognized", staffCtx.ottavastart().getText()));
+                }
+                pendingOctaveShifts.put(staff, new ShiftInfo(currentTick, octavation));
+            }
+            //do groups
             for (MusicScriptParser.GroupContext groupCtx : staffCtx.group()) {
                 if (groupCtx.rest() != null) {
                     MusicScriptParser.RestContext restCtx = groupCtx.rest();
@@ -221,11 +235,11 @@ public class Interpreter implements MusicScriptListener {
                     //currently bar duration can only be estimated to be normal, so these rests are only allowed to happen in normal bars
                     //TODO overcome or remove Liebestraum
                     Rest rest;
-                    TimeSignature timeSignature = track.getStaff(currentStaffId).getTimeSignatureRange(currentTick).getTimeSignature();
+                    TimeSignature timeSignature = staff.getTimeSignatureRange(currentTick).getTimeSignature();
                     if (currentTick.compareTo(barStartTick) == 0 && noteType == NoteType.WHOLE && timeSignature.getFraction().compareTo(Fraction.ONE) < 0)
-                        rest = new Rest(currentTick, voice, track.getStaff(currentStaffId), timeSignature.getFraction());
+                        rest = new Rest(currentTick, voice, staff, timeSignature.getFraction());
                     //or normal rest
-                    else rest = new Rest(currentTick, voice, track.getStaff(currentStaffId), noteType, restCtx.DOT().size());
+                    else rest = new Rest(currentTick, voice, staff, noteType, restCtx.DOT().size());
                     if (restCtx.BEAM() != null)
                         processBeam(voice, rest, restCtx.BEAM().getText());
                     currentVoiceIndex++;
@@ -252,10 +266,9 @@ public class Interpreter implements MusicScriptListener {
                             }
                         }
                         int referenceLine = Integer.parseInt(noteCtx.LINE().getText().substring(1));
-                        referenceLine -= track.getStaff(currentStaffId).getClefRange(currentTick).getClef().getC0_referenceLine();
-                        OctaveShiftRange osr = track.getStaff(currentStaffId).getOctaveShiftRange(currentTick);
-                        if (osr != null)
-                            referenceLine -= osr.getOctavation().getShiftOctaves()*7;
+                        referenceLine -= staff.getClefRange(currentTick).getClef().getC0_referenceLine();
+                        if (pendingOctaveShifts.containsKey(staff))
+                            referenceLine -= pendingOctaveShifts.get(staff).octavation.getShiftOctaves()*7;
                         NoteName name = NoteName.values()[referenceLine % 7];
                         OctaveRegion octave = OctaveRegion.fromNumber(referenceLine / 7);
                         if (accidental != Accidental.NONE) pendingAccidentals.get(currentStaffId).put(name.noteLineId(octave), accidental);
@@ -263,7 +276,7 @@ public class Interpreter implements MusicScriptListener {
                         Note note;
                         if (noteGroup == null) {
                             Voice voice = currentVoices.get(currentVoiceIndex);
-                            note = new Note(currentTick, voice, track.getStaff(currentStaffId), noteType, chordCtx.DOT().size(), calculatePitch(name, octave, accidental), name, octave, accidental);
+                            note = new Note(currentTick, voice, staff, noteType, chordCtx.DOT().size(), calculatePitch(name, octave, accidental), name, octave, accidental);
                             noteGroup = note.getOwner();
                             if (chordCtx.STEM() != null)
                                 noteGroup.setStem(chordCtx.STEM().getText().equals("u") ? Stem.UP : Stem.DOWN);
@@ -281,6 +294,16 @@ public class Interpreter implements MusicScriptListener {
                 }
                 if (groupCtx.VEND() != null)
                     activeVoices.remove(currentVoices.get(currentVoiceIndex-1));
+            }
+            //octave shift ends
+            if (staffCtx.ottavaend() != null) {
+                if (!pendingOctaveShifts.containsKey(staff))
+                    System.out.printf("Ignored erroneous octave shift end without beginning at %s%n", currentTick.toString());
+                else {
+                    ShiftInfo info = pendingOctaveShifts.get(staff);
+                    new OctaveShiftRange(staff, staff.getNoteTimeTick(info.start), staff.getNoteTimeTick(currentTick), info.octavation);
+                    pendingOctaveShifts.remove(staff);
+                }
             }
         }
     }
@@ -372,7 +395,7 @@ public class Interpreter implements MusicScriptListener {
                 new Beam(voice, pendingBeams.get(voice), ngor);
                 pendingBeams.remove(voice);
             }
-            else System.out.printf("Ignored erroneous beam at %s%n", currentTick.toString());
+            else System.out.printf("Ignored erroneous beam end without start at %s%n", currentTick.toString());
         }
     }
 }
