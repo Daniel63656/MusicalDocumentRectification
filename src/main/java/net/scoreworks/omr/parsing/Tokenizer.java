@@ -46,15 +46,35 @@ public class Tokenizer {
         return sentence;
     }
 
-    public Tokenizer(Score score, List<Integer> systemLineBreaks) {
-        //assert numMeasures == score.getTrack(0).getStaff(0).getBars().count() : "Number of measures disagree";
+    public Tokenizer(Score score) {
+        this(score, new HashSet<>());
+    }
+
+    public Tokenizer(Score score, Set<Integer> systemLineBreaks) {
+        assert score.getTracks().size() == 1: "Found more than one track in score!";
+        Track track = score.getTrack(0);
         Set<TokenGroup> sentence = new TreeSet<>();
 
         //add meta events
-        score.getStaffs().forEach(s -> {
-            // add bars only once (first and last barline will be omitted))
-            if (s.getKey() == 0)
-                s.getBars().forEach(b -> sentence.add(new TokenGroup(b.getStart(), -1, -1, "|,")));
+        track.getStaffs().forEach(s -> {
+            s.getBars().forEach(b -> {
+                if (b.getStart().compareTo(Fraction.ZERO) > 0) {
+                    if (s.getKey() == 0)
+                        sentence.add(new TokenGroup(b.getStart(), -1, -1, "eos\nbos,"));
+                    else
+                        assert b.getStart().compareTo(track.getStaff(0).getBar(b.getStart()).getStart()) == 0 : "Found non synchronous bars in score!";
+                    //re-add context at line breaks
+                    if (systemLineBreaks.contains(b.getBarNumber())) {
+                        Fraction tick = b.getStart();
+                        tokenizeClef(sentence, s.getClefRange(tick), tick, s.getKey());
+                        tokenizeKey(sentence, null, s.getTonalityRange(tick), tick, s.getKey());
+                        // time signature is not added at system breaks
+                        if (s.getOctaveShiftRange(tick) != null)
+                            tokenizeShift(sentence, s.getOctaveShiftRange(tick), tick, s.getKey(), true);
+                    }
+                }
+            });
+            // add (override) all context ranges of staff
             for (ClefRange range : s.getClefRanges())
                 tokenizeClef(sentence, range, range.getStart(), s.getKey());
             TonalityRange prior = null;
@@ -70,29 +90,15 @@ public class Tokenizer {
             }
         });
 
-        //add line break each system and context if not changing anyway
-        for (int i : systemLineBreaks) {
-            score.getStaffs().forEach(s -> {
-                Bar bar = s.getBarByBarNumber(i);
-                sentence.add(new TokenGroup(bar.getStart(), -1, -2, "eos\nbos,"));
-                Fraction tick = bar.getStart();
-                tokenizeClef(sentence, s.getClefRange(tick), tick, s.getKey());
-                tokenizeKey(sentence, null, s.getTonalityRange(tick), tick, s.getKey());
-                // time signature is not added at system breaks
-                if (s.getOctaveShiftRange(tick) != null)
-                    tokenizeShift(sentence, s.getOctaveShiftRange(tick), tick, s.getKey(), true);
-            });
-        }
-
         // add NoteGroupOrRest from voices
-        score.getVoices().forEach(v -> {
+        track.getVoices().forEach(v -> {
             //if (!v.getTuplets().isEmpty())
                 //throw new RuntimeException("Found tuplets which currently are not modelled!");
             v.getNoteGroupOrRests().forEach(ngor -> {
                 StringBuilder tokens = new StringBuilder();
                 // check for voice start
                 NoteGroupOrRest prior = v.lowerNoteGroupOrRest(ngor.getStart());
-                if (prior == null || prior.getEnd().compareTo(ngor.getStart()) < 0)
+                if (prior == null || prior.getEnd().compareTo(ngor.getStart()) < 0 || prior.getBar() != ngor.getBar())
                     tokens.append("<,");
                 // go on with Rest or NoteGroup
                 if (ngor instanceof Rest) {
@@ -100,10 +106,6 @@ public class Tokenizer {
                     tokenizeBeam(tokens, ngor);
                 } else {
                     NoteGroup ng = (NoteGroup) ngor;
-                    if (ngor.getNoteType() == NoteType.WHOLE)
-                        tokens.append("w,");
-                    else if (ngor.getNoteType() == NoteType.HALF)
-                        tokens.append("h,");
                     int base2exp = ngor.getNoteType().getBase2Exponent();
                     if (base2exp < 0) {
                         // stem
@@ -117,6 +119,7 @@ public class Tokenizer {
                         }
                     }
                     // notes
+                    boolean noteHeadsOpen = ng.getNoteType().getBase2Exponent() > -2;
                     List<Note> notes = new ArrayList<>(ng.getNotes());
                     notes.sort(Comparator.comparingInt(Note::getPitch));    // sort by pitch
                     for (Note note : notes) {
@@ -133,12 +136,13 @@ public class Tokenizer {
                         }
                         if (note.getPreviousTied() != null)
                             tokens.append("),");
+                        tokens.append(noteHeadsOpen ? "o,l" : "s,l");
                         int referenceLine = Controller.getReferenceLine(ngor.getClefRange().getClef(), ngor.getOctaveShiftRange(), note.getNoteName(), note.getOctaveRegion());
                         if (referenceLine < -14)
                             throw new RuntimeException(String.format("Found too low reference line %d", referenceLine));
                         if (referenceLine > 22)
                             throw new RuntimeException(String.format("Found too high reference line %d", referenceLine));
-                        tokens.append("l").append(referenceLine).append(",");
+                        tokens.append(referenceLine).append(",");
                         if (note.getNextTied() != null)
                             tokens.append("(,");
                     }
@@ -147,7 +151,7 @@ public class Tokenizer {
                 tokens.append(".,".repeat(ngor.getDots()));
                 //check for voice end
                 NoteGroupOrRest next = v.higherNoteGroupOrRest(ngor.getStart());
-                if (next == null || ngor.getEnd().compareTo(next.getStart()) < 0)
+                if (next == null || ngor.getEnd().compareTo(next.getStart()) < 0 || next.getBar() != ngor.getBar())
                     tokens.append(">,");
                 sentence.add(new TokenGroup(ngor.getStart(), ngor.getStaff().getKey(), v.getKey(), tokens.toString()));
             });
@@ -179,8 +183,8 @@ public class Tokenizer {
             System.out.println("Please provide file paths as command-line arguments");
             return;
         }
-        List<Integer> systemLineBreaks = new ArrayList<>();
-        for (int i=3; i<args.length; i++)   //ignore trivial first system bar = 0
+        Set<Integer> systemLineBreaks = new HashSet<>();
+        for (int i=2; i<args.length; i++)   //ignore trivial first system bar = 0
             systemLineBreaks.add(Integer.parseInt(args[i]));
         // load score and tokenize
         Score score = new XmlImport().skipRepetitions(true).decodeXML(Paths.get(args[0]));
@@ -220,11 +224,17 @@ public class Tokenizer {
         TimeSignature time = range.getTimeSignature();
         if (time.isFree())
             throw new IllegalArgumentException("Free time signature not supported");
-        char[] characters = time.getFraction().toString().toCharArray();
-        StringBuilder tokens = new StringBuilder();
-        for (char c : characters)
-            tokens.append(c).append(",");
-        sentence.add(new TokenGroup(tick, staffId, -8, tokens.toString()));
+        /*else if (time.isAllaSemibrevis())
+            sentence.add(new TokenGroup(tick, staffId, -8, "c"));
+        else if (time.isAllaBreve())
+            sentence.add(new TokenGroup(tick, staffId, -8, "/c"));*/
+        else {
+            char[] characters = time.getFraction().toString().toCharArray();
+            StringBuilder tokens = new StringBuilder();
+            for (char c : characters)
+                tokens.append(c).append(",");
+            sentence.add(new TokenGroup(tick, staffId, -8, tokens.toString()));
+        }
     }
     private static void tokenizeShift(Set<TokenGroup> sentence, OctaveShiftRange range, Fraction tick, int staffId, boolean start) {
         int voiceId = start ? -7 : 100; // apply start before and end after groups

@@ -25,6 +25,8 @@ dependencies {
     implementation 'org.bytedeco:openblas-platform:0.3.23-1.5.9'
     implementation 'org.bytedeco:arpack-ng-platform:3.9.0-1.5.9'
 
+
+    implementation 'org.apache.commons:commons-lang3:3.12.0'    //StringUtils
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 }

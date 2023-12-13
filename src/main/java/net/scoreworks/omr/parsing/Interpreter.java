@@ -45,11 +45,10 @@ public class Interpreter implements MusicScriptListener {
     public Score getScore() {
         return score;
     }
-
     @Override
-    public void enterScore(MusicScriptParser.ScoreContext ctx) {}
+    public void enterBar(MusicScriptParser.BarContext ctx) {}
     @Override
-    public void exitScore(MusicScriptParser.ScoreContext ctx) {}
+    public void exitBar(MusicScriptParser.BarContext ctx) {}
     @Override
     public void enterEvent(MusicScriptParser.EventContext ctx) {}
     @Override
@@ -106,14 +105,35 @@ public class Interpreter implements MusicScriptListener {
     public void enterChord(MusicScriptParser.ChordContext ctx) {}
     @Override
     public void exitChord(MusicScriptParser.ChordContext ctx) {}
+
     @Override
-    public void enterNote(MusicScriptParser.NoteContext ctx) {}
+    public void enterNote_open(MusicScriptParser.Note_openContext ctx) {
+
+    }
+
     @Override
-    public void exitNote(MusicScriptParser.NoteContext ctx) {}
+    public void exitNote_open(MusicScriptParser.Note_openContext ctx) {
+
+    }
+
+    @Override
+    public void enterNote_solid(MusicScriptParser.Note_solidContext ctx) {
+
+    }
+
+    @Override
+    public void exitNote_solid(MusicScriptParser.Note_solidContext ctx) {
+
+    }
+
     @Override
     public void enterAccidental(MusicScriptParser.AccidentalContext ctx) {}
     @Override
     public void exitAccidental(MusicScriptParser.AccidentalContext ctx) {}
+    @Override
+    public void enterMeta(MusicScriptParser.MetaContext ctx) {}
+    @Override
+    public void exitMeta(MusicScriptParser.MetaContext ctx) {}
     @Override
     public void enterTime(MusicScriptParser.TimeContext ctx) {}
     @Override
@@ -144,7 +164,7 @@ public class Interpreter implements MusicScriptListener {
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
         int currentVoiceIndex = 0;  //point to the location of next voice to add a group to in urgentVoices
-        if (ctx.BARL() != null) {
+        /*if (ctx.BARL() != null) {
             //handle irregular bars / up beats
             Fraction realBarDuration = currentTick.subtract(barStartTick);
             for (Staff staff : track.getStaffs()) {
@@ -175,44 +195,47 @@ public class Interpreter implements MusicScriptListener {
                 currentStaffId = 1;
             }
             Staff staff = track.getStaff(currentStaffId);
-            if (staffCtx.CLEF() != null) {
-                String value = staffCtx.CLEF().getText();
-                switch (value) {
-                    case "G" -> new ClefRange(staff, currentTick, Clef.TREBLE);
-                    case "F" -> new ClefRange(staff, currentTick, Clef.BASS);
-                    default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
-                }
-            }
-            if (staffCtx.time() != null) {
-                if (staffCtx.time().SLASH() != null) {
-                    int slashLocation = staffCtx.time().SLASH().getSymbol().getStartIndex();
-                    StringBuilder numerator = new StringBuilder();
-                    StringBuilder denominator = new StringBuilder();
-                    for (TerminalNode digit : staffCtx.time().DIGIT()) {
-                        if (digit.getSymbol().getStartIndex() < slashLocation)
-                            numerator.append(digit.getText());
-                        else denominator.append(digit.getText());
+
+            for (MusicScriptParser.MetaContext metaCtx : staffCtx.meta()) {
+                if (metaCtx.CLEF() != null) {
+                    String value = metaCtx.CLEF().getText();
+                    switch (value) {
+                        case "G" -> new ClefRange(staff, currentTick, Clef.TREBLE);
+                        case "F" -> new ClefRange(staff, currentTick, Clef.BASS);
+                        default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
                     }
-                    new TimeSignatureRange(staff, currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
                 }
-                else {
-                    String value = staffCtx.time().getText();
-                    if (value.equals("c"))
-                        new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaSemibrevis());
-                    if (value.equals("/c"))
-                        new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaBreve());
+                if (metaCtx.time() != null) {
+                    if (metaCtx.time().SLASH() != null) {
+                        int slashLocation = metaCtx.time().SLASH().getSymbol().getStartIndex();
+                        StringBuilder numerator = new StringBuilder();
+                        StringBuilder denominator = new StringBuilder();
+                        for (TerminalNode digit : metaCtx.time().DIGIT()) {
+                            if (digit.getSymbol().getStartIndex() < slashLocation)
+                                numerator.append(digit.getText());
+                            else denominator.append(digit.getText());
+                        }
+                        new TimeSignatureRange(staff, currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
+                    }
+                    else {
+                        String value = metaCtx.time().getText();
+                        if (value.equals("c"))
+                            new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaSemibrevis());
+                        if (value.equals(""))
+                            new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaBreve());
+                    }
                 }
-            }
-            if (staffCtx.key() != null) {
-                MusicScriptParser.KeyContext keyCtx = staffCtx.key();
-                int fifths = 0;     // default/naturals
-                if (!keyCtx.SHARP().isEmpty())
-                    fifths = keyCtx.SHARP().size();
-                else if (!keyCtx.FLAT().isEmpty())
-                    fifths = -keyCtx.FLAT().size();
-                new TonalityRange(staff, currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
-                // reset active accidentals on that staff
-                pendingAccidentals.put(currentStaffId, new HashMap<>());
+                if (metaCtx.key() != null) {
+                    MusicScriptParser.KeyContext keyCtx = metaCtx.key();
+                    int fifths = 0;     // default/naturals
+                    if (!keyCtx.SHARP().isEmpty())
+                        fifths = keyCtx.SHARP().size();
+                    else if (!keyCtx.FLAT().isEmpty())
+                        fifths = -keyCtx.FLAT().size();
+                    new TonalityRange(staff, currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
+                    // reset active accidentals on that staff
+                    pendingAccidentals.put(currentStaffId, new HashMap<>());
+                }
             }
             if (staffCtx.ottavastart() != null) {
                 Octavation octavation;
@@ -247,11 +270,12 @@ public class Interpreter implements MusicScriptListener {
                 else if (groupCtx.chord() != null) {
                     MusicScriptParser.ChordContext chordCtx = groupCtx.chord();
                     NoteType noteType = NoteType.QUARTER;
-                    if (chordCtx.WHOLE() != null)
+                    if (!chordCtx.note_empty().isEmpty()) {
                         noteType = NoteType.WHOLE;
-                    else if (chordCtx.HALF() != null)
-                        noteType = NoteType.HALF;
-                    if (chordCtx.FLAG() != null) {
+                        if (chordCtx.STEM() != null)
+                            noteType = NoteType.HALF;
+                    }
+                    else if (chordCtx.FLAG() != null) {
                         noteType = NoteType.fromExponent(-Integer.parseInt(chordCtx.FLAG().getText().substring(1)) - 2);
                     }
 
@@ -305,7 +329,7 @@ public class Interpreter implements MusicScriptListener {
                     pendingOctaveShifts.remove(staff);
                 }
             }
-        }
+        }*/
     }
 
     public static void main(String[] args) throws FileNotFoundException, JAXBException {
@@ -317,7 +341,7 @@ public class Interpreter implements MusicScriptListener {
         MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
         Interpreter interpreter = new Interpreter();
         parser.addParseListener(interpreter);
-        parser.score(); //do the parsing
+        parser.bar(); //do the parsing
         Score score = interpreter.getScore();
 
         XmlExport export = new XmlExport(score);

@@ -17,13 +17,13 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScore(MusicScriptParser.ScoreContext ctx) { }
+	@Override public void enterBar(MusicScriptParser.BarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitScore(MusicScriptParser.ScoreContext ctx) { }
+	@Override public void exitBar(MusicScriptParser.BarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -89,13 +89,25 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNote(MusicScriptParser.NoteContext ctx) { }
+	@Override public void enterNote_open(MusicScriptParser.Note_openContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNote(MusicScriptParser.NoteContext ctx) { }
+	@Override public void exitNote_open(MusicScriptParser.Note_openContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNote_solid(MusicScriptParser.Note_solidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNote_solid(MusicScriptParser.Note_solidContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -108,6 +120,18 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAccidental(MusicScriptParser.AccidentalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMeta(MusicScriptParser.MetaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMeta(MusicScriptParser.MetaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

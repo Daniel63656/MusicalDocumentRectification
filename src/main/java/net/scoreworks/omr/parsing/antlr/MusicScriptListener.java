@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface MusicScriptListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#score}.
+	 * Enter a parse tree produced by {@link MusicScriptParser#bar}.
 	 * @param ctx the parse tree
 	 */
-	void enterScore(MusicScriptParser.ScoreContext ctx);
+	void enterBar(MusicScriptParser.BarContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#score}.
+	 * Exit a parse tree produced by {@link MusicScriptParser#bar}.
 	 * @param ctx the parse tree
 	 */
-	void exitScore(MusicScriptParser.ScoreContext ctx);
+	void exitBar(MusicScriptParser.BarContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#event}.
 	 * @param ctx the parse tree
@@ -68,15 +68,25 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 */
 	void exitChord(MusicScriptParser.ChordContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#note}.
+	 * Enter a parse tree produced by {@link MusicScriptParser#note_open}.
 	 * @param ctx the parse tree
 	 */
-	void enterNote(MusicScriptParser.NoteContext ctx);
+	void enterNote_open(MusicScriptParser.Note_openContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#note}.
+	 * Exit a parse tree produced by {@link MusicScriptParser#note_open}.
 	 * @param ctx the parse tree
 	 */
-	void exitNote(MusicScriptParser.NoteContext ctx);
+	void exitNote_open(MusicScriptParser.Note_openContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MusicScriptParser#note_solid}.
+	 * @param ctx the parse tree
+	 */
+	void enterNote_solid(MusicScriptParser.Note_solidContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicScriptParser#note_solid}.
+	 * @param ctx the parse tree
+	 */
+	void exitNote_solid(MusicScriptParser.Note_solidContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#accidental}.
 	 * @param ctx the parse tree
@@ -87,6 +97,16 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAccidental(MusicScriptParser.AccidentalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MusicScriptParser#meta}.
+	 * @param ctx the parse tree
+	 */
+	void enterMeta(MusicScriptParser.MetaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicScriptParser#meta}.
+	 * @param ctx the parse tree
+	 */
+	void exitMeta(MusicScriptParser.MetaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#time}.
 	 * @param ctx the parse tree

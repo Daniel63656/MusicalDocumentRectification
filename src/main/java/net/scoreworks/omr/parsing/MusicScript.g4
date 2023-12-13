@@ -1,27 +1,25 @@
 grammar MusicScript;
 
-score: 'bos' event+ 'eos';
-event: BARL? STAFF staff ('&' staff)?;
-staff: CLEF? key? time? ottavastart? group+ ottavaend?;
-group: NEWV? TUPL? rest VEND? | NEWV? TUPL? chord VEND? | GRACE chord group;
+bar: 'bos' event+ 'eos';
+event: 'T' staff ('&' staff)? | 'L' staff;
+staff: meta+ ottavastart? group* ottavaend? | ottavastart? group+ ottavaend?;
+group: NEWV? TUPL* rest VEND? | NEWV? TUPL* chord VEND? | GRACE chord group;
 rest: REST BEAM? DOT*;
-chord: WHOLE note+ DOT* | HALF STEM note+ DOT* | STEM note+ DOT* | STEM FLAG? BEAM? note+ DOT*;
-note: accidental? TIE_END? LINE TIE_START?;
+chord: note_open+ DOT* | STEM note_open+ DOT* | STEM note_solid+ DOT* | STEM FLAG? BEAM? note_solid+ DOT*;
+note_open: accidental? TIE_END? 'o' LINE TIE_START?;
+note_solid: accidental? TIE_END? 's' LINE TIE_START?;
 accidental: SHARP | FLAT | NATURAL | 'x' | '-';
+meta: CLEF | key | time;
 time: DIGIT+ SLASH DIGIT+ | 'c' | '/c';
 key: SHARP+ | FLAT+ | NATURAL+;
 ottavastart: OTTV;
 ottavaend: OTTV;
 
 // TERMINALS
-STAFF: 'T' | 'L';
-BARL: '|';
 NEWV: '<';
 VEND: '>';
 GRACE: 'g';
 REST: 'r'[0-7];
-WHOLE: 'w';
-HALF: 'h';
 DOT: '.';
 TIE_START: '(';
 TIE_END: ')';
