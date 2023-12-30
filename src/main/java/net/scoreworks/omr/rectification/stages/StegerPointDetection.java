@@ -189,4 +189,62 @@ public class StegerPointDetection {
         }
         return points;
     }
+
+    /**
+     * get vertical line points implicitly sorted by increasing y value
+     */
+    public List<LinePoint> getVerticalPointsY(float threshold) {
+        List<LinePoint> points = new ArrayList<>();
+        //declare auxiliary variables once in loops to use
+        float temp, lambda1, lambda2, nx, ny, magnitude;
+        float T, px, py;
+        //quick access to derivatives
+        int idx;
+        float[] Dx = new float[(int) dx.total()];dx.get(0, 0, Dx);
+        float[] Dy = new float[(int) dy.total()];dy.get(0, 0, Dy);
+        float[] Dxx = new float[(int) dxx.total()];dxx.get(0, 0, Dxx);
+        float[] Dyy = new float[(int) dyy.total()];dyy.get(0, 0, Dyy);
+        float[] Dxy = new float[(int) dxy.total()];dxy.get(0, 0, Dxy);
+
+        for (int y = 0; y < mat.rows(); y++) {
+            for (int x = 0; x < mat.cols(); x++) {
+                idx = y * mat.cols() + x;
+                //calculate eigenvalues and sort by greater absolute value (=dominant direction, normal to line)
+                temp = (float) Math.sqrt((Dxx[idx] - Dyy[idx]) * (Dxx[idx] - Dyy[idx]) + 4 * Dxy[idx] * Dxy[idx]);
+                lambda1 = (Dxx[idx] + Dyy[idx] + temp) * 0.5f;
+                lambda2 = (Dxx[idx] + Dyy[idx] - temp) * 0.5f;
+                //make lambda1 be the one with greater absolute value (=dominant direction)
+                if (Math.abs(lambda2) > Math.abs(lambda1)) {
+                    lambda1 = lambda2;
+                }
+                //lambda represents strength of second order derivative normal to line. Lines will have strong negative
+                //eigenvalue
+                if (lambda1 > threshold) {
+                    continue;
+                }
+                //create eigenvectors
+                nx = Dxy[idx];
+                ny = lambda1 - Dxx[idx];
+                //normalize
+                magnitude = (float) Math.sqrt(nx * nx + ny * ny);
+                if (magnitude != 0) {
+                    nx /= magnitude;
+                    ny /= magnitude;
+                }
+                //filter non vertical lines
+                if (Math.abs(nx) < Math.abs(ny))
+                    continue;
+                //use a quadratic polynomial (second order taylor approximation) to determine weather first directional derivative
+                //(perpendicular to line) vanishes inside pixel
+                T = -(Dx[idx] * nx + Dy[idx] * ny) / (Dxx[idx] * nx * nx + 2 * Dxy[idx] * nx * ny + Dyy[idx] * ny * ny);
+                px = T * nx;
+                py = T * ny;
+                //add to point collection if maximum along normal gets 0 within pixel boundaries
+                if (px >= -0.5 & px <= 0.5 & py >= -0.5 & py <= 0.5) {
+                    points.add(new LinePoint(y + py + 0.5f, x + px + 0.5f, -ny / nx));
+                }
+            }
+        }
+        return points;
+    }
 }

@@ -16,12 +16,13 @@ import java.util.*;
 
 public class Tokenizer {
     private static class TokenGroup implements Comparable<TokenGroup> {
-        Fraction tick;
-        int staffId, voiceId;
+        Fraction tick, duration;
+        int barId, staffId, voiceId;
         String tokens;
 
-        public TokenGroup(Fraction tick, int staffId, int voiceId, String tokens) {
+        public TokenGroup(Fraction tick, int barId, int staffId, int voiceId, String tokens) {
             this.tick = tick;
+            this.barId = barId;
             this.staffId = staffId;
             this.voiceId = voiceId;
             this.tokens = tokens;
@@ -58,124 +59,79 @@ public class Tokenizer {
         //add meta events
         track.getStaffs().forEach(s -> {
             s.getBars().forEach(b -> {
-                if (b.getStart().compareTo(Fraction.ZERO) > 0) {
-                    if (s.getKey() == 0)
-                        sentence.add(new TokenGroup(b.getStart(), -1, -1, "eos\nbos,"));
-                    else
-                        assert b.getStart().compareTo(track.getStaff(0).getBar(b.getStart()).getStart()) == 0 : "Found non synchronous bars in score!";
-                    //re-add context at line breaks
-                    if (systemLineBreaks.contains(b.getBarNumber())) {
-                        Fraction tick = b.getStart();
-                        tokenizeClef(sentence, s.getClefRange(tick), tick, s.getKey());
-                        tokenizeKey(sentence, null, s.getTonalityRange(tick), tick, s.getKey());
-                        // time signature is not added at system breaks
-                        if (s.getOctaveShiftRange(tick) != null)
-                            tokenizeShift(sentence, s.getOctaveShiftRange(tick), tick, s.getKey(), true);
-                    }
+                assert s.getKey() == 0 || b.getStart().compareTo(track.getStaff(0).getBar(b.getStart()).getStart()) == 0 : "Found non synchronous bars in score!";
+                if (systemLineBreaks.contains(b.getBarNumber()) && b.getBarNumber() > 0) {
+                    Fraction tick = b.getStart();
+                    int barNumber = b.getBarNumber();
+                    tokenizeClef(sentence, s.getClefRange(tick), tick, barNumber, s.getKey());
+                    tokenizeKey(sentence, null, s.getTonalityRange(tick), tick, barNumber, s.getKey());
+                    // time signature is not added at system breaks
+                    if (s.getOctaveShiftRange(tick) != null)
+                        tokenizeShift(sentence, s.getOctaveShiftRange(tick), tick, barNumber, s.getKey(), true);
                 }
             });
             // add (override) all context ranges of staff
             for (ClefRange range : s.getClefRanges())
-                tokenizeClef(sentence, range, range.getStart(), s.getKey());
+                tokenizeClef(sentence, range, range.getStart(), s.getBar(range.getStart()).getBarNumber(), s.getKey());
             TonalityRange prior = null;
             for (TonalityRange range : s.getTonalityRanges()) {
-                tokenizeKey(sentence, prior, range, range.getStart(), s.getKey());
+                tokenizeKey(sentence, prior, range, range.getStart(), s.getBar(range.getStart()).getBarNumber(), s.getKey());
                 prior = range;
             }
             for (TimeSignatureRange range : s.getTimeSignatureRanges())
-                tokenizeTime(sentence, range, range.getStart(), s.getKey());
+                tokenizeTime(sentence, range, range.getStart(), s.getBar(range.getStart()).getBarNumber(), s.getKey());
             for (OctaveShiftRange range : s.getOctaveShiftRanges()) {
-                tokenizeShift(sentence, range, range.getStart(), s.getKey(), true);
-                tokenizeShift(sentence, range, range.getEnd(), s.getKey(), false);
+                tokenizeShift(sentence, range, range.getStart(), s.getBar(range.getStart()).getBarNumber(), s.getKey(), true);
+                tokenizeShift(sentence, range, range.getEnd(), s.getBar(range.getStart()).getBarNumber(), s.getKey(), false);
             }
         });
 
         // add NoteGroupOrRest from voices
-        track.getVoices().forEach(v -> {
-            //if (!v.getTuplets().isEmpty())
-                //throw new RuntimeException("Found tuplets which currently are not modelled!");
-            v.getNoteGroupOrRests().forEach(ngor -> {
-                StringBuilder tokens = new StringBuilder();
-                // check for voice start
-                NoteGroupOrRest prior = v.lowerNoteGroupOrRest(ngor.getStart());
-                if (prior == null || prior.getEnd().compareTo(ngor.getStart()) < 0 || prior.getBar() != ngor.getBar())
-                    tokens.append("<,");
-                // go on with Rest or NoteGroup
-                if (ngor instanceof Rest) {
-                    tokens.append("r").append(-ngor.getNoteType().getBase2Exponent()).append(",");
-                    tokenizeBeam(tokens, ngor);
-                } else {
-                    NoteGroup ng = (NoteGroup) ngor;
-                    int base2exp = ngor.getNoteType().getBase2Exponent();
-                    if (base2exp < 0) {
-                        // stem
-                        if (ng.getStem() == Stem.UP)
-                            tokens.append("u,");
-                        else
-                            tokens.append("d,");
-                        if (base2exp < -2) {
-                            tokens.append("f").append(-base2exp - 2).append(",");
-                            tokenizeBeam(tokens, ngor);
-                        }
-                    }
-                    // notes
-                    boolean noteHeadsOpen = ng.getNoteType().getBase2Exponent() > -2;
-                    List<Note> notes = new ArrayList<>(ng.getNotes());
-                    notes.sort(Comparator.comparingInt(Note::getPitch));    // sort by pitch
-                    for (Note note : notes) {
-                        Accidental accidental = note.getAccidental();
-                        if (accidental != null && accidental != Accidental.NONE) {
-                            switch (accidental) {
-                                case SHARP -> tokens.append("#,");
-                                case FLAT -> tokens.append("b,");
-                                case NATURAL -> tokens.append("n,");
-                                case DOUBLE_SHARP -> tokens.append("x,");
-                                case FLAT_FLAT -> tokens.append("-,");
-                                default -> throw new IllegalArgumentException("Invalid accidental: " + accidental);
-                            }
-                        }
-                        if (note.getPreviousTied() != null)
-                            tokens.append("),");
-                        tokens.append(noteHeadsOpen ? "o,l" : "s,l");
-                        int referenceLine = Controller.getReferenceLine(ngor.getClefRange().getClef(), ngor.getOctaveShiftRange(), note.getNoteName(), note.getOctaveRegion());
-                        if (referenceLine < -14)
-                            throw new RuntimeException(String.format("Found too low reference line %d", referenceLine));
-                        if (referenceLine > 22)
-                            throw new RuntimeException(String.format("Found too high reference line %d", referenceLine));
-                        tokens.append(referenceLine).append(",");
-                        if (note.getNextTied() != null)
-                            tokens.append("(,");
-                    }
-                }
-                // continue with similar tokens again
-                tokens.append(".,".repeat(ngor.getDots()));
-                //check for voice end
-                NoteGroupOrRest next = v.higherNoteGroupOrRest(ngor.getStart());
-                if (next == null || ngor.getEnd().compareTo(next.getStart()) < 0 || next.getBar() != ngor.getBar())
-                    tokens.append(">,");
-                sentence.add(new TokenGroup(ngor.getStart(), ngor.getStaff().getKey(), v.getKey(), tokens.toString()));
-            });
-        });
+        track.getVoices().forEach(v -> v.getNoteGroupOrRests().forEach(ngor -> {
+            StringBuilder tokens = new StringBuilder();
+            if (ngor instanceof Rest) {
+                tokenizeTuplet(tokens, ngor);
+                tokens.append("r").append(-ngor.getNoteType().getBase2Exponent());
+                tokenizeBeam(tokens, ngor);
+            }
+            else {
+                NoteGroup ng = (NoteGroup) ngor;
+                //TODO grace
+                tokenizeTuplet(tokens, ngor);
+                tokenizeChord(tokens, ng);
+            }
+            tokens.append(".".repeat(ngor.getDots()));
+            TokenGroup group = new TokenGroup(ngor.getStart(), track.getStaff(0).getBar(ngor.getStart()).getBarNumber(), ngor.getStaff().getKey(), v.getKey(), tokens.toString());
+            group.duration = ngor.getDuration();
+            sentence.add(group);
+        }));
 
-        StringBuilder combined = new StringBuilder("bos,");
+        //create token string
+        NavigableMap<Fraction, Integer> offsetTicks = new TreeMap<>();
+        StringBuilder tokens = new StringBuilder();
         int lastStaffId = -1;
+        Bar currentBar = null;  //triggers barLine at beginning
         Fraction lastTick = Fraction.getFraction(-1, 1);
         for (TokenGroup group : sentence) {
-            if (group.staffId != -1) {  // ignore bars
-                if (group.tick.compareTo(lastTick) > 0) {
-                    combined.append(group.staffId == 0 ? "T," : "L,");  // treble staff, lower staff
-                    lastTick = group.tick;
-                    lastStaffId = group.staffId;
-                }
-                else if (group.staffId != lastStaffId) {
-                    combined.append("&,");
-                    lastStaffId = group.staffId;
-                }
+            if (currentBar != track.getStaff(0).getBar(group.tick)) {
+                tokens.append("|");
+                currentBar = track.getStaff(0).getBar(group.tick);
             }
-            combined.append(group.tokens);
+            if (group.tick.compareTo(lastTick) > 0) {
+                tokens.append(group.staffId == 0 ? "T" : "L");  // treble staff, lower staff
+                lastTick = group.tick;
+            }
+            else if (group.staffId != lastStaffId) {
+                tokens.append("&");
+            }
+            lastStaffId = group.staffId;
+
+
+
+            tokens.append(group.tokens);
         }
-        combined.append("eos");
-        this.sentence = combined.toString().replace("bos,|,", "bos,");  // remove redundant bar token at bos
+        tokens.append("|");
+        this.sentence = tokens.toString();
     }
 
     public static void main(String[] args) throws XmlPullParserException, CorruptXmlException, IOException {
@@ -199,50 +155,88 @@ public class Tokenizer {
         }
     }
 
-    private static void tokenizeClef(Set<TokenGroup> sentence, ClefRange range, Fraction tick, int staffId) {
+    private static void tokenizeChord(StringBuilder tokens, NoteGroup ng) {
+        int base2exp = ng.getNoteType().getBase2Exponent();
+        if (base2exp < 0) {
+            // stem
+            if (ng.getStem() == Stem.UP)
+                tokens.append("u");
+            else
+                tokens.append("d");
+            if (base2exp < -2) {
+                tokenizeBeam(tokens, ng);
+                tokens.append("f").append(-base2exp - 2);
+            }
+        }
+        // notes
+        boolean noteHeadsOpen = ng.getNoteType().getBase2Exponent() > -2;
+        List<Note> notes = new ArrayList<>(ng.getNotes());
+        notes.sort(Comparator.comparingInt(Note::getPitch));    // sort by pitch
+        for (Note note : notes) {
+            Accidental accidental = note.getAccidental();
+            if (accidental != null && accidental != Accidental.NONE) {
+                switch (accidental) {
+                    case SHARP -> tokens.append("#");
+                    case FLAT -> tokens.append("b");
+                    case NATURAL -> tokens.append("n");
+                    case DOUBLE_SHARP -> tokens.append("x");
+                    case FLAT_FLAT -> tokens.append("-");
+                    default -> throw new IllegalArgumentException("Invalid accidental: " + accidental);
+                }
+            }
+            if (note.getPreviousTied() != null)
+                tokens.append(")");
+            int referenceLine = Controller.getReferenceLine(ng.getClefRange().getClef(), ng.getOctaveShiftRange(), note.getNoteName(), note.getOctaveRegion());
+            tokens.append(noteHeadsOpen ? "o" : "s").append(referenceLine);
+            if (note.getNextTied() != null)
+                tokens.append("(");
+        }
+    }
+
+    private static void tokenizeClef(Set<TokenGroup> sentence, ClefRange range, Fraction tick, int barId, int staffId) {
         switch (range.getClef()) {
-            case TREBLE -> sentence.add(new TokenGroup(tick, staffId, -10, "G,"));
-            case BASS -> sentence.add(new TokenGroup(tick, staffId, -10, "F,"));
+            case TREBLE -> sentence.add(new TokenGroup(tick, barId, staffId, -10, "G"));
+            case BASS -> sentence.add(new TokenGroup(tick, barId, staffId, -10, "F"));
             default -> throw new IllegalArgumentException("Invalid clef: " + range.getClef());
         }
     }
-    private static void tokenizeKey(Set<TokenGroup> sentence, TonalityRange prior, TonalityRange range, Fraction tick, int staffId) {
+    private static void tokenizeKey(Set<TokenGroup> sentence, TonalityRange prior, TonalityRange range, Fraction tick, int barId, int staffId) {
         StringBuilder tokens = new StringBuilder();
         Tonality tonality = range.getTonality();
         if (tonality.getFifths() > 0) {
-            tokens.append("#,".repeat(range.getTonality().getFifths()));
+            tokens.append("#".repeat(range.getTonality().getFifths()));
         }
         else if (tonality.getFifths() < 0) {
-            tokens.append("b,".repeat(-range.getTonality().getFifths()));
+            tokens.append("b".repeat(-range.getTonality().getFifths()));
         }
         else if (prior != null) {
-            tokens.append("n,".repeat(Math.abs(prior.getTonality().getFifths())));
+            tokens.append("n".repeat(Math.abs(prior.getTonality().getFifths())));
         }
-        sentence.add(new TokenGroup(tick, staffId, -9, tokens.toString()));
+        sentence.add(new TokenGroup(tick, barId, staffId, -9, tokens.toString()));
     }
-    private static void tokenizeTime(Set<TokenGroup> sentence, TimeSignatureRange range, Fraction tick, int staffId) {
+    private static void tokenizeTime(Set<TokenGroup> sentence, TimeSignatureRange range, Fraction tick, int barId, int staffId) {
         TimeSignature time = range.getTimeSignature();
         if (time.isFree())
             throw new IllegalArgumentException("Free time signature not supported");
-        /*else if (time.isAllaSemibrevis())
-            sentence.add(new TokenGroup(tick, staffId, -8, "c"));
+        else if (time.isAllaSemibrevis())
+            sentence.add(new TokenGroup(tick, barId, staffId, -8, "c"));
         else if (time.isAllaBreve())
-            sentence.add(new TokenGroup(tick, staffId, -8, "/c"));*/
+            sentence.add(new TokenGroup(tick, barId, staffId, -8, "/c"));
         else {
             char[] characters = time.getFraction().toString().toCharArray();
             StringBuilder tokens = new StringBuilder();
             for (char c : characters)
-                tokens.append(c).append(",");
-            sentence.add(new TokenGroup(tick, staffId, -8, tokens.toString()));
+                tokens.append(c);
+            sentence.add(new TokenGroup(tick, barId, staffId, -8, tokens.toString()));
         }
     }
-    private static void tokenizeShift(Set<TokenGroup> sentence, OctaveShiftRange range, Fraction tick, int staffId, boolean start) {
+    private static void tokenizeShift(Set<TokenGroup> sentence, OctaveShiftRange range, Fraction tick, int barId, int staffId, boolean start) {
         int voiceId = start ? -7 : 100; // apply start before and end after groups
         switch (range.getOctavation()) {
-            case O8va  -> sentence.add(new TokenGroup(tick, staffId, voiceId, "va,"));
-            case O8vb  -> sentence.add(new TokenGroup(tick, staffId, voiceId, "vb,"));
-            case O15ma -> sentence.add(new TokenGroup(tick, staffId, voiceId, "ma,"));
-            case O15mb -> sentence.add(new TokenGroup(tick, staffId, voiceId, "mb,"));
+            case O8va  -> sentence.add(new TokenGroup(tick, barId, staffId, voiceId, "va"));
+            case O8vb  -> sentence.add(new TokenGroup(tick, barId, staffId, voiceId, "vb"));
+            case O15ma -> sentence.add(new TokenGroup(tick, barId, staffId, voiceId, "ma"));
+            case O15mb -> sentence.add(new TokenGroup(tick, barId, staffId, voiceId, "mb"));
             default -> throw new IllegalArgumentException("Invalid octave shift: " + range.getOctavation());
         }
     }
@@ -251,11 +245,22 @@ public class Tokenizer {
         Beam beam = ngor.getBeam();
         if (beam != null) {
             if (beam.getStart().equals(ngor.getStart()))
-                tokens.append("[,");
+                tokens.append("[");
             else if (beam.getEnd().equals(ngor.getStart()))
-                tokens.append("],");
+                tokens.append("]");
+        }
+    }
+
+    private static void tokenizeTuplet(StringBuilder tokens, NoteGroupOrRest ngor) {
+        List<Tuplet> tuplets = ngor.getTuplets();
+        if (!tuplets.isEmpty()) {
+            Tuplet tuplet = tuplets.get(0);
+            if (tuplet.getStart().equals(ngor.getStart()))
+                tokens.append("{");
+            else if (tuplet.getEnd().equals(ngor.getStart()))
+                tokens.append("}");
             else
-                tokens.append("+,");
+                tokens.append("*");
         }
     }
 }

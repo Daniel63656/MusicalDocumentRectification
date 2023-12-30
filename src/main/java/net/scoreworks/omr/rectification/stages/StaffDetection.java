@@ -21,7 +21,7 @@ public class StaffDetection {
 
     private final List<StaffModel> staffs = new ArrayList<>();
 
-    public StaffDetection(Map<Float, LinePoint> points, float iss, int cols, Mat img) {
+    public StaffDetection(Map<Float, LinePoint> points, float iss, int cols) {
         MomentumClustering clusterByStaff = new MomentumClustering((c, p) -> {
             float yDiff = c.getMeanY() - p.y;
             float aDiff = (c.getMeanAngle() - p.angle)* C_phi;

@@ -76,7 +76,7 @@ public class DocumentRectification {
         timestamps.add(System.currentTimeMillis());
 
         //detect staffs
-        StaffDetection staffDetection = new StaffDetection(stegerPointDetection.getHorizontalPoints(threshold), iss, img.cols(), img);
+        StaffDetection staffDetection = new StaffDetection(stegerPointDetection.getHorizontalPoints(threshold), iss, img.cols());
         timestamps.add(System.currentTimeMillis());
 
         //detect longitudes
@@ -104,7 +104,7 @@ public class DocumentRectification {
         timestamps.add(System.currentTimeMillis());
 
         //print results from stages onto images for debugging/visualizations
-        //stegerPointDetection.visualize(img, 0.18f*upperThreshold, 0.18f*upperThreshold, new Scalar(0,255,0), new Scalar(255, 0, 0), 2);
+        //stegerPointDetection.visualize(img, threshold, threshold, new Scalar(0,255,0), new Scalar(255, 0, 0), 2);
         staffDetection.visualize(img, new Scalar(0, 0, 255));
         //ld.visualize(img, new Scalar(255, 0, 0));
 

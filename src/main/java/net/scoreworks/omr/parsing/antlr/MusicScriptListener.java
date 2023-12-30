@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface MusicScriptListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#bar}.
+	 * Enter a parse tree produced by {@link MusicScriptParser#score}.
 	 * @param ctx the parse tree
 	 */
-	void enterBar(MusicScriptParser.BarContext ctx);
+	void enterScore(MusicScriptParser.ScoreContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#bar}.
+	 * Exit a parse tree produced by {@link MusicScriptParser#score}.
 	 * @param ctx the parse tree
 	 */
-	void exitBar(MusicScriptParser.BarContext ctx);
+	void exitScore(MusicScriptParser.ScoreContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#event}.
 	 * @param ctx the parse tree

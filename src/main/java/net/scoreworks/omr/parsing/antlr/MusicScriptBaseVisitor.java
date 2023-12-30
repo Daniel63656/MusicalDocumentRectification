@@ -18,7 +18,7 @@ public class MusicScriptBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBar(MusicScriptParser.BarContext ctx) { return visitChildren(ctx); }
+	@Override public T visitScore(MusicScriptParser.ScoreContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

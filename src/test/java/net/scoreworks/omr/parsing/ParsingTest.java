@@ -113,7 +113,7 @@ public class ParsingTest {
                 MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
                 Interpreter interpreter = new Interpreter();
                 parser.addParseListener(interpreter);
-                parser.bar(); //do the parsing
+                parser.score(); //do the parsing
                 score = interpreter.getScore();
 
                 Tokenizer tokenizer2 = new Tokenizer(score, lineBreaks);

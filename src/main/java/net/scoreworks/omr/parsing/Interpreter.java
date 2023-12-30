@@ -36,7 +36,6 @@ public class Interpreter implements MusicScriptListener {
         new Staff(track, 1);
         for (Staff staff : track.getStaffs()) {
             new TonalityRange(staff, currentTick, Tonality.Cmajor); // no visual signs is C major by default
-            //TODO no time signature at system breaks, read system by system and keep time
             new TimeSignatureRange(staff, currentTick, new TimeSignature(4, 4));
             pendingAccidentals.put(staff.getKey(), new HashMap<>());
         }
@@ -46,9 +45,9 @@ public class Interpreter implements MusicScriptListener {
         return score;
     }
     @Override
-    public void enterBar(MusicScriptParser.BarContext ctx) {}
+    public void enterScore(MusicScriptParser.ScoreContext ctx) {}
     @Override
-    public void exitBar(MusicScriptParser.BarContext ctx) {}
+    public void exitScore(MusicScriptParser.ScoreContext ctx) {}
     @Override
     public void enterEvent(MusicScriptParser.EventContext ctx) {}
     @Override
@@ -66,12 +65,8 @@ public class Interpreter implements MusicScriptListener {
         int currentVoiceIndex = 0;
         for (MusicScriptParser.StaffContext staffCtx : ctx.staff()) {
             for (MusicScriptParser.GroupContext groupCtx : staffCtx.group()) {
-                if (groupCtx.NEWV() != null)
+                if (groupCtx.NEWV() != null || currentVoiceIndex >= currentVoices.size())
                     newVoice(currentVoiceIndex);
-                if (currentVoiceIndex >= currentVoices.size()) {
-                    newVoice(currentVoiceIndex);
-                    System.out.printf("Missing voice start inserted at %s%n", currentTick.toString());
-                }
                 currentVoiceIndex++;
             }
         }
@@ -105,27 +100,14 @@ public class Interpreter implements MusicScriptListener {
     public void enterChord(MusicScriptParser.ChordContext ctx) {}
     @Override
     public void exitChord(MusicScriptParser.ChordContext ctx) {}
-
     @Override
-    public void enterNote_open(MusicScriptParser.Note_openContext ctx) {
-
-    }
-
+    public void enterNote_open(MusicScriptParser.Note_openContext ctx) {}
     @Override
-    public void exitNote_open(MusicScriptParser.Note_openContext ctx) {
-
-    }
-
+    public void exitNote_open(MusicScriptParser.Note_openContext ctx) {}
     @Override
-    public void enterNote_solid(MusicScriptParser.Note_solidContext ctx) {
-
-    }
-
+    public void enterNote_solid(MusicScriptParser.Note_solidContext ctx) {}
     @Override
-    public void exitNote_solid(MusicScriptParser.Note_solidContext ctx) {
-
-    }
-
+    public void exitNote_solid(MusicScriptParser.Note_solidContext ctx) {}
     @Override
     public void enterAccidental(MusicScriptParser.AccidentalContext ctx) {}
     @Override
@@ -164,7 +146,7 @@ public class Interpreter implements MusicScriptListener {
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
         int currentVoiceIndex = 0;  //point to the location of next voice to add a group to in urgentVoices
-        /*if (ctx.BARL() != null) {
+        if (ctx.BARL() != null) {
             //handle irregular bars / up beats
             Fraction realBarDuration = currentTick.subtract(barStartTick);
             for (Staff staff : track.getStaffs()) {
@@ -341,7 +323,7 @@ public class Interpreter implements MusicScriptListener {
         MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
         Interpreter interpreter = new Interpreter();
         parser.addParseListener(interpreter);
-        parser.bar(); //do the parsing
+        parser.score(); //do the parsing
         Score score = interpreter.getScore();
 
         XmlExport export = new XmlExport(score);
@@ -411,7 +393,6 @@ public class Interpreter implements MusicScriptListener {
     }
 
     private void processBeam(Voice voice, NoteGroupOrRest ngor, String beamValue) {
-        //TODO close if beam is not continued?
         if (beamValue.equals("["))
             pendingBeams.put(voice, ngor);
         else if (beamValue.equals("]")) {

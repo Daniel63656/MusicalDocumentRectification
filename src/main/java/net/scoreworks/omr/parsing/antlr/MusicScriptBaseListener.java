@@ -17,13 +17,13 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBar(MusicScriptParser.BarContext ctx) { }
+	@Override public void enterScore(MusicScriptParser.ScoreContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBar(MusicScriptParser.BarContext ctx) { }
+	@Override public void exitScore(MusicScriptParser.ScoreContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

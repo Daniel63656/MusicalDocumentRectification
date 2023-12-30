@@ -11,11 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#bar}.
+	 * Visit a parse tree produced by {@link MusicScriptParser#score}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBar(MusicScriptParser.BarContext ctx);
+	T visitScore(MusicScriptParser.ScoreContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicScriptParser#event}.
 	 * @param ctx the parse tree
