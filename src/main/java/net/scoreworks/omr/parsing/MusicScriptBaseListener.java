@@ -1,5 +1,5 @@
 // Generated from C:/Users/Daniel/AppDevelopment/scoreworks/OpticalMusicRecognition/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4 by ANTLR 4.13.1
-package net.scoreworks.omr.parsing.antlr;
+package net.scoreworks.omr.parsing;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -41,13 +41,13 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStaff(MusicScriptParser.StaffContext ctx) { }
+	@Override public void enterSegment(MusicScriptParser.SegmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStaff(MusicScriptParser.StaffContext ctx) { }
+	@Override public void exitSegment(MusicScriptParser.SegmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -125,18 +125,6 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMeta(MusicScriptParser.MetaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMeta(MusicScriptParser.MetaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterTime(MusicScriptParser.TimeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -156,30 +144,6 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitKey(MusicScriptParser.KeyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOttavastart(MusicScriptParser.OttavastartContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOttavastart(MusicScriptParser.OttavastartContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOttavaend(MusicScriptParser.OttavaendContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOttavaend(MusicScriptParser.OttavaendContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

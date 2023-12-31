@@ -1,5 +1,5 @@
 // Generated from C:/Users/Daniel/AppDevelopment/scoreworks/OpticalMusicRecognition/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4 by ANTLR 4.13.1
-package net.scoreworks.omr.parsing.antlr;
+package net.scoreworks.omr.parsing;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -23,11 +23,11 @@ public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEvent(MusicScriptParser.EventContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#staff}.
+	 * Visit a parse tree produced by {@link MusicScriptParser#segment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStaff(MusicScriptParser.StaffContext ctx);
+	T visitSegment(MusicScriptParser.SegmentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicScriptParser#group}.
 	 * @param ctx the parse tree
@@ -65,12 +65,6 @@ public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAccidental(MusicScriptParser.AccidentalContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#meta}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMeta(MusicScriptParser.MetaContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link MusicScriptParser#time}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -82,16 +76,4 @@ public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitKey(MusicScriptParser.KeyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#ottavastart}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOttavastart(MusicScriptParser.OttavastartContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#ottavaend}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOttavaend(MusicScriptParser.OttavaendContext ctx);
 }

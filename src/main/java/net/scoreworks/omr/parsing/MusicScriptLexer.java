@@ -1,5 +1,5 @@
 // Generated from C:/Users/Daniel/AppDevelopment/scoreworks/OpticalMusicRecognition/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4 by ANTLR 4.13.1
-package net.scoreworks.omr.parsing.antlr;
+package net.scoreworks.omr.parsing;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -41,8 +41,8 @@ public class MusicScriptLexer extends Lexer {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'T'", "'&'", "'L'", "'x'", "'-'", "'c'", "'/c'", null, "'<'", 
-			"'>'", "'g'", null, "'.'", "'('", "')'", null, null, null, null, null, 
+			null, "'T'", "'&'", "'L'", "'x'", "'-'", "'c'", "'/c'", null, "'+'", 
+			"';'", "'g'", null, "'.'", "'('", "')'", null, null, null, null, null, 
 			null, "'#'", "'b'", "'n'", null, null, "'/'"
 		};
 	}
@@ -141,7 +141,7 @@ public class MusicScriptLexer extends Lexer {
 		"\r\u0007\u000f\b\u0011\t\u0013\n\u0015\u000b\u0017\f\u0019\r\u001b\u000e"+
 		"\u001d\u000f\u001f\u0010!\u0011#\u0012%\u0013\'\u0014)\u0015+\u0016-\u0017"+
 		"/\u00181\u00193\u001a5\u001b7\u001c\u0001\u0000\u0006\u0001\u000007\u0001"+
-		"\u000015\u0003\u0000++[[]]\u0003\u0000**{{}}\u0002\u0000dduu\u0001\u0000"+
+		"\u000015\u0002\u0000[[]]\u0003\u0000**{{}}\u0002\u0000dduu\u0001\u0000"+
 		"09\u0097\u0000\u0001\u0001\u0000\u0000\u0000\u0000\u0003\u0001\u0000\u0000"+
 		"\u0000\u0000\u0005\u0001\u0000\u0000\u0000\u0000\u0007\u0001\u0000\u0000"+
 		"\u0000\u0000\t\u0001\u0000\u0000\u0000\u0000\u000b\u0001\u0000\u0000\u0000"+
@@ -175,7 +175,7 @@ public class MusicScriptLexer extends Lexer {
 		":\u0000\u0000IH\u0001\u0000\u0000\u0000IJ\u0001\u0000\u0000\u0000JK\u0001"+
 		"\u0000\u0000\u0000KM\u0005|\u0000\u0000LN\u0005:\u0000\u0000ML\u0001\u0000"+
 		"\u0000\u0000MN\u0001\u0000\u0000\u0000N\u0010\u0001\u0000\u0000\u0000"+
-		"OP\u0005<\u0000\u0000P\u0012\u0001\u0000\u0000\u0000QR\u0005>\u0000\u0000"+
+		"OP\u0005+\u0000\u0000P\u0012\u0001\u0000\u0000\u0000QR\u0005;\u0000\u0000"+
 		"R\u0014\u0001\u0000\u0000\u0000ST\u0005g\u0000\u0000T\u0016\u0001\u0000"+
 		"\u0000\u0000UV\u0005r\u0000\u0000VW\u0007\u0000\u0000\u0000W\u0018\u0001"+
 		"\u0000\u0000\u0000XY\u0005.\u0000\u0000Y\u001a\u0001\u0000\u0000\u0000"+

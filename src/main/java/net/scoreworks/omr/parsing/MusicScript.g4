@@ -1,19 +1,16 @@
 grammar MusicScript;
 
-score: BARL event+;
-event: 'T' staff ('&' staff)? BARL? | 'L' staff BARL?;
-staff: meta+ ottavastart? group* ottavaend? | ottavastart? group+ ottavaend?;
+score: event+ BARL;
+event: BARL? 'T' segment* ('&' segment*)? | BARL? 'L' segment*;
+segment: CLEF | key | time | OTTV? group+ OTTV?;
 group: (NEWV | SKPV+)? TUPL? rest | (NEWV | SKPV+)? TUPL? chord | (NEWV | SKPV+)? (GRACE chord)* TUPL? chord;
 rest: REST BEAM? DOT*;
 chord: note_open+ DOT* | STEM note_open+ DOT* | STEM note_solid+ DOT* | STEM BEAM? FLAG note_solid+ DOT*;
 note_open: accidental? TIE_END? NOTE_OPEN TIE_START?;
 note_solid: accidental? TIE_END? NOTE_SOLID TIE_START?;
 accidental: SHARP | FLAT | NATURAL | 'x' | '-';
-meta: CLEF | key | time;
 time: DIGIT+ SLASH DIGIT+ | 'c' | '/c';
 key: SHARP+ | FLAT+ | NATURAL+;
-ottavastart: OTTV;
-ottavaend: OTTV;
 
 // TERMINALS
 BARL: ':'? '|' ':'?;

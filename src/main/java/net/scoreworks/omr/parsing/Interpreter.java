@@ -1,152 +1,146 @@
 package net.scoreworks.omr.parsing;
 
-import jakarta.xml.bind.JAXBException;
 import net.scoreworks.music.model.*;
 import net.scoreworks.music.utils.Fraction;
-import net.scoreworks.omr.parsing.antlr.MusicScriptLexer;
-import net.scoreworks.omr.parsing.antlr.MusicScriptListener;
-import net.scoreworks.omr.parsing.antlr.MusicScriptParser;
-import net.scoreworks.xml.XmlExport;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class Interpreter implements MusicScriptListener {
-    private record ShiftInfo(Fraction start, Octavation octavation){}
-    private final Score score = new Score();
+public class Interpreter extends MusicScriptBaseListener {
+    private static class VoiceState implements Comparable<VoiceState> {
+        Fraction offset;
+        int staffId, voiceId;
+
+        public VoiceState(Fraction offset, int staffId, int voiceId) {
+            this.offset = offset;
+            this.staffId = staffId;
+            this.voiceId = voiceId;
+        }
+
+        @Override
+        public int compareTo(@NotNull VoiceState other) {
+            int tickComparison = this.offset.compareTo(other.offset);
+            if (tickComparison != 0) {
+                return tickComparison;
+            }
+            int staffComparison = Integer.compare(this.staffId, other.staffId);
+            if (staffComparison != 0) {
+                return staffComparison;
+            }
+            return Integer.compare(this.voiceId, other.voiceId);
+        }
+    }
+    private final Score score;
     private final Track track;
-    private int currentStaffId;
     private Fraction currentTick = Fraction.ZERO, barStartTick = Fraction.ZERO;
-    private final List<Voice> activeVoices = new ArrayList<>();
-    private final List<Voice> currentVoices = new ArrayList<>();
+    private int currentStaffId, currentVoiceId, voicePointer;
+    private final List<VoiceState> voices = new ArrayList<>();
+    private final List<MusicScriptParser.EventContext> events = new ArrayList<>();
     private final List<Note> pendingTies = new ArrayList<>();
     private final Map<Voice, NoteGroupOrRest> pendingBeams = new HashMap<>();
-    private final Map<Staff, ShiftInfo> pendingOctaveShifts = new HashMap<>();
     private final Map<Integer, Map<Integer, Accidental>> pendingAccidentals = new HashMap<>();
 
-    public Interpreter() {
+    public Interpreter(String tokens) {
+        MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(tokens));
+        MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
+        parser.addParseListener(this);
+        parser.score(); //do the parsing with itself as listener
+
+        //build score
+        score = new Score();
         track = new Track(score);
         new Staff(track, 0);
         new Staff(track, 1);
         for (Staff staff : track.getStaffs()) {
-            new TonalityRange(staff, currentTick, Tonality.Cmajor); // no visual signs is C major by default
-            new TimeSignatureRange(staff, currentTick, new TimeSignature(4, 4));
+            new TonalityRange(staff, Fraction.ZERO, Tonality.Cmajor); // no visual signs is C major by default
+            new TimeSignatureRange(staff, Fraction.ZERO, new TimeSignature(4, 4));
             pendingAccidentals.put(staff.getKey(), new HashMap<>());
+        }
+        for (MusicScriptParser.EventContext ctx : events) {
+            dispatchEvent(ctx);
         }
     }
 
     public Score getScore() {
         return score;
     }
+
     @Override
-    public void enterScore(MusicScriptParser.ScoreContext ctx) {}
-    @Override
-    public void exitScore(MusicScriptParser.ScoreContext ctx) {}
-    @Override
-    public void enterEvent(MusicScriptParser.EventContext ctx) {}
+    public void enterEvent(MusicScriptParser.EventContext ctx) {
+        Collections.sort(voices);
+        voicePointer = 0;
+        if (!voices.isEmpty())
+            currentTick = voices.get(0).offset;
+    }
+
     @Override
     public void exitEvent(MusicScriptParser.EventContext ctx) {
-        //calculate voice demand of this event
-        int voiceDemand = 0;
-        for (MusicScriptParser.StaffContext staffCtx : ctx.staff()) {
-            voiceDemand += staffCtx.group().size();
-        }
-        //create a new list of current voices sorted by the offset tick
-        currentVoices.clear();
-        currentVoices.addAll(activeVoices);
-        currentVoices.sort(Comparator.comparing(Voice::getEnd)); //this keeps insertion order for elements with same tick
-        //check for new voices and register them AFTER sorting as they have no duration
-        int currentVoiceIndex = 0;
-        for (MusicScriptParser.StaffContext staffCtx : ctx.staff()) {
-            for (MusicScriptParser.GroupContext groupCtx : staffCtx.group()) {
-                if (groupCtx.NEWV() != null || currentVoiceIndex >= currentVoices.size())
-                    newVoice(currentVoiceIndex);
-                currentVoiceIndex++;
-            }
-        }
-        if (voiceDemand > currentVoices.size())
-            throw new RuntimeException(String.format("Not enough voices at tick = %s. Expected %d, found %d", currentTick, voiceDemand, currentVoices.size()));
-        //advance current tick to be the greatest offset tick of demanded voices
-        for (int i=voiceDemand-1; i>=0; i--) {
-            Voice voice = currentVoices.get(i);
-            if (voice.getNoteGroupOrRests().isEmpty() || voice.getEnd().compareTo(currentTick) < 0)
-                continue;   //skip new (empty) and recycled voices
-            currentTick = voice.getEnd();
-            break;
-        }
-        //finally, dispatch the event
-        dispatchEvent(ctx);
+        ctx.tick = currentTick;
+        events.add(ctx);
     }
 
     @Override
-    public void enterStaff(MusicScriptParser.StaffContext ctx) {}
+    public void exitSegment(MusicScriptParser.SegmentContext ctx) {
+        ctx.staffId = currentStaffId;
+    }
+
     @Override
-    public void exitStaff(MusicScriptParser.StaffContext ctx) {}
-    @Override
-    public void enterGroup(MusicScriptParser.GroupContext ctx) {}
-    @Override
-    public void exitGroup(MusicScriptParser.GroupContext ctx) {}
-    @Override
-    public void enterRest(MusicScriptParser.RestContext ctx) {}
-    @Override
-    public void exitRest(MusicScriptParser.RestContext ctx) {}
-    @Override
-    public void enterChord(MusicScriptParser.ChordContext ctx) {}
-    @Override
-    public void exitChord(MusicScriptParser.ChordContext ctx) {}
-    @Override
-    public void enterNote_open(MusicScriptParser.Note_openContext ctx) {}
-    @Override
-    public void exitNote_open(MusicScriptParser.Note_openContext ctx) {}
-    @Override
-    public void enterNote_solid(MusicScriptParser.Note_solidContext ctx) {}
-    @Override
-    public void exitNote_solid(MusicScriptParser.Note_solidContext ctx) {}
-    @Override
-    public void enterAccidental(MusicScriptParser.AccidentalContext ctx) {}
-    @Override
-    public void exitAccidental(MusicScriptParser.AccidentalContext ctx) {}
-    @Override
-    public void enterMeta(MusicScriptParser.MetaContext ctx) {}
-    @Override
-    public void exitMeta(MusicScriptParser.MetaContext ctx) {}
-    @Override
-    public void enterTime(MusicScriptParser.TimeContext ctx) {}
-    @Override
-    public void exitTime(MusicScriptParser.TimeContext ctx) {}
-    @Override
-    public void enterKey(MusicScriptParser.KeyContext ctx) {}
-    @Override
-    public void exitKey(MusicScriptParser.KeyContext ctx) {}
-    @Override
-    public void enterOttavastart(MusicScriptParser.OttavastartContext ctx) {}
-    @Override
-    public void exitOttavastart(MusicScriptParser.OttavastartContext ctx) {}
-    @Override
-    public void enterOttavaend(MusicScriptParser.OttavaendContext ctx) {}
-    @Override
-    public void exitOttavaend(MusicScriptParser.OttavaendContext ctx) {}
+    public void exitGroup(MusicScriptParser.GroupContext ctx) {
+        //bind to voice
+        if (ctx.NEWV() != null || voicePointer >= voices.size()) {
+            voices.add(new VoiceState(currentTick, currentStaffId, currentVoiceId));
+            currentVoiceId++;
+        }
+        for (TerminalNode ignored : ctx.SKPV()) {
+            voices.remove(voicePointer);
+            currentVoiceId--;
+        }
+        VoiceState vs = voices.get(voicePointer);
+        ctx.voiceId = vs.voiceId;
+        vs.offset = vs.offset.add(getGroupDuration(ctx));
+        voicePointer++;
+    }
+
     @Override
     public void visitTerminal(TerminalNode node) {
-        //String type = MusicScriptLexer.VOCABULARY.getSymbolicName(node.getSymbol().getType()); if (type == null) return;
+        if (node.getSymbol().getType() == MusicScriptLexer.BARL) {
+            currentVoiceId = 0;
+            voicePointer = 0;
+            voices.clear();
+        }
+        switch (node.getSymbol().getText()) {
+            case "T" -> currentStaffId = 0;
+            case "L", "&" -> currentStaffId = 1;
+        }
     }
-    @Override
-    public void visitErrorNode(ErrorNode node) {}
-    @Override
-    public void enterEveryRule(ParserRuleContext ctx) {}
-    @Override
-    public void exitEveryRule(ParserRuleContext ctx) {}
 
+    private Fraction getGroupDuration(MusicScriptParser.GroupContext group) {
+        if (group.rest() != null) {
+            MusicScriptParser.RestContext rest = group.rest();
+            group.noteType = NoteType.fromExponent(-Integer.parseInt(rest.REST().getText().substring(1)));
+            group.dots = rest.DOT().size();
+            return group.noteType.getValue(group.dots);
+        }
+        MusicScriptParser.ChordContext chord = group.chord().get(group.chord().size()-1);
+        group.noteType = NoteType.QUARTER;
+        if (!chord.note_open().isEmpty()) {
+            group.noteType = NoteType.WHOLE;
+            if (chord.STEM() != null)
+                group.noteType = NoteType.HALF;
+        }
+        else if (chord.FLAG() != null) {
+            group.noteType = NoteType.fromExponent(-Integer.parseInt(chord.FLAG().getText().substring(1)) - 2);
+        }
+        group.dots = chord.DOT().size();
+        return group.noteType.getValue(group.dots);
+    }
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
-        int currentVoiceIndex = 0;  //point to the location of next voice to add a group to in urgentVoices
-        if (ctx.BARL() != null) {
+        currentTick = ctx.tick;
+        if (ctx.BARL() != null) {   //not called on very last bar line
             //handle irregular bars / up beats
             Fraction realBarDuration = currentTick.subtract(barStartTick);
             for (Staff staff : track.getStaffs()) {
@@ -167,195 +161,101 @@ public class Interpreter implements MusicScriptListener {
             }
             barStartTick = currentTick;
         }
-        currentStaffId = ctx.STAFF().getText().equals("T") ? 0 : 1;
-
-        for (int i=0; i<ctx.staff().size(); i++) {
-            MusicScriptParser.StaffContext staffCtx = ctx.staff(i);
-            if (i == 1) {
-                if (currentStaffId == 1)
-                    throw new RuntimeException(String.format("Can not staff change if already in bass at %s", currentTick));
-                currentStaffId = 1;
-            }
-            Staff staff = track.getStaff(currentStaffId);
-
-            for (MusicScriptParser.MetaContext metaCtx : staffCtx.meta()) {
-                if (metaCtx.CLEF() != null) {
-                    String value = metaCtx.CLEF().getText();
-                    switch (value) {
-                        case "G" -> new ClefRange(staff, currentTick, Clef.TREBLE);
-                        case "F" -> new ClefRange(staff, currentTick, Clef.BASS);
-                        default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
-                    }
-                }
-                if (metaCtx.time() != null) {
-                    if (metaCtx.time().SLASH() != null) {
-                        int slashLocation = metaCtx.time().SLASH().getSymbol().getStartIndex();
-                        StringBuilder numerator = new StringBuilder();
-                        StringBuilder denominator = new StringBuilder();
-                        for (TerminalNode digit : metaCtx.time().DIGIT()) {
-                            if (digit.getSymbol().getStartIndex() < slashLocation)
-                                numerator.append(digit.getText());
-                            else denominator.append(digit.getText());
-                        }
-                        new TimeSignatureRange(staff, currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
-                    }
-                    else {
-                        String value = metaCtx.time().getText();
-                        if (value.equals("c"))
-                            new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaSemibrevis());
-                        if (value.equals(""))
-                            new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaBreve());
-                    }
-                }
-                if (metaCtx.key() != null) {
-                    MusicScriptParser.KeyContext keyCtx = metaCtx.key();
-                    int fifths = 0;     // default/naturals
-                    if (!keyCtx.SHARP().isEmpty())
-                        fifths = keyCtx.SHARP().size();
-                    else if (!keyCtx.FLAT().isEmpty())
-                        fifths = -keyCtx.FLAT().size();
-                    new TonalityRange(staff, currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
-                    // reset active accidentals on that staff
-                    pendingAccidentals.put(currentStaffId, new HashMap<>());
+        //segments
+        for (MusicScriptParser.SegmentContext segment : ctx.segment()) {
+            Staff staff = track.getStaff(segment.staffId);
+            //meta events
+            if (segment.CLEF() != null) {
+                String value = segment.CLEF().getText();
+                switch (value) {
+                    case "G" -> new ClefRange(staff, currentTick, Clef.TREBLE);
+                    case "F" -> new ClefRange(staff, currentTick, Clef.BASS);
+                    default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
                 }
             }
-            if (staffCtx.ottavastart() != null) {
-                Octavation octavation;
-                switch(staffCtx.ottavastart().getText()) {
-                    case "va" -> octavation = Octavation.O8va;
-                    case "vb" -> octavation = Octavation.O8vb;
-                    case "ma" -> octavation = Octavation.O15ma;
-                    case "mb" -> octavation = Octavation.O15mb;
-                    default -> throw new RuntimeException(String.format("Octavation %s not recognized", staffCtx.ottavastart().getText()));
+            if (segment.time() != null) {
+                if (segment.time().SLASH() != null) {
+                    int slashLocation = segment.time().SLASH().getSymbol().getStartIndex();
+                    StringBuilder numerator = new StringBuilder();
+                    StringBuilder denominator = new StringBuilder();
+                    for (TerminalNode digit : segment.time().DIGIT()) {
+                        if (digit.getSymbol().getStartIndex() < slashLocation)
+                            numerator.append(digit.getText());
+                        else denominator.append(digit.getText());
+                    }
+                    new TimeSignatureRange(staff, currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
+                } else {
+                    String value = segment.time().getText();
+                    if (value.equals("c"))
+                        new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaSemibrevis());
+                    if (value.equals(""))
+                        new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaBreve());
                 }
-                pendingOctaveShifts.put(staff, new ShiftInfo(currentTick, octavation));
+            }
+            if (segment.key() != null) {
+                MusicScriptParser.KeyContext keyCtx = segment.key();
+                int fifths = 0;     // default/naturals
+                if (!keyCtx.SHARP().isEmpty())
+                    fifths = keyCtx.SHARP().size();
+                else if (!keyCtx.FLAT().isEmpty())
+                    fifths = -keyCtx.FLAT().size();
+                new TonalityRange(staff, currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
+                // reset active accidentals on that staff
+                pendingAccidentals.put(currentStaffId, new HashMap<>());
             }
             //do groups
-            for (MusicScriptParser.GroupContext groupCtx : staffCtx.group()) {
-                if (groupCtx.rest() != null) {
-                    MusicScriptParser.RestContext restCtx = groupCtx.rest();
-                    NoteType noteType = NoteType.fromExponent(-Integer.parseInt(restCtx.REST().getText().substring(1)));
-                    Voice voice = currentVoices.get(currentVoiceIndex);
-                    //handle the case rest is first in bar, whole and too long for bar -> whole appearance but different duration
-                    //currently bar duration can only be estimated to be normal, so these rests are only allowed to happen in normal bars
-                    //TODO overcome or remove Liebestraum
-                    Rest rest;
-                    TimeSignature timeSignature = staff.getTimeSignatureRange(currentTick).getTimeSignature();
-                    if (currentTick.compareTo(barStartTick) == 0 && noteType == NoteType.WHOLE && timeSignature.getFraction().compareTo(Fraction.ONE) < 0)
-                        rest = new Rest(currentTick, voice, staff, timeSignature.getFraction());
-                    //or normal rest
-                    else rest = new Rest(currentTick, voice, staff, noteType, restCtx.DOT().size());
-                    if (restCtx.BEAM() != null)
-                        processBeam(voice, rest, restCtx.BEAM().getText());
-                    currentVoiceIndex++;
+            for (MusicScriptParser.GroupContext group : segment.group()) {
+                Voice voice = track.getVoice(group.voiceId);
+                if (voice == null) voice = new Voice(track, group.voiceId);
+                //rest
+                if (group.rest() != null) {
+                    Rest rest = new Rest(currentTick, voice, staff, group.noteType, group.dots);
+                    if (group.rest().BEAM() != null)
+                        processBeam(voice, rest, group.rest().BEAM().getText());
                 }
-                else if (groupCtx.chord() != null) {
-                    MusicScriptParser.ChordContext chordCtx = groupCtx.chord();
-                    NoteType noteType = NoteType.QUARTER;
-                    if (!chordCtx.note_empty().isEmpty()) {
-                        noteType = NoteType.WHOLE;
-                        if (chordCtx.STEM() != null)
-                            noteType = NoteType.HALF;
-                    }
-                    else if (chordCtx.FLAG() != null) {
-                        noteType = NoteType.fromExponent(-Integer.parseInt(chordCtx.FLAG().getText().substring(1)) - 2);
-                    }
-
-                    //parse notes
-                    NoteGroup noteGroup = null;
-                    for (MusicScriptParser.NoteContext noteCtx : chordCtx.note()) {
-                        Accidental accidental = Accidental.NONE;
-                        if (noteCtx.accidental() != null) {
-                            switch (noteCtx.accidental().getText()) {
-                                case "#", "b", "n", "x" -> accidental = Accidental.fromString(noteCtx.accidental().getText());
-                                case "-" -> accidental = Accidental.FLAT_FLAT;
-                            }
-                        }
-                        int referenceLine = Integer.parseInt(noteCtx.LINE().getText().substring(1));
-                        referenceLine -= staff.getClefRange(currentTick).getClef().getC0_referenceLine();
-                        if (pendingOctaveShifts.containsKey(staff))
-                            referenceLine -= pendingOctaveShifts.get(staff).octavation.getShiftOctaves()*7;
-                        NoteName name = NoteName.values()[referenceLine % 7];
-                        OctaveRegion octave = OctaveRegion.fromNumber(referenceLine / 7);
-                        if (accidental != Accidental.NONE) pendingAccidentals.get(currentStaffId).put(name.noteLineId(octave), accidental);
-                        // instantiate Notes and NoteGroup
-                        Note note;
-                        if (noteGroup == null) {
-                            Voice voice = currentVoices.get(currentVoiceIndex);
-                            note = new Note(currentTick, voice, staff, noteType, chordCtx.DOT().size(), calculatePitch(name, octave, accidental), name, octave, accidental);
-                            noteGroup = note.getOwner();
-                            if (chordCtx.STEM() != null)
-                                noteGroup.setStem(chordCtx.STEM().getText().equals("u") ? Stem.UP : Stem.DOWN);
-                            if (chordCtx.BEAM() != null)
-                                processBeam(voice, noteGroup, chordCtx.BEAM().getText());
-                            currentVoiceIndex++;
-                        }
-                        else
-                            note = new Note(noteGroup, calculatePitch(name, octave, accidental), name, octave, accidental);
-                        if (noteCtx.TIE_START() != null)
-                            pendingTies.add(note);
-                        if (noteCtx.TIE_END() != null && !linkNotes(note))
-                            System.out.printf("Ignored erroneous tie at %s%n", currentTick.toString());
-                    }
-                }
-                if (groupCtx.VEND() != null)
-                    activeVoices.remove(currentVoices.get(currentVoiceIndex-1));
-            }
-            //octave shift ends
-            if (staffCtx.ottavaend() != null) {
-                if (!pendingOctaveShifts.containsKey(staff))
-                    System.out.printf("Ignored erroneous octave shift end without beginning at %s%n", currentTick.toString());
+                //chord
                 else {
-                    ShiftInfo info = pendingOctaveShifts.get(staff);
-                    new OctaveShiftRange(staff, staff.getNoteTimeTick(info.start), staff.getNoteTimeTick(currentTick), info.octavation);
-                    pendingOctaveShifts.remove(staff);
+                    MusicScriptParser.ChordContext chord = group.chord().get(group.chord().size() - 1);
+                    NoteGroup noteGroup = null;
+                    for (MusicScriptParser.Note_openContext note : chord.note_open())
+                        noteGroup = dispatchNote(noteGroup, staff, voice, group.noteType, group.dots, note.accidental(), Integer.parseInt(note.NOTE_OPEN().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
+                    for (MusicScriptParser.Note_solidContext note : chord.note_solid())
+                        noteGroup = dispatchNote(noteGroup, staff, voice, group.noteType, group.dots, note.accidental(), Integer.parseInt(note.NOTE_SOLID().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
+                    assert noteGroup != null;
+                    if (chord.STEM() != null)
+                        noteGroup.setStem(chord.STEM().getText().equals("u") ? Stem.UP : Stem.DOWN);
+                    if (chord.BEAM() != null)
+                        processBeam(voice, noteGroup, chord.BEAM().getText());
                 }
             }
-        }*/
+        }
     }
 
-    public static void main(String[] args) throws FileNotFoundException, JAXBException {
-        if (args.length < 2) {
-            System.out.println("Please provide sentence and output file path");
-            return;
+    private NoteGroup dispatchNote(NoteGroup noteGroup, Staff staff, Voice voice, NoteType noteType, int dots, MusicScriptParser.AccidentalContext acc, int referenceLine, boolean tieEnd, boolean tieStart) {
+        Accidental accidental = Accidental.NONE;
+        if (acc != null) {
+            switch (acc.getText()) {
+                case "#", "b", "n", "x" -> accidental = Accidental.fromString(acc.getText());
+                case "-" -> accidental = Accidental.FLAT_FLAT;
+            }
         }
-        MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(args[0]));
-        MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
-        Interpreter interpreter = new Interpreter();
-        parser.addParseListener(interpreter);
-        parser.score(); //do the parsing
-        Score score = interpreter.getScore();
-
-        XmlExport export = new XmlExport(score);
-        export.writeToFile(new FileOutputStream(args[1]));
-    }
-
-
-    private void newVoice(int currentVoiceIndex) {
-        Voice newVoice = null;
-        Set<Integer> occupiedIds = new HashSet<>();
-        //use inactive voices first before creating new ones
-        for (Voice voice : track.getVoices()) {
-            occupiedIds.add(voice.getKey());
-            if (activeVoices.contains(voice))
-                continue;
-            //voice is unbound at this point
-            newVoice = voice;
-            break;
+        referenceLine -= staff.getClefRange(currentTick).getClef().getC0_referenceLine();
+        //if (pendingOctaveShifts.containsKey(staff))
+            //line -= pendingOctaveShifts.get(staff).octavation.getShiftOctaves()*7;
+        NoteName name = NoteName.values()[referenceLine % 7];
+        OctaveRegion octave = OctaveRegion.fromNumber(referenceLine / 7);
+        if (accidental != Accidental.NONE) pendingAccidentals.get(currentStaffId).put(name.noteLineId(octave), accidental);
+        int pitch = calculatePitch(name, octave, accidental);
+        //instantiate
+        Note note;
+        if (noteGroup == null) {
+            note = new Note(currentTick, voice, staff, noteType, dots, pitch, name, octave, accidental);
+            noteGroup = note.getOwner();
         }
-        //if no inactive voice found to recycle, create new one
-        if (newVoice == null) {
-            int i = 0;
-            while (occupiedIds.contains(i))
-                i++;
-            newVoice = new Voice(track, i);
-        }
-        //add at right index (before current voice)
-        int insertIndex = 0;
-        if (!currentVoices.isEmpty())
-            insertIndex = activeVoices.indexOf(currentVoices.get(Math.max(0, currentVoiceIndex-1))) + 1;    //TODO math max only quick fix! Investigate!
-        activeVoices.add(insertIndex, newVoice);
-        currentVoices.add(currentVoiceIndex, newVoice);
+        else note = new Note(noteGroup, pitch, name, octave, accidental);
+        if (tieStart) pendingTies.add(note);
+        if (tieEnd && !linkNotes(note)) System.out.printf("Ignored erroneous tie at %s%n", currentTick.toString());
+        return noteGroup;
     }
 
     private int calculatePitch(NoteName name, OctaveRegion octave, Accidental accidental) {

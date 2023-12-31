@@ -1,5 +1,5 @@
 // Generated from C:/Users/Daniel/AppDevelopment/scoreworks/OpticalMusicRecognition/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4 by ANTLR 4.13.1
-package net.scoreworks.omr.parsing.antlr;
+package net.scoreworks.omr.parsing;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -28,15 +28,15 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 */
 	void exitEvent(MusicScriptParser.EventContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#staff}.
+	 * Enter a parse tree produced by {@link MusicScriptParser#segment}.
 	 * @param ctx the parse tree
 	 */
-	void enterStaff(MusicScriptParser.StaffContext ctx);
+	void enterSegment(MusicScriptParser.SegmentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#staff}.
+	 * Exit a parse tree produced by {@link MusicScriptParser#segment}.
 	 * @param ctx the parse tree
 	 */
-	void exitStaff(MusicScriptParser.StaffContext ctx);
+	void exitSegment(MusicScriptParser.SegmentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#group}.
 	 * @param ctx the parse tree
@@ -98,16 +98,6 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 */
 	void exitAccidental(MusicScriptParser.AccidentalContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#meta}.
-	 * @param ctx the parse tree
-	 */
-	void enterMeta(MusicScriptParser.MetaContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#meta}.
-	 * @param ctx the parse tree
-	 */
-	void exitMeta(MusicScriptParser.MetaContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#time}.
 	 * @param ctx the parse tree
 	 */
@@ -127,24 +117,4 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitKey(MusicScriptParser.KeyContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#ottavastart}.
-	 * @param ctx the parse tree
-	 */
-	void enterOttavastart(MusicScriptParser.OttavastartContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#ottavastart}.
-	 * @param ctx the parse tree
-	 */
-	void exitOttavastart(MusicScriptParser.OttavastartContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#ottavaend}.
-	 * @param ctx the parse tree
-	 */
-	void enterOttavaend(MusicScriptParser.OttavaendContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#ottavaend}.
-	 * @param ctx the parse tree
-	 */
-	void exitOttavaend(MusicScriptParser.OttavaendContext ctx);
 }
