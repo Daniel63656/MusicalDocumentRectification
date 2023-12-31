@@ -9,29 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="sdfdsf">
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="new Interpreter / removed Tokenizer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.musicxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Tokenizer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/antlr/MusicScriptVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Test.musicxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/out.musicxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -368,14 +349,8 @@
       <workItem from="1703080142095" duration="124000" />
       <workItem from="1703589062793" duration="1998000" />
       <workItem from="1703679445335" duration="15213000" />
-      <workItem from="1704013000364" duration="6158000" />
-    </task>
-    <task id="LOCAL-00168" summary="switching to double precision and regularization minimizes numerical errors at principal points">
-      <created>1688035767511</created>
-      <option name="number" value="00168" />
-      <option name="presentableId" value="LOCAL-00168" />
-      <option name="project" value="LOCAL" />
-      <updated>1688035767511</updated>
+      <workItem from="1704013000364" duration="9091000" />
+      <workItem from="1704036182930" duration="1292000" />
     </task>
     <task id="LOCAL-00169" summary="curve refactoring and class remodelling">
       <created>1688062422425</created>
@@ -713,7 +688,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703972611521</updated>
     </task>
-    <option name="localTasksCounter" value="217" />
+    <task id="LOCAL-00217" summary="new Interpreter / removed Tokenizer">
+      <created>1704019228137</created>
+      <option name="number" value="00217" />
+      <option name="presentableId" value="LOCAL-00217" />
+      <option name="project" value="LOCAL" />
+      <updated>1704019228137</updated>
+    </task>
+    <option name="localTasksCounter" value="218" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -796,7 +778,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="made QuadraticCurveModel unclamped" />
     <MESSAGE value="better lighting correction" />
     <MESSAGE value="scale adaptive lighting correction" />
     <MESSAGE value="even better lighing rectification with dilation" />
@@ -821,7 +802,8 @@
     <MESSAGE value="before language redesign" />
     <MESSAGE value="bar by bar" />
     <MESSAGE value="sdfdsf" />
-    <option name="LAST_COMMIT_MESSAGE" value="sdfdsf" />
+    <MESSAGE value="new Interpreter / removed Tokenizer" />
+    <option name="LAST_COMMIT_MESSAGE" value="new Interpreter / removed Tokenizer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -878,8 +860,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="477" />
+          <line>143</line>
+          <option name="timeStamp" value="470" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

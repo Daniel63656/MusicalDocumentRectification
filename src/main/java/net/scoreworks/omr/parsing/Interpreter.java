@@ -36,7 +36,7 @@ public class Interpreter extends MusicScriptBaseListener {
     private final Score score;
     private final Track track;
     private Fraction currentTick = Fraction.ZERO, barStartTick = Fraction.ZERO;
-    private int currentStaffId, currentVoiceId, voicePointer;
+    private int currentStaffId, currentVoiceId, voiceIdx;
     private final List<VoiceState> voices = new ArrayList<>();
     private final List<MusicScriptParser.EventContext> events = new ArrayList<>();
     private final List<Note> pendingTies = new ArrayList<>();
@@ -48,7 +48,6 @@ public class Interpreter extends MusicScriptBaseListener {
         MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
         parser.addParseListener(this);
         parser.score(); //do the parsing with itself as listener
-
         //build score
         score = new Score();
         track = new Track(score);
@@ -71,7 +70,7 @@ public class Interpreter extends MusicScriptBaseListener {
     @Override
     public void enterEvent(MusicScriptParser.EventContext ctx) {
         Collections.sort(voices);
-        voicePointer = 0;
+        voiceIdx = 0;
         if (!voices.isEmpty())
             currentTick = voices.get(0).offset;
     }
@@ -90,25 +89,25 @@ public class Interpreter extends MusicScriptBaseListener {
     @Override
     public void exitGroup(MusicScriptParser.GroupContext ctx) {
         //bind to voice
-        if (ctx.NEWV() != null || voicePointer >= voices.size()) {
-            voices.add(new VoiceState(currentTick, currentStaffId, currentVoiceId));
+        if (ctx.NEWV() != null || voiceIdx >= voices.size()) {
+            voices.add(voiceIdx, new VoiceState(currentTick, currentStaffId, currentVoiceId));
             currentVoiceId++;
         }
         for (TerminalNode ignored : ctx.SKPV()) {
-            voices.remove(voicePointer);
+            voices.remove(voiceIdx);
             currentVoiceId--;
         }
-        VoiceState vs = voices.get(voicePointer);
+        VoiceState vs = voices.get(voiceIdx);
         ctx.voiceId = vs.voiceId;
         vs.offset = vs.offset.add(getGroupDuration(ctx));
-        voicePointer++;
+        voiceIdx++;
     }
 
     @Override
     public void visitTerminal(TerminalNode node) {
         if (node.getSymbol().getType() == MusicScriptLexer.BARL) {
             currentVoiceId = 0;
-            voicePointer = 0;
+            voiceIdx = 0;
             voices.clear();
         }
         switch (node.getSymbol().getText()) {
@@ -140,7 +139,7 @@ public class Interpreter extends MusicScriptBaseListener {
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
         currentTick = ctx.tick;
-        if (ctx.BARL() != null) {   //not called on very last bar line
+        if (ctx.BARL() != null && currentTick.compareTo(Fraction.ZERO) > 0) {   //not called on first and last bar line in score
             //handle irregular bars / up beats
             Fraction realBarDuration = currentTick.subtract(barStartTick);
             for (Staff staff : track.getStaffs()) {
@@ -150,7 +149,8 @@ public class Interpreter extends MusicScriptBaseListener {
                     //make first in TimeSignatureRange if not already
                     if (currentBar.getKey() != 0)
                         tsr = new TimeSignatureRange(staff, currentTick, tsr.getTimeSignature());
-                    tsr.setUpBeatCorrect(realBarDuration.subtract(currentBar.getDuration()));
+                    Fraction z = realBarDuration.subtract(currentBar.getDuration());
+                    tsr.setUpBeatCorrect(z);
                 }
             }
             //reset bar specific pending collections
@@ -164,16 +164,22 @@ public class Interpreter extends MusicScriptBaseListener {
         //segments
         for (MusicScriptParser.SegmentContext segment : ctx.segment()) {
             Staff staff = track.getStaff(segment.staffId);
+            currentStaffId = segment.staffId;
             //meta events
             if (segment.CLEF() != null) {
                 String value = segment.CLEF().getText();
+                Clef clef;
                 switch (value) {
-                    case "G" -> new ClefRange(staff, currentTick, Clef.TREBLE);
-                    case "F" -> new ClefRange(staff, currentTick, Clef.BASS);
+                    case "G" -> clef = Clef.TREBLE;
+                    case "F" -> clef = Clef.BASS;
                     default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
                 }
+                ClefRange current = staff.getClefRange(currentTick);
+                if (current == null || current.getClef() != clef)
+                    new ClefRange(staff, currentTick, clef);
             }
             if (segment.time() != null) {
+                TimeSignature timeSignature;
                 if (segment.time().SLASH() != null) {
                     int slashLocation = segment.time().SLASH().getSymbol().getStartIndex();
                     StringBuilder numerator = new StringBuilder();
@@ -183,14 +189,19 @@ public class Interpreter extends MusicScriptBaseListener {
                             numerator.append(digit.getText());
                         else denominator.append(digit.getText());
                     }
-                    new TimeSignatureRange(staff, currentTick, new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString())));
-                } else {
+                    timeSignature = new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString()));
+                }
+                else {
                     String value = segment.time().getText();
                     if (value.equals("c"))
-                        new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaSemibrevis());
-                    if (value.equals(""))
-                        new TimeSignatureRange(staff, currentTick, TimeSignature.createAllaBreve());
+                        timeSignature = TimeSignature.createAllaSemibrevis();
+                    else if (value.equals("/c"))
+                        timeSignature = TimeSignature.createAllaBreve();
+                    else throw new RuntimeException(String.format("Time signature %s not recognized", value));
                 }
+                TimeSignatureRange current = staff.getTimeSignatureRange(currentTick);
+                if (current == null || current.getTimeSignature() != timeSignature)
+                    new TimeSignatureRange(staff, currentTick, timeSignature);
             }
             if (segment.key() != null) {
                 MusicScriptParser.KeyContext keyCtx = segment.key();
@@ -199,9 +210,13 @@ public class Interpreter extends MusicScriptBaseListener {
                     fifths = keyCtx.SHARP().size();
                 else if (!keyCtx.FLAT().isEmpty())
                     fifths = -keyCtx.FLAT().size();
-                new TonalityRange(staff, currentTick, Tonality.fromFifths(fifths, MajorMinor.Major));
-                // reset active accidentals on that staff
-                pendingAccidentals.put(currentStaffId, new HashMap<>());
+                Tonality tonality = Tonality.fromFifths(fifths, MajorMinor.Major);
+                TonalityRange current = staff.getTonalityRange(currentTick);
+                if (current == null || current.getTonality() != tonality) {
+                    new TonalityRange(staff, currentTick, tonality);
+                    // reset active accidentals on that staff
+                    pendingAccidentals.put(currentStaffId, new HashMap<>());
+                }
             }
             //do groups
             for (MusicScriptParser.GroupContext group : segment.group()) {
