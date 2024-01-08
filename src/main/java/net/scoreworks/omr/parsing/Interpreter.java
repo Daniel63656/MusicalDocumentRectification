@@ -139,7 +139,7 @@ public class Interpreter extends MusicScriptBaseListener {
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
         currentTick = ctx.tick;
-        if (ctx.BARL() != null && currentTick.compareTo(Fraction.ZERO) > 0) {   //not called on first and last bar line in score
+        if (ctx.barline() != null && currentTick.compareTo(Fraction.ZERO) > 0) {   //not called on first and last bar line in score
             //handle irregular bars / up beats
             Fraction realBarDuration = currentTick.subtract(barStartTick);
             for (Staff staff : track.getStaffs()) {
@@ -149,8 +149,7 @@ public class Interpreter extends MusicScriptBaseListener {
                     //make first in TimeSignatureRange if not already
                     if (currentBar.getKey() != 0)
                         tsr = new TimeSignatureRange(staff, currentTick, tsr.getTimeSignature());
-                    Fraction z = realBarDuration.subtract(currentBar.getDuration());
-                    tsr.setUpBeatCorrect(z);
+                    tsr.setUpBeatCorrect(realBarDuration.subtract(currentBar.getDuration()));
                 }
             }
             //reset bar specific pending collections

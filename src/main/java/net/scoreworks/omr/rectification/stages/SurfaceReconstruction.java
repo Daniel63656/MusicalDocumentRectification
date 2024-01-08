@@ -1,6 +1,6 @@
 package net.scoreworks.omr.rectification.stages;
 
-import net.scoreworks.omr.rectification.utils.arpackj.eig.SymmetricArpackSolver;
+import net.scoreworks.arpackj.eig.SymmetricArpackSolver;
 import org.la4j.Matrix;
 import org.la4j.matrix.sparse.CRSMatrix;
 import org.math.plot.Plot3DPanel;
@@ -9,7 +9,7 @@ import org.opencv.core.Point;
 import java.awt.*;
 import java.util.List;
 
-import static net.scoreworks.omr.rectification.utils.arpackj.eig.EigenvalueDecomposition.eigsh_shiftInvert;
+import static net.scoreworks.arpackj.eig.MatrixDecomposition.eigsh_shiftInvert;
 
 /**
  * Reconstruct the 3D surface based on a 2D mesh
@@ -104,7 +104,7 @@ public class SurfaceReconstruction {
         Matrix BtB = B_t.multiplyByItsTranspose();
         Matrix M = AtA.add(BtB.multiply(lambda));
 
-        SymmetricArpackSolver solver = eigsh_shiftInvert(M, 1, "LM", 0, null, 500, 1e-12);
+        SymmetricArpackSolver solver = eigsh_shiftInvert(M, null,  1, "LM", 0, null, 500, 1e-12);
         solver.solve();
         double[] result = solver.getEigenvectors();
 
@@ -145,7 +145,7 @@ public class SurfaceReconstruction {
 
         // Compute A^T*A
         Matrix AtA = A_t.multiplyByItsTranspose();
-        SymmetricArpackSolver solver = eigsh_shiftInvert(AtA, 1, "LM", 0, null, 500, 1e-9);
+        SymmetricArpackSolver solver = eigsh_shiftInvert(AtA, null,  1, "LM", 0, null, 500, 1e-9);
         solver.solve();
         return solver.getEigenvectors();
     }

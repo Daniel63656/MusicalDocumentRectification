@@ -76,4 +76,10 @@ public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitKey(MusicScriptParser.KeyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MusicScriptParser#barline}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBarline(MusicScriptParser.BarlineContext ctx);
 }

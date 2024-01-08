@@ -1,7 +1,7 @@
 grammar MusicScript;
 
-score: event+ BARL;
-event: BARL? 'T' segment* ('&' segment*)? | BARL? 'L' segment*;
+score: event+ barline;
+event: barline? 'T' segment* ('&' segment*)? | barline? 'L' segment*;
 segment: CLEF | key | time | OTTV? group+ OTTV?;
 group: (NEWV | SKPV+)? TUPL? rest | (NEWV | SKPV+)? TUPL? chord | (NEWV | SKPV+)? (GRACE chord)* TUPL? chord;
 rest: REST BEAM? DOT*;
@@ -9,11 +9,13 @@ chord: note_open+ DOT* | STEM note_open+ DOT* | STEM note_solid+ DOT* | STEM BEA
 note_open: accidental? TIE_END? NOTE_OPEN TIE_START?;
 note_solid: accidental? TIE_END? NOTE_SOLID TIE_START?;
 accidental: SHARP | FLAT | NATURAL | 'x' | '-';
+barline: REPEAT? BARL REPEAT?;
 time: DIGIT+ SLASH DIGIT+ | 'c' | '/c';
 key: SHARP+ | FLAT+ | NATURAL+;
 
 // TERMINALS
-BARL: ':'? '|' ':'?;
+REPEAT: ':';
+BARL: '|';
 NEWV: '+';
 SKPV: ';';
 GRACE: 'g';
