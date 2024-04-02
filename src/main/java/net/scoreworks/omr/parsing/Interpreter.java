@@ -1,12 +1,16 @@
 package net.scoreworks.omr.parsing;
 
+import jakarta.xml.bind.JAXBException;
 import net.scoreworks.music.model.*;
 import net.scoreworks.music.utils.Fraction;
+import net.scoreworks.xml.XmlExport;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.*;
 
 public class Interpreter extends MusicScriptBaseListener {
@@ -42,6 +46,17 @@ public class Interpreter extends MusicScriptBaseListener {
     private final List<Note> pendingTies = new ArrayList<>();
     private final Map<Voice, NoteGroupOrRest> pendingBeams = new HashMap<>();
     private final Map<Integer, Map<Integer, Accidental>> pendingAccidentals = new HashMap<>();
+
+    public static void main(String[] args) throws FileNotFoundException, JAXBException {
+        if (args.length != 2) {
+            System.out.println("Usage: java -jar Interpreter.jar <token_string> <filepath>");
+            return;
+        }
+        Interpreter interpreter = new Interpreter(args[0]);
+        Score score = interpreter.getScore();
+        XmlExport export = new XmlExport(score);
+        export.writeToFile(new FileOutputStream(args[1]));
+    }
 
     public Interpreter(String tokens) {
         MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(tokens));

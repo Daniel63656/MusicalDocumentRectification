@@ -70,7 +70,7 @@ public class DocumentRectification {
                 nearestOddNumber(0.75*iss), nearestOddNumber(2.5*iss), 15, 60));
 
         //detect curvilinear points
-        float sigma = LineModel.getLowerSigma(lineModel.getStaffLineThickness());
+        float sigma = 3f*LineModel.getLowerSigma(lineModel.getStaffLineThickness());
         float threshold = 0.4f * LineModel.getUpperThreshold(sigma, lineModel.getStaffLineThickness(), lineModel.getStaffLineContrast());
         StegerPointDetection stegerPointDetection = new StegerPointDetection(grayscale, sigma);
         timestamps.add(System.currentTimeMillis());
@@ -104,8 +104,8 @@ public class DocumentRectification {
         timestamps.add(System.currentTimeMillis());
 
         //print results from stages onto images for debugging/visualizations
-        //stegerPointDetection.visualize(img, threshold, threshold, new Scalar(0,255,0), new Scalar(255, 0, 0), 2);
-        staffDetection.visualize(img, new Scalar(0, 0, 255));
+        stegerPointDetection.visualize(img, threshold, threshold, new Scalar(0,255,0), new Scalar(255, 0, 0), 2);
+        //staffDetection.visualize(img, new Scalar(0, 0, 255));
         //ld.visualize(img, new Scalar(255, 0, 0));
 
         printProcessTimes();

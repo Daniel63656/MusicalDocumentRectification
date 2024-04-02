@@ -30,12 +30,16 @@ public class StegerPointDetection {
         createLocalDerivatives(sigma);
     }
 
+    private Scalar angleToColor(float angle) {
+        return new Scalar(255*Math.sin(angle), 255*Math.sin(angle + 2*Math.PI / 3.), 255*Math.sin(angle + 4*Math.PI / 3.));
+    }
+
     public void visualize(Mat img, float thresholdHor, float thresholdVer, Scalar colorHor, Scalar colorVer, int thickness) {
         for (LinePoint lp : getHorizontalPoints(thresholdHor).values()) {
-            Imgproc.circle(img, new Point(lp.x, lp.y), thickness, colorHor);
+            Imgproc.circle(img, new Point(lp.x, lp.y), 1, new Scalar(Math.abs(lp.f1)*255, Math.abs(lp.f2)*255, -lp.strength*30));
         }
         for (LinePoint lp : getVerticalPoints(thresholdVer)) {
-            Imgproc.circle(img, new Point(lp.x, lp.y), thickness, colorVer);
+            Imgproc.circle(img, new Point(lp.x, lp.y), 1, new Scalar(Math.abs(lp.f1)*255, Math.abs(lp.f2)*255, -lp.strength*30));
         }
     }
 
@@ -125,7 +129,7 @@ public class StegerPointDetection {
                 py = T * ny;
                 //add to point collection if maximum along normal gets 0 within pixel boundaries
                 if (px >= -0.5 & px <= 0.5 & py >= -0.5 & py <= 0.5) {
-                    points.put(x + px + 0.5f, new LinePoint(x + px + 0.5f, y + py + 0.5f, nx/-ny));
+                    points.put(x + px + 0.5f, new LinePoint(x + px + 0.5f, y + py + 0.5f, nx/-ny, nx, ny, lambda1));
                 }
             }
         }
@@ -183,7 +187,7 @@ public class StegerPointDetection {
                 py = T * ny;
                 //add to point collection if maximum along normal gets 0 within pixel boundaries
                 if (px >= -0.5 & px <= 0.5 & py >= -0.5 & py <= 0.5) {
-                    points.add(new LinePoint(x + px + 0.5f, y + py + 0.5f, -ny / nx));
+                    points.add(new LinePoint(x + px + 0.5f, y + py + 0.5f, -ny / nx, nx, ny, lambda1));
                 }
             }
         }
