@@ -39,7 +39,7 @@ public class Interpreter extends MusicScriptBaseListener {
     }
     private final Score score;
     private final Track track;
-    private Fraction currentTick = Fraction.ZERO, barStartTick = Fraction.ZERO;
+    private Fraction currentTime = Fraction.ZERO, barOnset = Fraction.ZERO;
     private int currentStaffId, currentVoiceId, voiceIdx;
     private final List<VoiceState> voices = new ArrayList<>();
     private final List<MusicScriptParser.EventContext> events = new ArrayList<>();
@@ -48,28 +48,24 @@ public class Interpreter extends MusicScriptBaseListener {
     private final Map<Integer, Map<Integer, Accidental>> pendingAccidentals = new HashMap<>();
 
     public static void main(String[] args) throws FileNotFoundException, JAXBException {
-        if (args.length < 2) {
-            System.out.println("Usage: java -jar Interpreter.jar <filepath> <token_string> [<token_string> ...]");
-            return;
+        if (args.length != 2) {
+            System.out.println("Usage: java -jar Interpreter.jar <filepath> <token_string>");
         }
-        Interpreter interpreter = new Interpreter(Arrays.copyOfRange(args, 1, args.length));
+        Interpreter interpreter = new Interpreter(args[1]);
         Score score = interpreter.getScore();
         XmlExport export = new XmlExport(score);
         export.writeToFile(new FileOutputStream(args[0]));
     }
 
-    public Interpreter(String...sentences) {
+    public Interpreter(String sentence) {
         score = new Score();
         track = new Track(score);
-
-        for (String sentence : sentences) {
-            MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(sentence));
-            MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
-            parser.addParseListener(this);
-            parser.score(); //do the parsing with itself as listener
-            for (MusicScriptParser.EventContext ctx : events) {
-                dispatchEvent(ctx);
-            }
+        MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(sentence));
+        MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
+        parser.addParseListener(this);
+        parser.score(); //do the parsing with itself as listener
+        for (MusicScriptParser.EventContext ctx : events) {
+            dispatchEvent(ctx);
         }
     }
 
@@ -91,12 +87,12 @@ public class Interpreter extends MusicScriptBaseListener {
         Collections.sort(voices);
         voiceIdx = 0;
         if (!voices.isEmpty())
-            currentTick = voices.get(0).offset;
+            currentTime = voices.get(0).offset;
     }
 
     @Override
     public void exitEvent(MusicScriptParser.EventContext ctx) {
-        ctx.onset = currentTick;
+        ctx.onset = currentTime;
         events.add(ctx);
     }
 
@@ -109,7 +105,7 @@ public class Interpreter extends MusicScriptBaseListener {
     public void exitGroup(MusicScriptParser.GroupContext ctx) {
         //bind to voice
         if (ctx.NEWV() != null || voiceIdx >= voices.size()) {
-            voices.add(voiceIdx, new VoiceState(currentTick, currentStaffId, currentVoiceId));
+            voices.add(voiceIdx, new VoiceState(currentTime, currentStaffId, currentVoiceId));
             currentVoiceId++;
         }
         for (TerminalNode ignored : ctx.SKPV()) {
@@ -163,18 +159,19 @@ public class Interpreter extends MusicScriptBaseListener {
     }
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
-        currentTick = ctx.onset;
+        currentTime = ctx.onset;
         //barline
-        if (ctx.barline() != null && currentTick.compareTo(Fraction.ZERO) > 0) {   //exclude first bar line
-            Fraction realBarDuration = currentTick.subtract(barStartTick);
+        if (ctx.barline() != null && currentTime.compareTo(Fraction.ZERO) > 0) {   //exclude first bar line
+            Fraction realBarDuration = currentTime.subtract(barOnset);
             for (Staff staff : track.getStaffs()) {
-                Bar currentBar = staff.getBar(barStartTick);
+                Bar currentBar = staff.getBar(barOnset);
                 //handle irregular bars / up beats
                 if (realBarDuration.compareTo(currentBar.getDuration()) != 0) {
                     TimeSignatureRange tsr = currentBar.getTimeSignatureRange();
-
-
-
+                    //make first in TimeSignatureRange if not already
+                    if (currentBar.getRangeIndex() != 0)
+                        tsr = new TimeSignatureRange(staff, barOnset, tsr.getTimeSignature());
+                    tsr.setUpBeatCorrect(realBarDuration.subtract(currentBar.getDuration()));
                 }
             }
             //reset bar specific pending collections
@@ -183,7 +180,7 @@ public class Interpreter extends MusicScriptBaseListener {
             for (Staff staff : track.getStaffs()) {
                 pendingAccidentals.put(staff.getKey(), new HashMap<>());
             }
-            barStartTick = currentTick;
+            barOnset = currentTime;
         }
         //segments
         for (MusicScriptParser.SegmentContext segment : ctx.segment()) {
@@ -198,9 +195,9 @@ public class Interpreter extends MusicScriptBaseListener {
                     case "F" -> clef = Clef.BASS;
                     default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
                 }
-                ClefRange current = staff.getClefRange(currentTick);
+                ClefRange current = staff.getClefRange(currentTime);
                 if (current == null || current.getClef() != clef)
-                    new ClefRange(staff, currentTick, clef);
+                    new ClefRange(staff, currentTime, clef);
             }
             if (segment.time() != null) {
                 TimeSignature timeSignature;
@@ -223,9 +220,9 @@ public class Interpreter extends MusicScriptBaseListener {
                         timeSignature = TimeSignature.createAllaBreve();
                     else throw new RuntimeException(String.format("Time signature %s not recognized", value));
                 }
-                TimeSignatureRange current = staff.getTimeSignatureRange(currentTick);
+                TimeSignatureRange current = staff.getTimeSignatureRange(currentTime);
                 if (current == null || current.getTimeSignature() != timeSignature)
-                    new TimeSignatureRange(staff, currentTick, timeSignature);
+                    new TimeSignatureRange(staff, currentTime, timeSignature);
             }
             if (segment.key() != null) {
                 MusicScriptParser.KeyContext keyCtx = segment.key();
@@ -235,9 +232,9 @@ public class Interpreter extends MusicScriptBaseListener {
                 else if (!keyCtx.FLAT().isEmpty())
                     fifths = -keyCtx.FLAT().size();
                 KeySignature tonality = new KeySignature(fifths, true);
-                KeyRange current = staff.getKeyRange(currentTick);
+                KeyRange current = staff.getKeyRange(currentTime);
                 if (current == null || current.getKeySignature() != tonality) {
-                    new KeyRange(staff, currentTick, tonality);
+                    new KeyRange(staff, currentTime, tonality);
                     // reset active accidentals on that staff
                     pendingAccidentals.put(currentStaffId, new HashMap<>());
                 }
@@ -248,7 +245,7 @@ public class Interpreter extends MusicScriptBaseListener {
                 if (voice == null) voice = new Voice(track, group.voiceId);
                 //rest
                 if (group.rest() != null) {
-                    Rest rest = new Rest(currentTick, voice, staff, group.noteType, group.dots);
+                    Rest rest = new Rest(currentTime, voice, staff, group.noteType, group.dots);
                     if (group.rest().BEAM() != null)
                         processBeam(voice, rest, group.rest().BEAM().getText());
                 }
@@ -281,7 +278,7 @@ public class Interpreter extends MusicScriptBaseListener {
                 case "-" -> accidental = Accidental.FLAT_FLAT;
             }
         }
-        referenceLine -= staff.getClefRange(currentTick).getClef().getC0_referenceLine();
+        referenceLine -= staff.getClefRange(currentTime).getClef().getC0_referenceLine();
         //if (pendingOctaveShifts.containsKey(staff))
             //line -= pendingOctaveShifts.get(staff).octavation.getShiftOctaves()*7;
         NoteName name = NoteName.values()[referenceLine % 7];
@@ -291,12 +288,12 @@ public class Interpreter extends MusicScriptBaseListener {
         //instantiate
         Note note;
         if (chord == null) {
-            note = new Note(currentTick, voice, staff, noteType, dots, pitch, name, octave, accidental);
+            note = new Note(currentTime, voice, staff, noteType, dots, pitch, name, octave, accidental);
             chord = (Chord) note.getOwner();
         }
         else note = new Note(chord, pitch, name, octave, accidental);
         if (tieStart) pendingTies.add(note);
-        if (tieEnd && !linkNotes(note)) System.out.printf("Ignored erroneous tie at %s%n", currentTick.toString());
+        if (tieEnd && !linkNotes(note)) System.out.printf("Ignored erroneous tie at %s%n", currentTime.toString());
         return chord;
     }
 
@@ -311,7 +308,7 @@ public class Interpreter extends MusicScriptBaseListener {
             pitch += pendingAccidentals.get(currentStaffId).get(name.stepId(octave)).getAlter();
         }
         else {
-            KeySignature key = track.getStaff(currentStaffId).getKeyRange(currentTick).getKeySignature();
+            KeySignature key = track.getStaff(currentStaffId).getKeyRange(currentTime).getKeySignature();
             if (key.pitchHasAccidental(pitch)) {
                 if (key.getFifths() > 0)
                     pitch++;
@@ -341,7 +338,7 @@ public class Interpreter extends MusicScriptBaseListener {
                 new Beam(voice, pendingBeams.get(voice), ngor);
                 pendingBeams.remove(voice);
             }
-            else System.out.printf("Ignored erroneous beam end without start at %s%n", currentTick.toString());
+            else System.out.printf("Ignored erroneous beam end without start at %s%n", currentTime.toString());
         }
     }
 }

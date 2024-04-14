@@ -9,19 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="made Interpreter.jar runnable">
-      <change afterPath="$PROJECT_DIR$/src/test/java/out.musicxml" afterDir="false" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="Interpreter accepts several sentences">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/out.musicxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -414,14 +406,7 @@
       <workItem from="1712056043987" duration="544000" />
       <workItem from="1712601568311" duration="20000" />
       <workItem from="1713001441893" duration="5366000" />
-      <workItem from="1713079604507" duration="7752000" />
-    </task>
-    <task id="LOCAL-00172" summary="working pipeline with non linear rulings">
-      <created>1688920977199</created>
-      <option name="number" value="00172" />
-      <option name="presentableId" value="LOCAL-00172" />
-      <option name="project" value="LOCAL" />
-      <updated>1688920977199</updated>
+      <workItem from="1713079604507" duration="9000000" />
     </task>
     <task id="LOCAL-00173" summary="good hough results">
       <created>1688923280514</created>
@@ -759,7 +744,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712056570761</updated>
     </task>
-    <option name="localTasksCounter" value="221" />
+    <task id="LOCAL-00221" summary="Interpreter accepts several sentences">
+      <created>1713097321946</created>
+      <option name="number" value="00221" />
+      <option name="presentableId" value="LOCAL-00221" />
+      <option name="project" value="LOCAL" />
+      <updated>1713097321946</updated>
+    </task>
+    <option name="localTasksCounter" value="222" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -842,7 +834,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="corrected FOV formula and added cases for camera orientation" />
     <MESSAGE value="inverted image during pipeline to eliminate black rectification borders and follow conventions" />
     <MESSAGE value="better longitude parameters" />
     <MESSAGE value="changed C_fg to 60" />
@@ -867,7 +858,8 @@
     <MESSAGE value="minor Interpreter corrections" />
     <MESSAGE value="depedency on ArpackJ as external project" />
     <MESSAGE value="made Interpreter.jar runnable" />
-    <option name="LAST_COMMIT_MESSAGE" value="made Interpreter.jar runnable" />
+    <MESSAGE value="Interpreter accepts several sentences" />
+    <option name="LAST_COMMIT_MESSAGE" value="Interpreter accepts several sentences" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -921,26 +913,6 @@
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.haifengl/smile-math/2.6.0/4ede8948462877d1108e524a67e2a53c98c320ab/smile-math-2.6.0-sources.jar!/smile/math/rbf/GaussianRadialBasis.java</url>
           <line>69</line>
           <option name="timeStamp" value="466" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>133</line>
-          <option name="timeStamp" value="480" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>137</line>
-          <option name="timeStamp" value="481" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>200</line>
-          <option name="timeStamp" value="482" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java</url>
-          <line>189</line>
-          <option name="timeStamp" value="483" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

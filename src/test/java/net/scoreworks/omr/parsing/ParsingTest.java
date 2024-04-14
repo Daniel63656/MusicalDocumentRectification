@@ -14,7 +14,7 @@ public class ParsingTest {
 
     @Test
     public void interpret() throws FileNotFoundException, JAXBException {
-        Interpreter interpreter = new Interpreter("|TGbu[f1s2&Fbus3Tu]f1s4Tu[f1s3&ds5s9Tu]f1s2|Tds5&ds6Tds5&ds8s10|Td[f1s5&ds6Td]f1s6Tu[f1s3&ds8s10Tu]f1s4|Tus2&us3Tus2&ds5s9|Tu[f1s2&us3Tu]f1s4Tu[f1s3&ds5s9Tu]f1s2|Tu[f1s1&ds6s8Tu]f1s5Tu[f1s2&ds3s9Tu]f1s3|Tus1&ds6s8Tds5&r2|");
+        Interpreter interpreter = new Interpreter("|TG4/4#r3&F4/4#r1Tu[f1s-3Tuf1s0Tu]f1s1|:Tu[f1s2&u[f1s-2Tu]f1s0(&uf1s5s7Tu)s0&uf1s-5Lu]f1s5s7Tr3&u[f1s-2Tu[f1s-3&uf1s5s7Tuf1s0&uf1s-5Tu]f1s1&u]f1s5s7|Tu[f1s2&u[f1s-2Tu]f1s0(&uf1s5s7Tu)s0&uf1s-5Lu]f1s5s7Tr3&u[f1s-2Tu[f1s-3&uf1s5s7Tuf1s0&uf1s-5Tu]f1s1&u]f1s5s7|Tus0s2&u[f1s-2Luf1s5s7Tu[f1s1&uf1s-5Tu]f1s0&u]f1s5s7Tus-1s2&u[f1s-3Luf1s4s6Tu[f1s1&uf1s-3Tu]f1s0&u]f1s4s6|Tus-2s0s4&u[f1s-4Luf1s3s5Tus-2s0s4&uf1s-4Lu]f1s3s5Tus-3#s-1s4&u[f1s-5Luf1s2#s4Tu[f1s1s3&uf1s-5Tu]f1s2s4&u]f1s2s4|");
         Score score = interpreter.getScore();
         XmlExport export = new XmlExport(score);
         export.writeToFile(new FileOutputStream("src/test/java/out.musicxml"));
