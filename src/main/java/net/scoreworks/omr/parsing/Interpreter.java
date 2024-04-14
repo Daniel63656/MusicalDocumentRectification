@@ -44,37 +44,41 @@ public class Interpreter extends MusicScriptBaseListener {
     private final List<VoiceState> voices = new ArrayList<>();
     private final List<MusicScriptParser.EventContext> events = new ArrayList<>();
     private final List<Note> pendingTies = new ArrayList<>();
-    private final Map<Voice, NoteGroupOrRest> pendingBeams = new HashMap<>();
+    private final Map<Voice, Element> pendingBeams = new HashMap<>();
     private final Map<Integer, Map<Integer, Accidental>> pendingAccidentals = new HashMap<>();
 
     public static void main(String[] args) throws FileNotFoundException, JAXBException {
-        if (args.length != 2) {
-            System.out.println("Usage: java -jar Interpreter.jar <token_string> <filepath>");
+        if (args.length < 2) {
+            System.out.println("Usage: java -jar Interpreter.jar <filepath> <token_string> [<token_string> ...]");
             return;
         }
-        Interpreter interpreter = new Interpreter(args[0]);
+        Interpreter interpreter = new Interpreter(Arrays.copyOfRange(args, 1, args.length));
         Score score = interpreter.getScore();
         XmlExport export = new XmlExport(score);
-        export.writeToFile(new FileOutputStream(args[1]));
+        export.writeToFile(new FileOutputStream(args[0]));
     }
 
-    public Interpreter(String tokens) {
-        MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(tokens));
-        MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
-        parser.addParseListener(this);
-        parser.score(); //do the parsing with itself as listener
-        //build score
+    public Interpreter(String...sentences) {
         score = new Score();
         track = new Track(score);
-        new Staff(track, 0);
-        new Staff(track, 1);
+
+        for (String sentence : sentences) {
+            MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(sentence));
+            MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
+            parser.addParseListener(this);
+            parser.score(); //do the parsing with itself as listener
+            for (MusicScriptParser.EventContext ctx : events) {
+                dispatchEvent(ctx);
+            }
+        }
+    }
+
+    private void createStaff(int staffId) {
+        new Staff(track, staffId);
         for (Staff staff : track.getStaffs()) {
-            new TonalityRange(staff, Fraction.ZERO, Tonality.Cmajor); // no visual signs is C major by default
+            new KeyRange(staff, Fraction.ZERO, new KeySignature(0, true)); // no visual signs is C major by default
             new TimeSignatureRange(staff, Fraction.ZERO, new TimeSignature(4, 4));
             pendingAccidentals.put(staff.getKey(), new HashMap<>());
-        }
-        for (MusicScriptParser.EventContext ctx : events) {
-            dispatchEvent(ctx);
         }
     }
 
@@ -92,7 +96,7 @@ public class Interpreter extends MusicScriptBaseListener {
 
     @Override
     public void exitEvent(MusicScriptParser.EventContext ctx) {
-        ctx.tick = currentTick;
+        ctx.onset = currentTick;
         events.add(ctx);
     }
 
@@ -126,8 +130,14 @@ public class Interpreter extends MusicScriptBaseListener {
             voices.clear();
         }
         switch (node.getSymbol().getText()) {
-            case "T" -> currentStaffId = 0;
-            case "L", "&" -> currentStaffId = 1;
+            case "T" -> {
+                currentStaffId = 0;
+                if (track.getStaffs().size() <= currentStaffId) createStaff(currentStaffId);
+            }
+            case "L", "&" -> {
+                currentStaffId = 1;
+                if (track.getStaffs().size() <= currentStaffId) createStaff(currentStaffId);
+            }
         }
     }
 
@@ -153,18 +163,18 @@ public class Interpreter extends MusicScriptBaseListener {
     }
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
-        currentTick = ctx.tick;
-        if (ctx.barline() != null && currentTick.compareTo(Fraction.ZERO) > 0) {   //not called on first and last bar line in score
-            //handle irregular bars / up beats
+        currentTick = ctx.onset;
+        //barline
+        if (ctx.barline() != null && currentTick.compareTo(Fraction.ZERO) > 0) {   //exclude first bar line
             Fraction realBarDuration = currentTick.subtract(barStartTick);
             for (Staff staff : track.getStaffs()) {
                 Bar currentBar = staff.getBar(barStartTick);
+                //handle irregular bars / up beats
                 if (realBarDuration.compareTo(currentBar.getDuration()) != 0) {
-                    TimeSignatureRange tsr = currentBar.getOwner();
-                    //make first in TimeSignatureRange if not already
-                    if (currentBar.getKey() != 0)
-                        tsr = new TimeSignatureRange(staff, currentTick, tsr.getTimeSignature());
-                    tsr.setUpBeatCorrect(realBarDuration.subtract(currentBar.getDuration()));
+                    TimeSignatureRange tsr = currentBar.getTimeSignatureRange();
+
+
+
                 }
             }
             //reset bar specific pending collections
@@ -224,10 +234,10 @@ public class Interpreter extends MusicScriptBaseListener {
                     fifths = keyCtx.SHARP().size();
                 else if (!keyCtx.FLAT().isEmpty())
                     fifths = -keyCtx.FLAT().size();
-                Tonality tonality = Tonality.fromFifths(fifths, MajorMinor.Major);
-                TonalityRange current = staff.getTonalityRange(currentTick);
-                if (current == null || current.getTonality() != tonality) {
-                    new TonalityRange(staff, currentTick, tonality);
+                KeySignature tonality = new KeySignature(fifths, true);
+                KeyRange current = staff.getKeyRange(currentTick);
+                if (current == null || current.getKeySignature() != tonality) {
+                    new KeyRange(staff, currentTick, tonality);
                     // reset active accidentals on that staff
                     pendingAccidentals.put(currentStaffId, new HashMap<>());
                 }
@@ -244,27 +254,30 @@ public class Interpreter extends MusicScriptBaseListener {
                 }
                 //chord
                 else {
-                    MusicScriptParser.ChordContext chord = group.chord().get(group.chord().size() - 1);
-                    NoteGroup noteGroup = null;
-                    for (MusicScriptParser.Note_openContext note : chord.note_open())
-                        noteGroup = dispatchNote(noteGroup, staff, voice, group.noteType, group.dots, note.accidental(), Integer.parseInt(note.NOTE_OPEN().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
-                    for (MusicScriptParser.Note_solidContext note : chord.note_solid())
-                        noteGroup = dispatchNote(noteGroup, staff, voice, group.noteType, group.dots, note.accidental(), Integer.parseInt(note.NOTE_SOLID().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
-                    assert noteGroup != null;
-                    if (chord.STEM() != null)
-                        noteGroup.setStem(chord.STEM().getText().equals("u") ? Stem.UP : Stem.DOWN);
-                    if (chord.BEAM() != null)
-                        processBeam(voice, noteGroup, chord.BEAM().getText());
+                    MusicScriptParser.ChordContext chordCtx = group.chord().get(group.chord().size() - 1);
+                    Chord chord = null;
+                    for (MusicScriptParser.Note_openContext note : chordCtx.note_open())
+                        chord = dispatchNote(chord, staff, voice, group.noteType, group.dots, note.accidental(), Integer.parseInt(note.NOTE_OPEN().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
+                    for (MusicScriptParser.Note_solidContext note : chordCtx.note_solid())
+                        chord = dispatchNote(chord, staff, voice, group.noteType, group.dots, note.accidental(), Integer.parseInt(note.NOTE_SOLID().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
+                    assert chord != null;
+                    if (chordCtx.STEM() != null)
+                        chord.setStem(chordCtx.STEM().getText().equals("u") ? Stem.UP : Stem.DOWN);
+                    if (chordCtx.BEAM() != null)
+                        processBeam(voice, chord, chordCtx.BEAM().getText());
                 }
             }
         }
     }
 
-    private NoteGroup dispatchNote(NoteGroup noteGroup, Staff staff, Voice voice, NoteType noteType, int dots, MusicScriptParser.AccidentalContext acc, int referenceLine, boolean tieEnd, boolean tieStart) {
+    private Chord dispatchNote(Chord chord, Staff staff, Voice voice, NoteType noteType, int dots, MusicScriptParser.AccidentalContext acc, int referenceLine, boolean tieEnd, boolean tieStart) {
         Accidental accidental = Accidental.NONE;
         if (acc != null) {
             switch (acc.getText()) {
-                case "#", "b", "n", "x" -> accidental = Accidental.fromString(acc.getText());
+                case "#" -> accidental = Accidental.SHARP;
+                case "b" -> accidental = Accidental.FLAT;
+                case "n" -> accidental = Accidental.NATURAL;
+                case "x" -> accidental = Accidental.DOUBLE_SHARP;
                 case "-" -> accidental = Accidental.FLAT_FLAT;
             }
         }
@@ -272,36 +285,35 @@ public class Interpreter extends MusicScriptBaseListener {
         //if (pendingOctaveShifts.containsKey(staff))
             //line -= pendingOctaveShifts.get(staff).octavation.getShiftOctaves()*7;
         NoteName name = NoteName.values()[referenceLine % 7];
-        OctaveRegion octave = OctaveRegion.fromNumber(referenceLine / 7);
-        if (accidental != Accidental.NONE) pendingAccidentals.get(currentStaffId).put(name.noteLineId(octave), accidental);
+        int octave = referenceLine / 7;
+        if (accidental != Accidental.NONE) pendingAccidentals.get(currentStaffId).put(name.stepId(octave), accidental);
         int pitch = calculatePitch(name, octave, accidental);
         //instantiate
         Note note;
-        if (noteGroup == null) {
+        if (chord == null) {
             note = new Note(currentTick, voice, staff, noteType, dots, pitch, name, octave, accidental);
-            noteGroup = note.getOwner();
+            chord = (Chord) note.getOwner();
         }
-        else note = new Note(noteGroup, pitch, name, octave, accidental);
+        else note = new Note(chord, pitch, name, octave, accidental);
         if (tieStart) pendingTies.add(note);
         if (tieEnd && !linkNotes(note)) System.out.printf("Ignored erroneous tie at %s%n", currentTick.toString());
-        return noteGroup;
+        return chord;
     }
 
-    private int calculatePitch(NoteName name, OctaveRegion octave, Accidental accidental) {
-        //pitch - alter = (1+octaveNumber)*12 + chromaticIndex
-        int pitch = (1+octave.getRegionNumber())*12 + NoteName.chromaticName2Index.get(name.name());
-
+    private int calculatePitch(NoteName name, int octave, Accidental accidental) {
+        //pitch - alter = (octave+1)*12 + chromaticIndex
+        int pitch = (octave+1)*12 + name.getChromaticIndex();
         //calculate alter
         if (accidental != Accidental.NONE) {
-            pitch += accidental.alter;
+            pitch += accidental.getAlter();
         }
-        else if (pendingAccidentals.get(currentStaffId).containsKey(name.noteLineId(octave))) {
-            pitch += pendingAccidentals.get(currentStaffId).get(name.noteLineId(octave)).alter;
+        else if (pendingAccidentals.get(currentStaffId).containsKey(name.stepId(octave))) {
+            pitch += pendingAccidentals.get(currentStaffId).get(name.stepId(octave)).getAlter();
         }
         else {
-            Tonality tonality = track.getStaff(currentStaffId).getTonalityRange(currentTick).getTonality();
-            if (tonality.pitchHasAccidental(pitch)) {
-                if (tonality.getFifths() > 0)
+            KeySignature key = track.getStaff(currentStaffId).getKeyRange(currentTick).getKeySignature();
+            if (key.pitchHasAccidental(pitch)) {
+                if (key.getFifths() > 0)
                     pitch++;
                 else
                     pitch--;
@@ -321,7 +333,7 @@ public class Interpreter extends MusicScriptBaseListener {
         return false;
     }
 
-    private void processBeam(Voice voice, NoteGroupOrRest ngor, String beamValue) {
+    private void processBeam(Voice voice, Element ngor, String beamValue) {
         if (beamValue.equals("["))
             pendingBeams.put(voice, ngor);
         else if (beamValue.equals("]")) {

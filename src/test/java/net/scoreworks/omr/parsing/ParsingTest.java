@@ -14,7 +14,7 @@ public class ParsingTest {
 
     @Test
     public void interpret() throws FileNotFoundException, JAXBException {
-        Interpreter interpreter = new Interpreter(BELLA_CIAO);
+        Interpreter interpreter = new Interpreter("|TGbu[f1s2&Fbus3Tu]f1s4Tu[f1s3&ds5s9Tu]f1s2|Tds5&ds6Tds5&ds8s10|Td[f1s5&ds6Td]f1s6Tu[f1s3&ds8s10Tu]f1s4|Tus2&us3Tus2&ds5s9|Tu[f1s2&us3Tu]f1s4Tu[f1s3&ds5s9Tu]f1s2|Tu[f1s1&ds6s8Tu]f1s5Tu[f1s2&ds3s9Tu]f1s3|Tus1&ds6s8Tds5&r2|");
         Score score = interpreter.getScore();
         XmlExport export = new XmlExport(score);
         export.writeToFile(new FileOutputStream("src/test/java/out.musicxml"));

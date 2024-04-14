@@ -98,6 +98,16 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 */
 	void exitAccidental(MusicScriptParser.AccidentalContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MusicScriptParser#barline}.
+	 * @param ctx the parse tree
+	 */
+	void enterBarline(MusicScriptParser.BarlineContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicScriptParser#barline}.
+	 * @param ctx the parse tree
+	 */
+	void exitBarline(MusicScriptParser.BarlineContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#time}.
 	 * @param ctx the parse tree
 	 */
@@ -117,14 +127,4 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitKey(MusicScriptParser.KeyContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#barline}.
-	 * @param ctx the parse tree
-	 */
-	void enterBarline(MusicScriptParser.BarlineContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#barline}.
-	 * @param ctx the parse tree
-	 */
-	void exitBarline(MusicScriptParser.BarlineContext ctx);
 }

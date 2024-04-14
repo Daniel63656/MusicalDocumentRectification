@@ -125,6 +125,18 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBarline(MusicScriptParser.BarlineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBarline(MusicScriptParser.BarlineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTime(MusicScriptParser.TimeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -144,18 +156,6 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitKey(MusicScriptParser.KeyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBarline(MusicScriptParser.BarlineContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBarline(MusicScriptParser.BarlineContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
