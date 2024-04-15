@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="Interpreter accepts several sentences">
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="one sentence again">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/StemDetection.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/out.musicxml" afterDir="false" />
     </list>
@@ -111,7 +112,7 @@
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.26206896",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "two.files.diff.last.used.file": "C:/Users/Daniel/AppDevelopment/immersive/OpticalMusicRecognition/src/main/java/com/immersive/omr/utils/QuadraticCurveModel.java",
     "vue.rearranger.settings.migration": "true"
   }
@@ -142,7 +143,20 @@
       <recent name="com.immersive.omr.stages" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ParsingTest.interpret">
+  <component name="RunManager" selected="Gradle.ParsingTest">
+    <configuration name="DocumentRectification" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="net.scoreworks.omr.rectification.DocumentRectification" />
+      <module name="OpticalMusicRecognition.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.scoreworks.omr.rectification.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ArpackTest" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -160,52 +174,6 @@
           </list>
         </option>
         <option name="vmOptions" value="-Djava.library.path=openCV" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="ArpackTest.interpret" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;net.scoreworks.omr.parsing.ArpackTest.interpret&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="ArpackTest.test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;net.scoreworks.omr.parsing.ArpackTest.test&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
       </ExternalSystemSettings>
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
@@ -258,6 +226,29 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="ParsingTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;net.scoreworks.omr.parsing.ParsingTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="ParsingTest.interpret" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -281,7 +272,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ParsingTest.testOneSong" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ParsingTest.testPrelude" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -294,7 +285,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;net.scoreworks.omr.parsing.ParsingTest.testOneSong&quot;" />
+            <option value="&quot;net.scoreworks.omr.parsing.ParsingTest.testPrelude&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -305,21 +296,21 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.DocumentRectification" />
       <item itemvalue="Gradle.ArpackTest" />
       <item itemvalue="Gradle.EigenvalueDecompositionTests" />
+      <item itemvalue="Gradle.ParsingTest" />
+      <item itemvalue="Gradle.ParsingTest.testPrelude" />
       <item itemvalue="Gradle.ArpackTest.test2" />
-      <item itemvalue="Gradle.ArpackTest.interpret" />
-      <item itemvalue="Gradle.ArpackTest.test" />
       <item itemvalue="Gradle.ParsingTest.interpret" />
-      <item itemvalue="Gradle.ParsingTest.testOneSong" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ParsingTest" />
+        <item itemvalue="Gradle.ParsingTest.testPrelude" />
+        <item itemvalue="Application.DocumentRectification" />
         <item itemvalue="Gradle.ParsingTest.interpret" />
         <item itemvalue="Gradle.ArpackTest.test2" />
-        <item itemvalue="Gradle.ArpackTest.test" />
-        <item itemvalue="Gradle.ArpackTest.interpret" />
-        <item itemvalue="Gradle.ParsingTest.testOneSong" />
       </list>
     </recent_temporary>
   </component>
@@ -406,14 +397,8 @@
       <workItem from="1712056043987" duration="544000" />
       <workItem from="1712601568311" duration="20000" />
       <workItem from="1713001441893" duration="5366000" />
-      <workItem from="1713079604507" duration="9000000" />
-    </task>
-    <task id="LOCAL-00173" summary="good hough results">
-      <created>1688923280514</created>
-      <option name="number" value="00173" />
-      <option name="presentableId" value="LOCAL-00173" />
-      <option name="project" value="LOCAL" />
-      <updated>1688923280514</updated>
+      <workItem from="1713079604507" duration="11447000" />
+      <workItem from="1713184594433" duration="12033000" />
     </task>
     <task id="LOCAL-00174" summary="sfg">
       <created>1688975266936</created>
@@ -751,7 +736,14 @@
       <option name="project" value="LOCAL" />
       <updated>1713097321946</updated>
     </task>
-    <option name="localTasksCounter" value="222" />
+    <task id="LOCAL-00222" summary="one sentence again">
+      <created>1713101722240</created>
+      <option name="number" value="00222" />
+      <option name="presentableId" value="LOCAL-00222" />
+      <option name="project" value="LOCAL" />
+      <updated>1713101722240</updated>
+    </task>
+    <option name="localTasksCounter" value="223" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -834,7 +826,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="inverted image during pipeline to eliminate black rectification borders and follow conventions" />
     <MESSAGE value="better longitude parameters" />
     <MESSAGE value="changed C_fg to 60" />
     <MESSAGE value="changed group to my company domain" />
@@ -859,7 +850,8 @@
     <MESSAGE value="depedency on ArpackJ as external project" />
     <MESSAGE value="made Interpreter.jar runnable" />
     <MESSAGE value="Interpreter accepts several sentences" />
-    <option name="LAST_COMMIT_MESSAGE" value="Interpreter accepts several sentences" />
+    <MESSAGE value="one sentence again" />
+    <option name="LAST_COMMIT_MESSAGE" value="one sentence again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -913,6 +905,11 @@
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.haifengl/smile-math/2.6.0/4ede8948462877d1108e524a67e2a53c98c320ab/smile-math-2.6.0-sources.jar!/smile/math/rbf/GaussianRadialBasis.java</url>
           <line>69</line>
           <option name="timeStamp" value="466" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="467" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

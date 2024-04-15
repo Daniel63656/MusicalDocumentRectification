@@ -69,62 +69,48 @@ public class Interpreter extends MusicScriptBaseListener {
         }
     }
 
-    private void createStaff(int staffId) {
-        new Staff(track, staffId);
-        for (Staff staff : track.getStaffs()) {
-            new KeyRange(staff, Fraction.ZERO, new KeySignature(0, true)); // no visual signs is C major by default
-            new TimeSignatureRange(staff, Fraction.ZERO, new TimeSignature(4, 4));
-            pendingAccidentals.put(staff.getKey(), new HashMap<>());
-        }
-    }
-
     public Score getScore() {
         return score;
     }
 
     @Override
-    public void enterEvent(MusicScriptParser.EventContext ctx) {
-        Collections.sort(voices);
-        voiceIdx = 0;
-        if (!voices.isEmpty())
-            currentTime = voices.get(0).offset;
-    }
-
-    @Override
     public void exitEvent(MusicScriptParser.EventContext ctx) {
+        voiceIdx = 0;
+        if (ctx.barline() != null) {
+            currentTime = voices.isEmpty() ? currentTime : voices.get(voices.size()-1).offset;
+            currentVoiceId = 0;
+            voices.clear();
+        }
+        else {
+            //sort voices based on offset
+            Collections.sort(voices);
+            //determine number of requested voices
+            int vReq = 0;
+            for (MusicScriptParser.SegmentContext segmentCtx : ctx.segment()) {
+                for (MusicScriptParser.GroupContext ignored : segmentCtx.group()) {
+                    vReq++;
+                }
+            }
+            //if not first event, set event's onset to last requested one. Ideally, all first vReq voices share the same
+            //offset. If not, this approach at least prevents clipping.
+            //Clipping index is necessary:
+            //  vReq >= voices.size() if event contains demand for new (not yet created) voices
+            //  vReq < 0 if event contains no groups (like only clef change)
+            currentTime = voices.isEmpty() ? currentTime : voices.get(Math.max(0, Math.min(vReq, voices.size()) - 1)).offset;
+        }
         ctx.onset = currentTime;
+        //TODO verify that voices 0 to vReq-1 share same offset and implement resolving strategies if not
+        //bind groups to voices and advance voice offsets by group's duration
+        for (MusicScriptParser.SegmentContext segmentCtx : ctx.segment()) {
+            for (MusicScriptParser.GroupContext groupCtx : segmentCtx.group()) {
+                bindToVoice(groupCtx, ctx.onset, segmentCtx.staffId);
+            }
+        }
         events.add(ctx);
     }
 
     @Override
-    public void exitSegment(MusicScriptParser.SegmentContext ctx) {
-        ctx.staffId = currentStaffId;
-    }
-
-    @Override
-    public void exitGroup(MusicScriptParser.GroupContext ctx) {
-        //bind to voice
-        if (ctx.NEWV() != null || voiceIdx >= voices.size()) {
-            voices.add(voiceIdx, new VoiceState(currentTime, currentStaffId, currentVoiceId));
-            currentVoiceId++;
-        }
-        for (TerminalNode ignored : ctx.SKPV()) {
-            voices.remove(voiceIdx);
-            currentVoiceId--;
-        }
-        VoiceState vs = voices.get(voiceIdx);
-        ctx.voiceId = vs.voiceId;
-        vs.offset = vs.offset.add(getGroupDuration(ctx));
-        voiceIdx++;
-    }
-
-    @Override
     public void visitTerminal(TerminalNode node) {
-        if (node.getSymbol().getType() == MusicScriptLexer.BARL) {
-            currentVoiceId = 0;
-            voiceIdx = 0;
-            voices.clear();
-        }
         switch (node.getSymbol().getText()) {
             case "T" -> {
                 currentStaffId = 0;
@@ -137,7 +123,39 @@ public class Interpreter extends MusicScriptBaseListener {
         }
     }
 
-    private Fraction getGroupDuration(MusicScriptParser.GroupContext group) {
+    @Override
+    public void exitSegment(MusicScriptParser.SegmentContext ctx) {
+        ctx.staffId = currentStaffId;
+    }
+
+
+    //---------- helper functions and dispatch -- move into respective classes eventually ----------------------------//
+
+    private void createStaff(int staffId) {
+        new Staff(track, staffId);
+        for (Staff staff : track.getStaffs()) {
+            new KeyRange(staff, Fraction.ZERO, new KeySignature(0, true)); // no visual signs is C major by default
+            new TimeSignatureRange(staff, Fraction.ZERO, new TimeSignature(2, 4));
+            pendingAccidentals.put(staff.getKey(), new HashMap<>());
+        }
+    }
+
+    private void bindToVoice(MusicScriptParser.GroupContext ctx, Fraction onset, int currentStaffId) {
+        if (ctx.NEWV() != null || voiceIdx >= voices.size()) {
+            voices.add(voiceIdx, new VoiceState(onset, currentStaffId, currentVoiceId));
+            currentVoiceId++;
+        }
+        for (TerminalNode ignored : ctx.SKPV()) {
+            voices.remove(voiceIdx);
+            currentVoiceId--;
+        }
+        VoiceState vs = voices.get(voiceIdx);
+        ctx.voiceId = vs.voiceId;
+        vs.offset = onset.add(determineGroupDuration(ctx));
+        voiceIdx++;
+    }
+
+    private Fraction determineGroupDuration(MusicScriptParser.GroupContext group) {
         if (group.rest() != null) {
             MusicScriptParser.RestContext rest = group.rest();
             group.noteType = NoteType.fromExponent(-Integer.parseInt(rest.REST().getText().substring(1)));
@@ -231,10 +249,10 @@ public class Interpreter extends MusicScriptBaseListener {
                     fifths = keyCtx.SHARP().size();
                 else if (!keyCtx.FLAT().isEmpty())
                     fifths = -keyCtx.FLAT().size();
-                KeySignature tonality = new KeySignature(fifths, true);
+                KeySignature key = new KeySignature(fifths, true);
                 KeyRange current = staff.getKeyRange(currentTime);
-                if (current == null || current.getKeySignature() != tonality) {
-                    new KeyRange(staff, currentTime, tonality);
+                if (current == null || !Objects.equals(current.getKeySignature(), key)) {
+                    new KeyRange(staff, currentTime, key);
                     // reset active accidentals on that staff
                     pendingAccidentals.put(currentStaffId, new HashMap<>());
                 }
@@ -280,7 +298,7 @@ public class Interpreter extends MusicScriptBaseListener {
         }
         referenceLine -= staff.getClefRange(currentTime).getClef().getC0_referenceLine();
         //if (pendingOctaveShifts.containsKey(staff))
-            //line -= pendingOctaveShifts.get(staff).octavation.getShiftOctaves()*7;
+        //line -= pendingOctaveShifts.get(staff).octavation.getShiftOctaves()*7;
         NoteName name = NoteName.values()[referenceLine % 7];
         int octave = referenceLine / 7;
         if (accidental != Accidental.NONE) pendingAccidentals.get(currentStaffId).put(name.stepId(octave), accidental);
@@ -330,12 +348,12 @@ public class Interpreter extends MusicScriptBaseListener {
         return false;
     }
 
-    private void processBeam(Voice voice, Element ngor, String beamValue) {
+    private void processBeam(Voice voice, Element element, String beamValue) {
         if (beamValue.equals("["))
-            pendingBeams.put(voice, ngor);
+            pendingBeams.put(voice, element);
         else if (beamValue.equals("]")) {
             if (pendingBeams.containsKey(voice)) {
-                new Beam(voice, pendingBeams.get(voice), ngor);
+                new Beam(voice, pendingBeams.get(voice), element);
                 pendingBeams.remove(voice);
             }
             else System.out.printf("Ignored erroneous beam end without start at %s%n", currentTime.toString());
