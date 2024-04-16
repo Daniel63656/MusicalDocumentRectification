@@ -1,9 +1,11 @@
 grammar MusicScript;
 
-score: event+ barline;
-event: barline? 'T' segment+ ('&' segment+)? | barline? 'L' segment+;
-segment: CLEF | key | time | OTTV? group+ OTTV?;
-group: (NEWV | SKPV+)? TUPL? rest | (NEWV | SKPV+)? (GRACE chord)* TUPL? chord;
+track: event+ barline;
+event: barline? 'T' stafflet+ ('&' stafflet+)? | barline? 'L' stafflet+;
+stafflet: CLEF | key | time | OTTV? voicelet+ OTTV?;
+voicelet: (NEWV | SKPV+)? element;
+element: rest | (GRACE chord)* chord | tuplet;
+tuplet: '{' element+ '}';
 rest: REST BEAM? DOT*;
 chord: note_open+ DOT* | STEM note_open+ DOT* | STEM note_solid+ DOT* | STEM BEAM? FLAG note_solid+ DOT*;
 note_open: accidental? TIE_END? NOTE_OPEN TIE_START?;
@@ -14,8 +16,8 @@ time: DIGIT+ SLASH DIGIT+ | 'c' | '/c';
 key: SHARP+ | FLAT+ | NATURAL+;
 
 // TERMINALS
-REPEAT: ':';
 BARL: '|';
+REPEAT: ':';
 NEWV: '+';
 SKPV: ';';
 GRACE: 'g';
@@ -25,7 +27,6 @@ TIE_START: '(';
 TIE_END: ')';
 FLAG: 'f'[1-5];
 BEAM: '[' | ']';
-TUPL: '{' | '*' | '}';
 STEM: 'u' | 'd';
 NOTE_OPEN: 'o' '-'? [0-9]+;
 NOTE_SOLID: 's' '-'? [0-9]+;

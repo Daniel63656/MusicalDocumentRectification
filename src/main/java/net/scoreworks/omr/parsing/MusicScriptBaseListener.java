@@ -17,13 +17,13 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScore(MusicScriptParser.ScoreContext ctx) { }
+	@Override public void enterTrack(MusicScriptParser.TrackContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitScore(MusicScriptParser.ScoreContext ctx) { }
+	@Override public void exitTrack(MusicScriptParser.TrackContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -41,25 +41,49 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSegment(MusicScriptParser.SegmentContext ctx) { }
+	@Override public void enterStafflet(MusicScriptParser.StaffletContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSegment(MusicScriptParser.SegmentContext ctx) { }
+	@Override public void exitStafflet(MusicScriptParser.StaffletContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGroup(MusicScriptParser.GroupContext ctx) { }
+	@Override public void enterVoicelet(MusicScriptParser.VoiceletContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitGroup(MusicScriptParser.GroupContext ctx) { }
+	@Override public void exitVoicelet(MusicScriptParser.VoiceletContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElement(MusicScriptParser.ElementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElement(MusicScriptParser.ElementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTuplet(MusicScriptParser.TupletContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTuplet(MusicScriptParser.TupletContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

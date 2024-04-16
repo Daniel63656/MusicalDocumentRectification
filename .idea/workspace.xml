@@ -9,12 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="one sentence again">
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="interpreter takes longest offset">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/StemDetection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/out.musicxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,29 +188,6 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ArpackTest.test2" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--stacktrace" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;net.scoreworks.omr.parsing.ArpackTest.test2&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="EigenvalueDecompositionTests" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -272,6 +257,29 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="ParsingTest.testBellaCiao" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;net.scoreworks.omr.parsing.ParsingTest.testBellaCiao&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="ParsingTest.testPrelude" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -300,17 +308,17 @@
       <item itemvalue="Gradle.ArpackTest" />
       <item itemvalue="Gradle.EigenvalueDecompositionTests" />
       <item itemvalue="Gradle.ParsingTest" />
+      <item itemvalue="Gradle.ParsingTest.testBellaCiao" />
       <item itemvalue="Gradle.ParsingTest.testPrelude" />
-      <item itemvalue="Gradle.ArpackTest.test2" />
       <item itemvalue="Gradle.ParsingTest.interpret" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ParsingTest" />
+        <item itemvalue="Gradle.ParsingTest.testBellaCiao" />
         <item itemvalue="Gradle.ParsingTest.testPrelude" />
         <item itemvalue="Application.DocumentRectification" />
         <item itemvalue="Gradle.ParsingTest.interpret" />
-        <item itemvalue="Gradle.ArpackTest.test2" />
       </list>
     </recent_temporary>
   </component>
@@ -398,14 +406,7 @@
       <workItem from="1712601568311" duration="20000" />
       <workItem from="1713001441893" duration="5366000" />
       <workItem from="1713079604507" duration="11447000" />
-      <workItem from="1713184594433" duration="12033000" />
-    </task>
-    <task id="LOCAL-00174" summary="sfg">
-      <created>1688975266936</created>
-      <option name="number" value="00174" />
-      <option name="presentableId" value="LOCAL-00174" />
-      <option name="project" value="LOCAL" />
-      <updated>1688975266936</updated>
+      <workItem from="1713184594433" duration="16691000" />
     </task>
     <task id="LOCAL-00175" summary="sfgada">
       <created>1688987194149</created>
@@ -743,7 +744,14 @@
       <option name="project" value="LOCAL" />
       <updated>1713101722240</updated>
     </task>
-    <option name="localTasksCounter" value="223" />
+    <task id="LOCAL-00223" summary="interpreter takes longest offset">
+      <created>1713208281426</created>
+      <option name="number" value="00223" />
+      <option name="presentableId" value="LOCAL-00223" />
+      <option name="project" value="LOCAL" />
+      <updated>1713208281426</updated>
+    </task>
+    <option name="localTasksCounter" value="224" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -826,7 +834,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="better longitude parameters" />
     <MESSAGE value="changed C_fg to 60" />
     <MESSAGE value="changed group to my company domain" />
     <MESSAGE value="included parsing tools from other project" />
@@ -851,7 +858,8 @@
     <MESSAGE value="made Interpreter.jar runnable" />
     <MESSAGE value="Interpreter accepts several sentences" />
     <MESSAGE value="one sentence again" />
-    <option name="LAST_COMMIT_MESSAGE" value="one sentence again" />
+    <MESSAGE value="interpreter takes longest offset" />
+    <option name="LAST_COMMIT_MESSAGE" value="interpreter takes longest offset" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -905,11 +913,6 @@
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.haifengl/smile-math/2.6.0/4ede8948462877d1108e524a67e2a53c98c320ab/smile-math-2.6.0-sources.jar!/smile/math/rbf/GaussianRadialBasis.java</url>
           <line>69</line>
           <option name="timeStamp" value="466" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java</url>
-          <line>17</line>
-          <option name="timeStamp" value="467" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

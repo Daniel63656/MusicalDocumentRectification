@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface MusicScriptListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#score}.
+	 * Enter a parse tree produced by {@link MusicScriptParser#track}.
 	 * @param ctx the parse tree
 	 */
-	void enterScore(MusicScriptParser.ScoreContext ctx);
+	void enterTrack(MusicScriptParser.TrackContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#score}.
+	 * Exit a parse tree produced by {@link MusicScriptParser#track}.
 	 * @param ctx the parse tree
 	 */
-	void exitScore(MusicScriptParser.ScoreContext ctx);
+	void exitTrack(MusicScriptParser.TrackContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#event}.
 	 * @param ctx the parse tree
@@ -28,25 +28,45 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 */
 	void exitEvent(MusicScriptParser.EventContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#segment}.
+	 * Enter a parse tree produced by {@link MusicScriptParser#stafflet}.
 	 * @param ctx the parse tree
 	 */
-	void enterSegment(MusicScriptParser.SegmentContext ctx);
+	void enterStafflet(MusicScriptParser.StaffletContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#segment}.
+	 * Exit a parse tree produced by {@link MusicScriptParser#stafflet}.
 	 * @param ctx the parse tree
 	 */
-	void exitSegment(MusicScriptParser.SegmentContext ctx);
+	void exitStafflet(MusicScriptParser.StaffletContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#group}.
+	 * Enter a parse tree produced by {@link MusicScriptParser#voicelet}.
 	 * @param ctx the parse tree
 	 */
-	void enterGroup(MusicScriptParser.GroupContext ctx);
+	void enterVoicelet(MusicScriptParser.VoiceletContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#group}.
+	 * Exit a parse tree produced by {@link MusicScriptParser#voicelet}.
 	 * @param ctx the parse tree
 	 */
-	void exitGroup(MusicScriptParser.GroupContext ctx);
+	void exitVoicelet(MusicScriptParser.VoiceletContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MusicScriptParser#element}.
+	 * @param ctx the parse tree
+	 */
+	void enterElement(MusicScriptParser.ElementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicScriptParser#element}.
+	 * @param ctx the parse tree
+	 */
+	void exitElement(MusicScriptParser.ElementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MusicScriptParser#tuplet}.
+	 * @param ctx the parse tree
+	 */
+	void enterTuplet(MusicScriptParser.TupletContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicScriptParser#tuplet}.
+	 * @param ctx the parse tree
+	 */
+	void exitTuplet(MusicScriptParser.TupletContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#rest}.
 	 * @param ctx the parse tree

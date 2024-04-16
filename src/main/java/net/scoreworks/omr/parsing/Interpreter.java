@@ -63,7 +63,7 @@ public class Interpreter extends MusicScriptBaseListener {
         MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(sentence));
         MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
         parser.addParseListener(this);
-        parser.score(); //do the parsing with itself as listener
+        parser.track(); //do the parsing with itself as listener
         for (MusicScriptParser.EventContext ctx : events) {
             dispatchEvent(ctx);
         }
@@ -86,10 +86,8 @@ public class Interpreter extends MusicScriptBaseListener {
             Collections.sort(voices);
             //determine number of requested voices
             int vReq = 0;
-            for (MusicScriptParser.SegmentContext segmentCtx : ctx.segment()) {
-                for (MusicScriptParser.GroupContext ignored : segmentCtx.group()) {
-                    vReq++;
-                }
+            for (MusicScriptParser.StaffletContext stafflet : ctx.stafflet()) {
+                vReq += stafflet.voicelet().size();
             }
             //if not first event, set event's onset to last requested one. Ideally, all first vReq voices share the same
             //offset. If not, this approach at least prevents clipping.
@@ -101,9 +99,9 @@ public class Interpreter extends MusicScriptBaseListener {
         ctx.onset = currentTime;
         //TODO verify that voices 0 to vReq-1 share same offset and implement resolving strategies if not
         //bind groups to voices and advance voice offsets by group's duration
-        for (MusicScriptParser.SegmentContext segmentCtx : ctx.segment()) {
-            for (MusicScriptParser.GroupContext groupCtx : segmentCtx.group()) {
-                bindToVoice(groupCtx, ctx.onset, segmentCtx.staffId);
+        for (MusicScriptParser.StaffletContext stafflet : ctx.stafflet()) {
+            for (MusicScriptParser.VoiceletContext voicelet : stafflet.voicelet()) {
+                bindToVoice(voicelet, ctx.onset, stafflet.staffId);
             }
         }
         events.add(ctx);
@@ -124,7 +122,7 @@ public class Interpreter extends MusicScriptBaseListener {
     }
 
     @Override
-    public void exitSegment(MusicScriptParser.SegmentContext ctx) {
+    public void exitStafflet(MusicScriptParser.StaffletContext ctx) {
         ctx.staffId = currentStaffId;
     }
 
@@ -140,40 +138,41 @@ public class Interpreter extends MusicScriptBaseListener {
         }
     }
 
-    private void bindToVoice(MusicScriptParser.GroupContext ctx, Fraction onset, int currentStaffId) {
-        if (ctx.NEWV() != null || voiceIdx >= voices.size()) {
+    private void bindToVoice(MusicScriptParser.VoiceletContext voicelet, Fraction onset, int currentStaffId) {
+        if (voicelet.NEWV() != null || voiceIdx >= voices.size()) {
             voices.add(voiceIdx, new VoiceState(onset, currentStaffId, currentVoiceId));
             currentVoiceId++;
         }
-        for (TerminalNode ignored : ctx.SKPV()) {
+        for (TerminalNode ignored : voicelet.SKPV()) {
             voices.remove(voiceIdx);
             currentVoiceId--;
         }
         VoiceState vs = voices.get(voiceIdx);
-        ctx.voiceId = vs.voiceId;
-        vs.offset = onset.add(determineGroupDuration(ctx));
+        voicelet.voiceId = vs.voiceId;
+        vs.offset = onset.add(determineGroupDuration(voicelet));
         voiceIdx++;
     }
 
-    private Fraction determineGroupDuration(MusicScriptParser.GroupContext group) {
-        if (group.rest() != null) {
-            MusicScriptParser.RestContext rest = group.rest();
-            group.noteType = NoteType.fromExponent(-Integer.parseInt(rest.REST().getText().substring(1)));
-            group.dots = rest.DOT().size();
-            return group.noteType.getValue(group.dots);
+    private Fraction determineGroupDuration(MusicScriptParser.VoiceletContext voicelet) {
+        MusicScriptParser.ElementContext element = voicelet.element();
+        if (element.rest() != null) {
+            MusicScriptParser.RestContext rest = element.rest();
+            element.noteType = NoteType.fromExponent(-Integer.parseInt(rest.REST().getText().substring(1)));
+            element.dots = rest.DOT().size();
+            return element.noteType.getValue(element.dots);
         }
-        MusicScriptParser.ChordContext chord = group.chord().get(group.chord().size()-1);
-        group.noteType = NoteType.QUARTER;
+        MusicScriptParser.ChordContext chord = element.chord().get(element.chord().size()-1);
+        element.noteType = NoteType.QUARTER;
         if (!chord.note_open().isEmpty()) {
-            group.noteType = NoteType.WHOLE;
+            element.noteType = NoteType.WHOLE;
             if (chord.STEM() != null)
-                group.noteType = NoteType.HALF;
+                element.noteType = NoteType.HALF;
         }
         else if (chord.FLAG() != null) {
-            group.noteType = NoteType.fromExponent(-Integer.parseInt(chord.FLAG().getText().substring(1)) - 2);
+            element.noteType = NoteType.fromExponent(-Integer.parseInt(chord.FLAG().getText().substring(1)) - 2);
         }
-        group.dots = chord.DOT().size();
-        return group.noteType.getValue(group.dots);
+        element.dots = chord.DOT().size();
+        return element.noteType.getValue(element.dots);
     }
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
@@ -200,13 +199,13 @@ public class Interpreter extends MusicScriptBaseListener {
             }
             barOnset = currentTime;
         }
-        //segments
-        for (MusicScriptParser.SegmentContext segment : ctx.segment()) {
-            Staff staff = track.getStaff(segment.staffId);
-            currentStaffId = segment.staffId;
+        //stafflets
+        for (MusicScriptParser.StaffletContext stafflet : ctx.stafflet()) {
+            Staff staff = track.getStaff(stafflet.staffId);
+            currentStaffId = stafflet.staffId;
             //meta events
-            if (segment.CLEF() != null) {
-                String value = segment.CLEF().getText();
+            if (stafflet.CLEF() != null) {
+                String value = stafflet.CLEF().getText();
                 Clef clef;
                 switch (value) {
                     case "G" -> clef = Clef.TREBLE;
@@ -217,13 +216,13 @@ public class Interpreter extends MusicScriptBaseListener {
                 if (current == null || current.getClef() != clef)
                     new ClefRange(staff, currentTime, clef);
             }
-            if (segment.time() != null) {
+            if (stafflet.time() != null) {
                 TimeSignature timeSignature;
-                if (segment.time().SLASH() != null) {
-                    int slashLocation = segment.time().SLASH().getSymbol().getStartIndex();
+                if (stafflet.time().SLASH() != null) {
+                    int slashLocation = stafflet.time().SLASH().getSymbol().getStartIndex();
                     StringBuilder numerator = new StringBuilder();
                     StringBuilder denominator = new StringBuilder();
-                    for (TerminalNode digit : segment.time().DIGIT()) {
+                    for (TerminalNode digit : stafflet.time().DIGIT()) {
                         if (digit.getSymbol().getStartIndex() < slashLocation)
                             numerator.append(digit.getText());
                         else denominator.append(digit.getText());
@@ -231,7 +230,7 @@ public class Interpreter extends MusicScriptBaseListener {
                     timeSignature = new TimeSignature(Integer.parseInt(numerator.toString()), Integer.parseInt(denominator.toString()));
                 }
                 else {
-                    String value = segment.time().getText();
+                    String value = stafflet.time().getText();
                     if (value.equals("c"))
                         timeSignature = TimeSignature.createAllaSemibrevis();
                     else if (value.equals("/c"))
@@ -242,8 +241,8 @@ public class Interpreter extends MusicScriptBaseListener {
                 if (current == null || current.getTimeSignature() != timeSignature)
                     new TimeSignatureRange(staff, currentTime, timeSignature);
             }
-            if (segment.key() != null) {
-                MusicScriptParser.KeyContext keyCtx = segment.key();
+            if (stafflet.key() != null) {
+                MusicScriptParser.KeyContext keyCtx = stafflet.key();
                 int fifths = 0;     // default/naturals
                 if (!keyCtx.SHARP().isEmpty())
                     fifths = keyCtx.SHARP().size();
@@ -257,24 +256,25 @@ public class Interpreter extends MusicScriptBaseListener {
                     pendingAccidentals.put(currentStaffId, new HashMap<>());
                 }
             }
-            //do groups
-            for (MusicScriptParser.GroupContext group : segment.group()) {
-                Voice voice = track.getVoice(group.voiceId);
-                if (voice == null) voice = new Voice(track, group.voiceId);
+            //do voicelets
+            for (MusicScriptParser.VoiceletContext voicelet : stafflet.voicelet()) {
+                MusicScriptParser.ElementContext element = voicelet.element();
+                Voice voice = track.getVoice(voicelet.voiceId);
+                if (voice == null) voice = new Voice(track, voicelet.voiceId);
                 //rest
-                if (group.rest() != null) {
-                    Rest rest = new Rest(currentTime, voice, staff, group.noteType, group.dots);
-                    if (group.rest().BEAM() != null)
-                        processBeam(voice, rest, group.rest().BEAM().getText());
+                if (element.rest() != null) {
+                    Rest rest = new Rest(currentTime, voice, staff, element.noteType, element.dots);
+                    if (element.rest().BEAM() != null)
+                        processBeam(voice, rest, element.rest().BEAM().getText());
                 }
                 //chord
                 else {
-                    MusicScriptParser.ChordContext chordCtx = group.chord().get(group.chord().size() - 1);
+                    MusicScriptParser.ChordContext chordCtx = element.chord().get(element.chord().size() - 1);
                     Chord chord = null;
                     for (MusicScriptParser.Note_openContext note : chordCtx.note_open())
-                        chord = dispatchNote(chord, staff, voice, group.noteType, group.dots, note.accidental(), Integer.parseInt(note.NOTE_OPEN().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
+                        chord = dispatchNote(chord, staff, voice, element.noteType, element.dots, note.accidental(), Integer.parseInt(note.NOTE_OPEN().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
                     for (MusicScriptParser.Note_solidContext note : chordCtx.note_solid())
-                        chord = dispatchNote(chord, staff, voice, group.noteType, group.dots, note.accidental(), Integer.parseInt(note.NOTE_SOLID().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
+                        chord = dispatchNote(chord, staff, voice, element.noteType, element.dots, note.accidental(), Integer.parseInt(note.NOTE_SOLID().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
                     assert chord != null;
                     if (chordCtx.STEM() != null)
                         chord.setStem(chordCtx.STEM().getText().equals("u") ? Stem.UP : Stem.DOWN);

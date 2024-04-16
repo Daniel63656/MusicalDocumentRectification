@@ -11,11 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#score}.
+	 * Visit a parse tree produced by {@link MusicScriptParser#track}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitScore(MusicScriptParser.ScoreContext ctx);
+	T visitTrack(MusicScriptParser.TrackContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicScriptParser#event}.
 	 * @param ctx the parse tree
@@ -23,17 +23,29 @@ public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEvent(MusicScriptParser.EventContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#segment}.
+	 * Visit a parse tree produced by {@link MusicScriptParser#stafflet}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSegment(MusicScriptParser.SegmentContext ctx);
+	T visitStafflet(MusicScriptParser.StaffletContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#group}.
+	 * Visit a parse tree produced by {@link MusicScriptParser#voicelet}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGroup(MusicScriptParser.GroupContext ctx);
+	T visitVoicelet(MusicScriptParser.VoiceletContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MusicScriptParser#element}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElement(MusicScriptParser.ElementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MusicScriptParser#tuplet}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTuplet(MusicScriptParser.TupletContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicScriptParser#rest}.
 	 * @param ctx the parse tree

@@ -18,7 +18,7 @@ public class MusicScriptBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitScore(MusicScriptParser.ScoreContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTrack(MusicScriptParser.TrackContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -32,14 +32,28 @@ public class MusicScriptBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSegment(MusicScriptParser.SegmentContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStafflet(MusicScriptParser.StaffletContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGroup(MusicScriptParser.GroupContext ctx) { return visitChildren(ctx); }
+	@Override public T visitVoicelet(MusicScriptParser.VoiceletContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitElement(MusicScriptParser.ElementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTuplet(MusicScriptParser.TupletContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
