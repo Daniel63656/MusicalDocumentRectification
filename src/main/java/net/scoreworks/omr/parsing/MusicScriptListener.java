@@ -18,6 +18,16 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 */
 	void exitTrack(MusicScriptParser.TrackContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MusicScriptParser#measure}.
+	 * @param ctx the parse tree
+	 */
+	void enterMeasure(MusicScriptParser.MeasureContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicScriptParser#measure}.
+	 * @param ctx the parse tree
+	 */
+	void exitMeasure(MusicScriptParser.MeasureContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#event}.
 	 * @param ctx the parse tree
 	 */

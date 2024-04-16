@@ -1,13 +1,14 @@
 grammar MusicScript;
 
-track: event+ barline;
-event: barline? 'T' stafflet+ ('&' stafflet+)? | barline? 'L' stafflet+;
+track: measure+ barline;
+measure: barline event+;
+event: 'T' stafflet+ ('&' stafflet+)? | 'L' stafflet+;
 stafflet: CLEF | key | time | OTTV? voicelet+ OTTV?;
 voicelet: (NEWV | SKPV+)? element;
 element: rest | (GRACE chord)* chord | tuplet;
 tuplet: '{' element+ '}';
 rest: REST BEAM? DOT*;
-chord: note_open+ DOT* | STEM note_open+ DOT* | STEM note_solid+ DOT* | STEM BEAM? FLAG note_solid+ DOT*;
+chord: 'w' note_open+ DOT* | STEM note_open+ DOT* | STEM note_solid+ DOT* | STEM BEAM? FLAG note_solid+ DOT*;
 note_open: accidental? TIE_END? NOTE_OPEN TIE_START?;
 note_solid: accidental? TIE_END? NOTE_SOLID TIE_START?;
 accidental: SHARP | FLAT | NATURAL | 'x' | '-';

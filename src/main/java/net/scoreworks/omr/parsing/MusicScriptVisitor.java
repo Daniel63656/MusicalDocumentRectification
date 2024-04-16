@@ -17,6 +17,12 @@ public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTrack(MusicScriptParser.TrackContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MusicScriptParser#measure}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMeasure(MusicScriptParser.MeasureContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MusicScriptParser#event}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -14,6 +14,8 @@ import java.io.FileOutputStream;
 import java.util.*;
 
 public class Interpreter extends MusicScriptBaseListener {
+    private static final TimeSignature STANDARD_TIME_SIGNATURE = new TimeSignature(4, 4);
+
     private static class VoiceState implements Comparable<VoiceState> {
         Fraction offset;
         int staffId, voiceId;
@@ -37,12 +39,10 @@ public class Interpreter extends MusicScriptBaseListener {
             return Integer.compare(this.voiceId, other.voiceId);
         }
     }
-    private final Score score;
     private final Track track;
-    private Fraction currentTime = Fraction.ZERO, barOnset = Fraction.ZERO;
+    private Fraction currentTime = Fraction.ZERO;
     private int currentStaffId, currentVoiceId, voiceIdx;
     private final List<VoiceState> voices = new ArrayList<>();
-    private final List<MusicScriptParser.EventContext> events = new ArrayList<>();
     private final List<Note> pendingTies = new ArrayList<>();
     private final Map<Voice, Element> pendingBeams = new HashMap<>();
     private final Map<Integer, Map<Integer, Accidental>> pendingAccidentals = new HashMap<>();
@@ -58,30 +58,35 @@ public class Interpreter extends MusicScriptBaseListener {
     }
 
     public Interpreter(String sentence) {
-        score = new Score();
+        Score score = new Score();
         track = new Track(score);
         MusicScriptLexer lexer = new MusicScriptLexer(CharStreams.fromString(sentence));
         MusicScriptParser parser = new MusicScriptParser(new CommonTokenStream(lexer));
         parser.addParseListener(this);
         parser.track(); //do the parsing with itself as listener
-        for (MusicScriptParser.EventContext ctx : events) {
-            dispatchEvent(ctx);
-        }
     }
 
     public Score getScore() {
-        return score;
+        return track.getOwner();
+    }
+
+    @Override
+    public void visitTerminal(TerminalNode node) {
+        switch (node.getSymbol().getText()) {
+            case "T" -> currentStaffId = 0;
+            case "L", "&" -> currentStaffId = 1;
+        }
+    }
+
+    @Override
+    public void exitStafflet(MusicScriptParser.StaffletContext ctx) {
+        ctx.staffId = currentStaffId;
     }
 
     @Override
     public void exitEvent(MusicScriptParser.EventContext ctx) {
         voiceIdx = 0;
-        if (ctx.barline() != null) {
-            currentTime = voices.isEmpty() ? currentTime : voices.get(voices.size()-1).offset;
-            currentVoiceId = 0;
-            voices.clear();
-        }
-        else {
+        if (!voices.isEmpty()) {
             //sort voices based on offset
             Collections.sort(voices);
             //determine number of requested voices
@@ -104,39 +109,43 @@ public class Interpreter extends MusicScriptBaseListener {
                 bindToVoice(voicelet, ctx.onset, stafflet.staffId);
             }
         }
-        events.add(ctx);
     }
 
     @Override
-    public void visitTerminal(TerminalNode node) {
-        switch (node.getSymbol().getText()) {
-            case "T" -> {
-                currentStaffId = 0;
-                if (track.getStaffs().size() <= currentStaffId) createStaff(currentStaffId);
-            }
-            case "L", "&" -> {
-                currentStaffId = 1;
-                if (track.getStaffs().size() <= currentStaffId) createStaff(currentStaffId);
+    public void exitMeasure(MusicScriptParser.MeasureContext ctx) {
+        //update current time to point to start of next bar
+        currentTime = voices.isEmpty() ? currentTime : voices.get(voices.size()-1).offset;
+        //TODO cache current time with exitTime() and possibly correct event onsets
+
+
+
+        //dispatch all events in measure
+        for (MusicScriptParser.EventContext event : ctx.event()) {
+            dispatchEvent(event);
+        }
+
+        //reset measure specific collections for next measure
+        pendingBeams.clear();
+        pendingAccidentals.clear();
+        currentVoiceId = 0;
+        voices.clear();
+        Fraction barOnset = ctx.event(0).onset;
+        Fraction actualBarDuration = currentTime.subtract(barOnset);
+        for (Staff staff : track.getStaffs()) {
+            pendingAccidentals.put(staff.getKey(), new HashMap<>());
+            Bar currentBar = staff.getBar(barOnset);
+            //handle irregular bars / up beats
+            if (actualBarDuration.compareTo(currentBar.getDuration()) != 0) {
+                TimeSignatureRange tsr = currentBar.getTimeSignatureRange();
+                //make first in TimeSignatureRange if not already
+                if (currentBar.getRangeIndex() != 0)
+                    tsr = new TimeSignatureRange(staff, barOnset, tsr.getTimeSignature());
+                tsr.setUpBeatCorrect(actualBarDuration.subtract(currentBar.getDuration()));
             }
         }
     }
-
-    @Override
-    public void exitStafflet(MusicScriptParser.StaffletContext ctx) {
-        ctx.staffId = currentStaffId;
-    }
-
 
     //---------- helper functions and dispatch -- move into respective classes eventually ----------------------------//
-
-    private void createStaff(int staffId) {
-        new Staff(track, staffId);
-        for (Staff staff : track.getStaffs()) {
-            new KeyRange(staff, Fraction.ZERO, new KeySignature(0, true)); // no visual signs is C major by default
-            new TimeSignatureRange(staff, Fraction.ZERO, new TimeSignature(2, 4));
-            pendingAccidentals.put(staff.getKey(), new HashMap<>());
-        }
-    }
 
     private void bindToVoice(MusicScriptParser.VoiceletContext voicelet, Fraction onset, int currentStaffId) {
         if (voicelet.NEWV() != null || voiceIdx >= voices.size()) {
@@ -176,33 +185,17 @@ public class Interpreter extends MusicScriptBaseListener {
     }
 
     private void dispatchEvent(MusicScriptParser.EventContext ctx) {
-        currentTime = ctx.onset;
-        //barline
-        if (ctx.barline() != null && currentTime.compareTo(Fraction.ZERO) > 0) {   //exclude first bar line
-            Fraction realBarDuration = currentTime.subtract(barOnset);
-            for (Staff staff : track.getStaffs()) {
-                Bar currentBar = staff.getBar(barOnset);
-                //handle irregular bars / up beats
-                if (realBarDuration.compareTo(currentBar.getDuration()) != 0) {
-                    TimeSignatureRange tsr = currentBar.getTimeSignatureRange();
-                    //make first in TimeSignatureRange if not already
-                    if (currentBar.getRangeIndex() != 0)
-                        tsr = new TimeSignatureRange(staff, barOnset, tsr.getTimeSignature());
-                    tsr.setUpBeatCorrect(realBarDuration.subtract(currentBar.getDuration()));
-                }
-            }
-            //reset bar specific pending collections
-            pendingBeams.clear();
-            pendingAccidentals.clear();
-            for (Staff staff : track.getStaffs()) {
+        for (MusicScriptParser.StaffletContext stafflet : ctx.stafflet()) {
+            int staffId = stafflet.staffId;
+            if (track.getStaffs().size() <= stafflet.staffId) {
+                Staff staff = new Staff(track, staffId);
+                //assign standard key and time
+                new KeyRange(staff, Fraction.ZERO, new KeySignature(0, true));
+                new TimeSignatureRange(staff, Fraction.ZERO, STANDARD_TIME_SIGNATURE);
                 pendingAccidentals.put(staff.getKey(), new HashMap<>());
             }
-            barOnset = currentTime;
-        }
-        //stafflets
-        for (MusicScriptParser.StaffletContext stafflet : ctx.stafflet()) {
-            Staff staff = track.getStaff(stafflet.staffId);
-            currentStaffId = stafflet.staffId;
+            Staff staff = track.getStaff(staffId);
+
             //meta events
             if (stafflet.CLEF() != null) {
                 String value = stafflet.CLEF().getText();
@@ -212,9 +205,9 @@ public class Interpreter extends MusicScriptBaseListener {
                     case "F" -> clef = Clef.BASS;
                     default -> throw new RuntimeException(String.format("Clef %s not recognized", value));
                 }
-                ClefRange current = staff.getClefRange(currentTime);
+                ClefRange current = staff.getClefRange(ctx.onset);
                 if (current == null || current.getClef() != clef)
-                    new ClefRange(staff, currentTime, clef);
+                    new ClefRange(staff, ctx.onset, clef);
             }
             if (stafflet.time() != null) {
                 TimeSignature timeSignature;
@@ -237,9 +230,9 @@ public class Interpreter extends MusicScriptBaseListener {
                         timeSignature = TimeSignature.createAllaBreve();
                     else throw new RuntimeException(String.format("Time signature %s not recognized", value));
                 }
-                TimeSignatureRange current = staff.getTimeSignatureRange(currentTime);
+                TimeSignatureRange current = staff.getTimeSignatureRange(ctx.onset);
                 if (current == null || current.getTimeSignature() != timeSignature)
-                    new TimeSignatureRange(staff, currentTime, timeSignature);
+                    new TimeSignatureRange(staff, ctx.onset, timeSignature);
             }
             if (stafflet.key() != null) {
                 MusicScriptParser.KeyContext keyCtx = stafflet.key();
@@ -249,11 +242,11 @@ public class Interpreter extends MusicScriptBaseListener {
                 else if (!keyCtx.FLAT().isEmpty())
                     fifths = -keyCtx.FLAT().size();
                 KeySignature key = new KeySignature(fifths, true);
-                KeyRange current = staff.getKeyRange(currentTime);
+                KeyRange current = staff.getKeyRange(ctx.onset);
                 if (current == null || !Objects.equals(current.getKeySignature(), key)) {
-                    new KeyRange(staff, currentTime, key);
+                    new KeyRange(staff, ctx.onset, key);
                     // reset active accidentals on that staff
-                    pendingAccidentals.put(currentStaffId, new HashMap<>());
+                    pendingAccidentals.put(staffId, new HashMap<>());
                 }
             }
             //do voicelets
@@ -263,7 +256,7 @@ public class Interpreter extends MusicScriptBaseListener {
                 if (voice == null) voice = new Voice(track, voicelet.voiceId);
                 //rest
                 if (element.rest() != null) {
-                    Rest rest = new Rest(currentTime, voice, staff, element.noteType, element.dots);
+                    Rest rest = new Rest(ctx.onset, voice, staff, element.noteType, element.dots);
                     if (element.rest().BEAM() != null)
                         processBeam(voice, rest, element.rest().BEAM().getText());
                 }
@@ -272,9 +265,9 @@ public class Interpreter extends MusicScriptBaseListener {
                     MusicScriptParser.ChordContext chordCtx = element.chord().get(element.chord().size() - 1);
                     Chord chord = null;
                     for (MusicScriptParser.Note_openContext note : chordCtx.note_open())
-                        chord = dispatchNote(chord, staff, voice, element.noteType, element.dots, note.accidental(), Integer.parseInt(note.NOTE_OPEN().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
+                        chord = dispatchNote(chord, ctx.onset, staff, voice, element.noteType, element.dots, note.accidental(), Integer.parseInt(note.NOTE_OPEN().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
                     for (MusicScriptParser.Note_solidContext note : chordCtx.note_solid())
-                        chord = dispatchNote(chord, staff, voice, element.noteType, element.dots, note.accidental(), Integer.parseInt(note.NOTE_SOLID().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
+                        chord = dispatchNote(chord, ctx.onset, staff, voice, element.noteType, element.dots, note.accidental(), Integer.parseInt(note.NOTE_SOLID().getText().substring(1)), note.TIE_END() != null, note.TIE_START() != null);
                     assert chord != null;
                     if (chordCtx.STEM() != null)
                         chord.setStem(chordCtx.STEM().getText().equals("u") ? Stem.UP : Stem.DOWN);
@@ -285,7 +278,7 @@ public class Interpreter extends MusicScriptBaseListener {
         }
     }
 
-    private Chord dispatchNote(Chord chord, Staff staff, Voice voice, NoteType noteType, int dots, MusicScriptParser.AccidentalContext acc, int referenceLine, boolean tieEnd, boolean tieStart) {
+    private Chord dispatchNote(Chord chord, Fraction onset, Staff staff, Voice voice, NoteType noteType, int dots, MusicScriptParser.AccidentalContext acc, int referenceLine, boolean tieEnd, boolean tieStart) {
         Accidental accidental = Accidental.NONE;
         if (acc != null) {
             switch (acc.getText()) {
@@ -296,37 +289,37 @@ public class Interpreter extends MusicScriptBaseListener {
                 case "-" -> accidental = Accidental.FLAT_FLAT;
             }
         }
-        referenceLine -= staff.getClefRange(currentTime).getClef().getC0_referenceLine();
+        referenceLine -= staff.getClefRange(onset).getClef().getC0_referenceLine();
         //if (pendingOctaveShifts.containsKey(staff))
         //line -= pendingOctaveShifts.get(staff).octavation.getShiftOctaves()*7;
         NoteName name = NoteName.values()[referenceLine % 7];
         int octave = referenceLine / 7;
-        if (accidental != Accidental.NONE) pendingAccidentals.get(currentStaffId).put(name.stepId(octave), accidental);
-        int pitch = calculatePitch(name, octave, accidental);
+        if (accidental != Accidental.NONE) pendingAccidentals.get(staff.getKey()).put(name.stepId(octave), accidental);
+        int pitch = calculatePitch(onset, staff.getKey(), name, octave, accidental);
         //instantiate
         Note note;
         if (chord == null) {
-            note = new Note(currentTime, voice, staff, noteType, dots, pitch, name, octave, accidental);
+            note = new Note(onset, voice, staff, noteType, dots, pitch, name, octave, accidental);
             chord = (Chord) note.getOwner();
         }
         else note = new Note(chord, pitch, name, octave, accidental);
         if (tieStart) pendingTies.add(note);
-        if (tieEnd && !linkNotes(note)) System.out.printf("Ignored erroneous tie at %s%n", currentTime.toString());
+        if (tieEnd && !linkNotes(note)) System.out.printf("Ignored erroneous tie at %s%n", onset.toString());
         return chord;
     }
 
-    private int calculatePitch(NoteName name, int octave, Accidental accidental) {
+    private int calculatePitch(Fraction time, int staffId, NoteName name, int octave, Accidental accidental) {
         //pitch - alter = (octave+1)*12 + chromaticIndex
         int pitch = (octave+1)*12 + name.getChromaticIndex();
         //calculate alter
         if (accidental != Accidental.NONE) {
             pitch += accidental.getAlter();
         }
-        else if (pendingAccidentals.get(currentStaffId).containsKey(name.stepId(octave))) {
-            pitch += pendingAccidentals.get(currentStaffId).get(name.stepId(octave)).getAlter();
+        else if (pendingAccidentals.get(staffId).containsKey(name.stepId(octave))) {
+            pitch += pendingAccidentals.get(staffId).get(name.stepId(octave)).getAlter();
         }
         else {
-            KeySignature key = track.getStaff(currentStaffId).getKeyRange(currentTime).getKeySignature();
+            KeySignature key = track.getStaff(staffId).getKeyRange(time).getKeySignature();
             if (key.pitchHasAccidental(pitch)) {
                 if (key.getFifths() > 0)
                     pitch++;
@@ -356,7 +349,7 @@ public class Interpreter extends MusicScriptBaseListener {
                 new Beam(voice, pendingBeams.get(voice), element);
                 pendingBeams.remove(voice);
             }
-            else System.out.printf("Ignored erroneous beam end without start at %s%n", currentTime.toString());
+            else System.out.printf("Ignored erroneous beam end without start at %s%n", element.getOnset().toString());
         }
     }
 }

@@ -29,6 +29,18 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMeasure(MusicScriptParser.MeasureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMeasure(MusicScriptParser.MeasureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterEvent(MusicScriptParser.EventContext ctx) { }
 	/**
 	 * {@inheritDoc}
