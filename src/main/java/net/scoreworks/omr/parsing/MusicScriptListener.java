@@ -18,6 +18,16 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 */
 	void exitTrack(MusicScriptParser.TrackContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MusicScriptParser#system}.
+	 * @param ctx the parse tree
+	 */
+	void enterSystem(MusicScriptParser.SystemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MusicScriptParser#system}.
+	 * @param ctx the parse tree
+	 */
+	void exitSystem(MusicScriptParser.SystemContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#measure}.
 	 * @param ctx the parse tree
 	 */
@@ -67,16 +77,6 @@ public interface MusicScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitElement(MusicScriptParser.ElementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MusicScriptParser#tuplet}.
-	 * @param ctx the parse tree
-	 */
-	void enterTuplet(MusicScriptParser.TupletContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MusicScriptParser#tuplet}.
-	 * @param ctx the parse tree
-	 */
-	void exitTuplet(MusicScriptParser.TupletContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MusicScriptParser#rest}.
 	 * @param ctx the parse tree

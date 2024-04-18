@@ -17,6 +17,12 @@ public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTrack(MusicScriptParser.TrackContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MusicScriptParser#system}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSystem(MusicScriptParser.SystemContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MusicScriptParser#measure}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -46,12 +52,6 @@ public interface MusicScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitElement(MusicScriptParser.ElementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MusicScriptParser#tuplet}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTuplet(MusicScriptParser.TupletContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MusicScriptParser#rest}.
 	 * @param ctx the parse tree

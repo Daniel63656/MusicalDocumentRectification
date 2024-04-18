@@ -9,7 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="introducing tuplet notation">
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="added measure rule">
+      <change afterPath="$PROJECT_DIR$/src/test/java/prelude.musicxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" afterDir="false" />
@@ -24,7 +25,39 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/out.musicxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bellaCiao.musicxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Bella Ciao.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Bermuda Blues.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Can Can.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Canon In D.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Clementi Sonatina.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Csikos Post.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Dance Of The Sugar Plum Fairy.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Die Moldau.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Eine Kleine Nachtmusik.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Fur Elise.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Humoresque.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/If My Complaints Could Passions Move.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Impromptu In Ges-Dur.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/In The Hall Of The Mountain King.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Jingle Bells.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Korobeiniki.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Liebestraum.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Lough Erin Shore.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Memoires.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Minuet In G Major.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Mondschein Sonata.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Mozart Arioso.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Nocturne Op9 No2.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Pair Of Wintry Winds.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Pensee.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Prelude In C.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Prelude Op28 No20 In C Minor.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Rondeau Abdelazar Suite.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Scarborough Fair.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/The Entertainer.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Twinkle Twinkle Little Star.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/When The Saints Go Marching In.musicxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,29 +137,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "last_opened_file_path": "C:/Users/Daniel/AppDevelopment/scoreworks/MusicModel",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.26206896",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "two.files.diff.last.used.file": "C:/Users/Daniel/AppDevelopment/immersive/OpticalMusicRecognition/src/main/java/com/immersive/omr/utils/QuadraticCurveModel.java",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Daniel/AppDevelopment/scoreworks/MusicModel&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.26206896&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/Daniel/AppDevelopment/immersive/OpticalMusicRecognition/src/main/java/com/immersive/omr/utils/QuadraticCurveModel.java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.immersive.omr.stages" />
@@ -317,9 +350,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ParsingTest" />
+        <item itemvalue="Gradle.ParsingTest.testPrelude" />
         <item itemvalue="Gradle.ParsingTest.testBellaCiao" />
         <item itemvalue="Gradle.ParsingTest.interpret" />
-        <item itemvalue="Gradle.ParsingTest.testPrelude" />
         <item itemvalue="Application.DocumentRectification" />
       </list>
     </recent_temporary>
@@ -408,14 +441,8 @@
       <workItem from="1712601568311" duration="20000" />
       <workItem from="1713001441893" duration="5366000" />
       <workItem from="1713079604507" duration="11447000" />
-      <workItem from="1713184594433" duration="21934000" />
-    </task>
-    <task id="LOCAL-00176" summary="somewhat working">
-      <created>1688989221219</created>
-      <option name="number" value="00176" />
-      <option name="presentableId" value="LOCAL-00176" />
-      <option name="project" value="LOCAL" />
-      <updated>1688989221219</updated>
+      <workItem from="1713184594433" duration="23429000" />
+      <workItem from="1713428406525" duration="2632000" />
     </task>
     <task id="LOCAL-00177" summary="good results">
       <created>1688994750537</created>
@@ -753,7 +780,14 @@
       <option name="project" value="LOCAL" />
       <updated>1713278421765</updated>
     </task>
-    <option name="localTasksCounter" value="225" />
+    <task id="LOCAL-00225" summary="added measure rule">
+      <created>1713292351184</created>
+      <option name="number" value="00225" />
+      <option name="presentableId" value="LOCAL-00225" />
+      <option name="project" value="LOCAL" />
+      <updated>1713292351185</updated>
+    </task>
+    <option name="localTasksCounter" value="226" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -836,7 +870,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="changed group to my company domain" />
     <MESSAGE value="included parsing tools from other project" />
     <MESSAGE value="initial commit" />
     <MESSAGE value="running and testing complete" />
@@ -861,7 +894,8 @@
     <MESSAGE value="one sentence again" />
     <MESSAGE value="interpreter takes longest offset" />
     <MESSAGE value="introducing tuplet notation" />
-    <option name="LAST_COMMIT_MESSAGE" value="introducing tuplet notation" />
+    <MESSAGE value="added measure rule" />
+    <option name="LAST_COMMIT_MESSAGE" value="added measure rule" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

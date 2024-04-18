@@ -145,6 +145,14 @@ public class Interpreter extends MusicScriptBaseListener {
         }
     }
 
+    @Override
+    public void exitSystem(MusicScriptParser.SystemContext ctx) {
+        //reset key to C major as key needs explicit redeclaration at each new system
+        for (Staff staff : track.getStaffs()) {
+            new KeyRange(staff, currentTime, new KeySignature(0, true));
+        }
+    }
+
     //---------- helper functions and dispatch -- move into respective classes eventually ----------------------------//
 
     private void bindToVoice(MusicScriptParser.VoiceletContext voicelet, Fraction onset, int currentStaffId) {
@@ -166,7 +174,13 @@ public class Interpreter extends MusicScriptBaseListener {
         MusicScriptParser.ElementContext element = voicelet.element();
         if (element.rest() != null) {
             MusicScriptParser.RestContext rest = element.rest();
-            element.noteType = NoteType.fromExponent(-Integer.parseInt(rest.REST().getText().substring(1)));
+            String text = rest.REST().getText();
+            switch (text) {
+                case "=" -> element.noteType = NoteType.WHOLE;
+                case "-" -> element.noteType = NoteType.HALF;
+                case "z" -> element.noteType = NoteType.QUARTER;
+                default -> element.noteType = NoteType.fromExponent(-Integer.parseInt(text.substring(1)) - 2);
+            }
             element.dots = rest.DOT().size();
             return element.noteType.getValue(element.dots);
         }
@@ -286,7 +300,7 @@ public class Interpreter extends MusicScriptBaseListener {
                 case "b" -> accidental = Accidental.FLAT;
                 case "n" -> accidental = Accidental.NATURAL;
                 case "x" -> accidental = Accidental.DOUBLE_SHARP;
-                case "-" -> accidental = Accidental.FLAT_FLAT;
+                case "B" -> accidental = Accidental.FLAT_FLAT;
             }
         }
         referenceLine -= staff.getClefRange(onset).getClef().getC0_referenceLine();

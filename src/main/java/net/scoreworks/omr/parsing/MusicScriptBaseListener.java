@@ -29,6 +29,18 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSystem(MusicScriptParser.SystemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSystem(MusicScriptParser.SystemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMeasure(MusicScriptParser.MeasureContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -84,18 +96,6 @@ public class MusicScriptBaseListener implements MusicScriptListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitElement(MusicScriptParser.ElementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTuplet(MusicScriptParser.TupletContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTuplet(MusicScriptParser.TupletContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
