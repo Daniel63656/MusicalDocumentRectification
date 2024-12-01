@@ -9,55 +9,107 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="added measure rule">
-      <change afterPath="$PROJECT_DIR$/src/test/java/prelude.musicxml" afterDir="false" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="made system part of grammar">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_125247.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145347.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145425.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145451.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145510.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145530.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145552.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145609.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145702.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145719.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145739.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102117.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102144.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102215.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102225.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102242.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102250.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102415.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102453.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102541.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102616.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102655.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102931.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102950.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_103245.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_103258.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_103311.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_103322.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OpticalMusicRecognition.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/out.musicxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bellaCiao.musicxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Bella Ciao.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Bermuda Blues.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Can Can.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Canon In D.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Clementi Sonatina.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Csikos Post.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Dance Of The Sugar Plum Fairy.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Die Moldau.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Eine Kleine Nachtmusik.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Fur Elise.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Humoresque.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/If My Complaints Could Passions Move.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Impromptu In Ges-Dur.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/In The Hall Of The Mountain King.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Jingle Bells.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Korobeiniki.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Liebestraum.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Lough Erin Shore.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Memoires.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Minuet In G Major.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Mondschein Sonata.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Mozart Arioso.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Nocturne Op9 No2.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Pair Of Wintry Winds.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Pensee.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Prelude In C.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Prelude Op28 No20 In C Minor.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Rondeau Abdelazar Suite.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Scarborough Fair.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/The Entertainer.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/Twinkle Twinkle Little Star.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/When The Saints Go Marching In.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/DocumentRectification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/DocumentRectification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/LineModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/LineModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/LongitudeDetection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/LongitudeDetection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/Rectification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/Rectification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/StaffDetection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/StaffDetection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/StegerPointDetection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/StegerPointDetection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/SurfaceReconstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/SurfaceReconstruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/LightingCorrection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/LightingCorrection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/LinePoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/LinePoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/VanishingPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/VanishingPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/clustering/DBSCAN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/clustering/DBSCAN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/clustering/DBSCAN_Clusterable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/clustering/DBSCAN_Clusterable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/clustering/MeanShift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/clustering/MeanShift.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/clustering/MomentumClustering.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/clustering/MomentumClustering.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/LinearCurveModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/LinearCurveModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/NaturalCubicSpline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/NaturalCubicSpline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/QuadraticCurveModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/QuadraticCurveModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/RegularCurveModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/RegularCurveModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/SegmentedCurveModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/SegmentedCurveModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_125247.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145347.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145425.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145451.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145510.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145530.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145552.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145609.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145634.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145702.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145719.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145739.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102117.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102144.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102215.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102225.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102242.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102250.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102415.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102453.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102541.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102616.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102655.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102931.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102950.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_103245.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_103258.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_103311.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_103322.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/manifest/interpreter/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/manifest/tokenizer/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/test.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/20221202_145634.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/bellaCiao.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/prelude.musicxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/transformed.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,6 +181,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
   <component name="ProjectId" id="2Fqjf1PjnO0aK5c717zaUYscsnV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -137,46 +192,52 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Daniel/AppDevelopment/scoreworks/MusicModel&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.26206896&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/Daniel/AppDevelopment/immersive/OpticalMusicRecognition/src/main/java/com/immersive/omr/utils/QuadraticCurveModel.java&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Gradle.ArpackTest.executor": "Run",
+    "Gradle.Build OpticalMusicRecognition.executor": "Run",
+    "Gradle.OpticalMusicRecognition [:net.scoreworks.rectification.DocumentRectification.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Daniel/AppDevelopment/scoreworks/OpticalMusicRecognition",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.26206896",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "two.files.diff.last.used.file": "C:/Users/Daniel/AppDevelopment/immersive/OpticalMusicRecognition/src/main/java/com/immersive/omr/utils/QuadraticCurveModel.java",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.immersive.omr.stages" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\main\java\net\scoreworks\omr\parsing" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\main\resources" />
-      <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\test\resources" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\test\java\net\scoreworks\omr\parsing" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\main\java\net\scoreworks" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\main\resources" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\test\resources" />
       <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\java\com\immersive\omr\stages" />
       <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\jmathplot" />
-      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\openCV" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="net.scoreworks.omr.parsing" />
@@ -186,13 +247,14 @@
       <recent name="com.immersive.omr.stages" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ParsingTest">
-    <configuration name="DocumentRectification" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="net.scoreworks.omr.rectification.DocumentRectification" />
+  <component name="RunManager" selected="Application.net.scoreworks.rectification.DocumentRectification">
+    <configuration name="net.scoreworks.rectification.DocumentRectification" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="net.scoreworks.rectification.DocumentRectification" />
       <module name="OpticalMusicRecognition.main" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=openCV" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="net.scoreworks.omr.rectification.*" />
+          <option name="PATTERN" value="net.scoreworks.rectification.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -221,6 +283,7 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="EigenvalueDecompositionTests" type="GradleRunConfiguration" factoryName="Gradle">
@@ -244,6 +307,7 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="ParsingTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -267,6 +331,7 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="ParsingTest.interpret" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -290,6 +355,7 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="ParsingTest.testBellaCiao" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -313,6 +379,7 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="ParsingTest.testPrelude" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -336,10 +403,11 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.DocumentRectification" />
+      <item itemvalue="Application.net.scoreworks.rectification.DocumentRectification" />
       <item itemvalue="Gradle.ArpackTest" />
       <item itemvalue="Gradle.EigenvalueDecompositionTests" />
       <item itemvalue="Gradle.ParsingTest" />
@@ -349,13 +417,21 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ParsingTest" />
-        <item itemvalue="Gradle.ParsingTest.testPrelude" />
+        <item itemvalue="Application.net.scoreworks.rectification.DocumentRectification" />
         <item itemvalue="Gradle.ParsingTest.testBellaCiao" />
         <item itemvalue="Gradle.ParsingTest.interpret" />
-        <item itemvalue="Application.DocumentRectification" />
+        <item itemvalue="Gradle.ParsingTest" />
+        <item itemvalue="Gradle.ParsingTest.testPrelude" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -442,14 +518,27 @@
       <workItem from="1713001441893" duration="5366000" />
       <workItem from="1713079604507" duration="11447000" />
       <workItem from="1713184594433" duration="23429000" />
-      <workItem from="1713428406525" duration="2632000" />
-    </task>
-    <task id="LOCAL-00177" summary="good results">
-      <created>1688994750537</created>
-      <option name="number" value="00177" />
-      <option name="presentableId" value="LOCAL-00177" />
-      <option name="project" value="LOCAL" />
-      <updated>1688994750537</updated>
+      <workItem from="1713428406525" duration="4500000" />
+      <workItem from="1713439852385" duration="884000" />
+      <workItem from="1713604287419" duration="698000" />
+      <workItem from="1713613072676" duration="6000" />
+      <workItem from="1713908169666" duration="7000" />
+      <workItem from="1713976656419" duration="9733000" />
+      <workItem from="1714122969577" duration="354000" />
+      <workItem from="1714291081639" duration="67000" />
+      <workItem from="1714393201501" duration="175000" />
+      <workItem from="1714457910684" duration="16000" />
+      <workItem from="1715837445100" duration="503000" />
+      <workItem from="1715838910875" duration="30000" />
+      <workItem from="1716326343027" duration="8085000" />
+      <workItem from="1716478513697" duration="1369000" />
+      <workItem from="1716805029227" duration="789000" />
+      <workItem from="1716824857348" duration="981000" />
+      <workItem from="1716838928476" duration="822000" />
+      <workItem from="1716920269069" duration="1351000" />
+      <workItem from="1717084425425" duration="338000" />
+      <workItem from="1717337775970" duration="23000" />
+      <workItem from="1733072386722" duration="1157000" />
     </task>
     <task id="LOCAL-00178" summary="removed unfavoured approaches (classes)">
       <created>1688994797834</created>
@@ -787,7 +876,14 @@
       <option name="project" value="LOCAL" />
       <updated>1713292351185</updated>
     </task>
-    <option name="localTasksCounter" value="226" />
+    <task id="LOCAL-00226" summary="made system part of grammar">
+      <created>1713431077484</created>
+      <option name="number" value="00226" />
+      <option name="presentableId" value="LOCAL-00226" />
+      <option name="project" value="LOCAL" />
+      <updated>1713431077484</updated>
+    </task>
+    <option name="localTasksCounter" value="227" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -808,27 +904,6 @@
     </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="main" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -864,13 +939,33 @@
         </entry>
       </map>
     </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="included parsing tools from other project" />
     <MESSAGE value="initial commit" />
     <MESSAGE value="running and testing complete" />
     <MESSAGE value="antrl, before removing old systems" />
@@ -895,7 +990,8 @@
     <MESSAGE value="interpreter takes longest offset" />
     <MESSAGE value="introducing tuplet notation" />
     <MESSAGE value="added measure rule" />
-    <option name="LAST_COMMIT_MESSAGE" value="added measure rule" />
+    <MESSAGE value="made system part of grammar" />
+    <option name="LAST_COMMIT_MESSAGE" value="made system part of grammar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

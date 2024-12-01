@@ -2,7 +2,3 @@
 build/
 out/
 # don't exclude .idea as it contains information about how to build artifacts
-
-# exclude results as they can be created
-output/**
-output/staffDetection/**
