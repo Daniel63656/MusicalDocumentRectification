@@ -18,8 +18,8 @@ shape other than it being a smooth, developable surface. The rectification proce
 algorithm that identifies staffs across the page with sub-pixel precision, providing the necessary baseline data to
 accurately model the page's geometry and correct its distortions.
 
-<img src="results/staff_detection/20221202_145451.jpg" alt="Image 1" style="display:inline-block; width:45%;"/>
-<img src="results/20221202_145451.jpg" alt="Image 1" style="display:inline-block; width:45%;"/>
+<img src="results/staff_detection/20221202_145451.jpg" alt="Image 1" style="display:inline-block; width:40%;"/>
+<img src="results/20221202_145451.jpg" alt="Image 1" style="display:inline-block; width:40%;"/>
 
 ## Project Overview
 
