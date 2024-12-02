@@ -10,7 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="traing to get images side by side in README.md">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -411,7 +410,7 @@
       <workItem from="1717084425425" duration="338000" />
       <workItem from="1717337775970" duration="23000" />
       <workItem from="1733072386722" duration="1861000" />
-      <workItem from="1733074293849" duration="7385000" />
+      <workItem from="1733074293849" duration="7530000" />
     </task>
     <task id="LOCAL-00178" summary="removed unfavoured approaches (classes)">
       <created>1688994797834</created>
@@ -756,7 +755,7 @@
       <option name="project" value="LOCAL" />
       <updated>1713431077484</updated>
     </task>
-    <option name="localTasksCounter" value="229" />
+    <option name="localTasksCounter" value="230" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
