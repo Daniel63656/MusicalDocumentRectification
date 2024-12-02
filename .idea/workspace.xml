@@ -9,16 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="made system part of grammar">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="traing to get images side by side in README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/DocumentRectification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/DocumentRectification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/LightingCorrection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/LightingCorrection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,14 +67,12 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="ff04b29c-37e3-4c96-a0a1-188801ffc22c" />
-        <option name="url" value="https://github.com/Daniel63656/OpticalMusicRecognition.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Daniel63656/OpticalMusicRecognition.git",
+    "accountId": "52c1b8da-eefe-4094-8d01-f8ee8ebae476"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -420,7 +411,7 @@
       <workItem from="1717084425425" duration="338000" />
       <workItem from="1717337775970" duration="23000" />
       <workItem from="1733072386722" duration="1861000" />
-      <workItem from="1733074293849" duration="7072000" />
+      <workItem from="1733074293849" duration="7385000" />
     </task>
     <task id="LOCAL-00178" summary="removed unfavoured approaches (classes)">
       <created>1688994797834</created>
@@ -765,7 +756,7 @@
       <option name="project" value="LOCAL" />
       <updated>1713431077484</updated>
     </task>
-    <option name="localTasksCounter" value="227" />
+    <option name="localTasksCounter" value="229" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -848,8 +839,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="initial commit" />
-    <MESSAGE value="running and testing complete" />
     <MESSAGE value="antrl, before removing old systems" />
     <MESSAGE value="good template for antlr interpreter" />
     <MESSAGE value="same output for Bella Ciao" />
@@ -873,7 +862,9 @@
     <MESSAGE value="introducing tuplet notation" />
     <MESSAGE value="added measure rule" />
     <MESSAGE value="made system part of grammar" />
-    <option name="LAST_COMMIT_MESSAGE" value="made system part of grammar" />
+    <MESSAGE value="adding all changes" />
+    <MESSAGE value="traing to get images side by side in README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="traing to get images side by side in README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
