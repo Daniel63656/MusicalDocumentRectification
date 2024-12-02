@@ -1,4 +1,4 @@
-package net.scoreworks.rectification.utils;
+package net.scoreworks.rectification.stages;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Size;

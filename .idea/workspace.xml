@@ -10,106 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="made system part of grammar">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_125247.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145347.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145425.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145451.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145510.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145530.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145552.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145609.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145702.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145719.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221202_145739.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102117.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102144.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102215.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102225.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102242.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102250.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102415.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102453.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102541.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102616.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102655.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102931.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_102950.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_103245.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_103258.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_103311.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/20221210_103322.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OpticalMusicRecognition.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/Interpreter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScript.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptBaseVisitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/parsing/MusicScriptVisitor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/DocumentRectification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/DocumentRectification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/LineModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/LineModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/LongitudeDetection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/LongitudeDetection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/Rectification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/Rectification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/StaffDetection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/StaffDetection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/StegerPointDetection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/StegerPointDetection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/stages/SurfaceReconstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/SurfaceReconstruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/LightingCorrection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/LightingCorrection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/LinePoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/LinePoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/VanishingPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/VanishingPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/clustering/DBSCAN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/clustering/DBSCAN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/clustering/DBSCAN_Clusterable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/clustering/DBSCAN_Clusterable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/clustering/MeanShift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/clustering/MeanShift.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/clustering/MomentumClustering.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/clustering/MomentumClustering.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/LinearCurveModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/LinearCurveModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/NaturalCubicSpline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/NaturalCubicSpline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/QuadraticCurveModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/QuadraticCurveModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/RegularCurveModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/RegularCurveModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/omr/rectification/utils/curves/SegmentedCurveModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/curvemodels/SegmentedCurveModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_125247.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145347.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145425.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145451.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145510.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145530.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145552.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145609.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145634.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145702.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145719.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221202_145739.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102117.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102144.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102215.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102225.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102242.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102250.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102415.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102453.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102541.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102616.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102655.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102931.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_102950.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_103245.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_103258.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_103311.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dataset/20221210_103322.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/manifest/interpreter/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/manifest/tokenizer/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/test.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/20221202_145634.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/bellaCiao.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/ParsingTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/prelude.musicxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/transformed.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/DocumentRectification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/DocumentRectification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/LightingCorrection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/LightingCorrection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,12 +41,7 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="OpticalMusicRecognition" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="OpticalMusicRecognition" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+                <item name="MusicalDocumentRectification" type="f1a62948:ProjectNode" />
               </path>
             </expand>
             <select />
@@ -181,9 +85,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2Fqjf1PjnO0aK5c717zaUYscsnV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -198,7 +102,9 @@
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "Gradle.ArpackTest.executor": "Run",
     "Gradle.Build OpticalMusicRecognition.executor": "Run",
+    "Gradle.MusicalDocumentRectification [:net.scoreworks.rectification.DocumentRectification.main()].executor": "Run",
     "Gradle.OpticalMusicRecognition [:net.scoreworks.rectification.DocumentRectification.main()].executor": "Run",
+    "Gradle.Upgrade Gradle wrapper.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -207,15 +113,15 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Daniel/AppDevelopment/scoreworks/OpticalMusicRecognition",
+    "last_opened_file_path": "C:/Users/Daniel/AppDevelopment/ArpackJ",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.26206896",
+    "project.structure.side.proportion": "0.433832",
     "settings.editor.selected.configurable": "preferences.keymap",
     "two.files.diff.last.used.file": "C:/Users/Daniel/AppDevelopment/immersive/OpticalMusicRecognition/src/main/java/com/immersive/omr/utils/QuadraticCurveModel.java",
     "vue.rearranger.settings.migration": "true"
@@ -233,11 +139,11 @@
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\test\java\net\scoreworks\omr\parsing" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\main\java\net\scoreworks" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\main\resources" />
       <recent name="C:\Users\Daniel\AppDevelopment\scoreworks\OpticalMusicRecognition\src\test\resources" />
       <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\src\main\java\com\immersive\omr\stages" />
-      <recent name="C:\Users\Daniel\AppDevelopment\immersive\OpticalMusicRecognition\jmathplot" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="net.scoreworks.omr.parsing" />
@@ -247,10 +153,10 @@
       <recent name="com.immersive.omr.stages" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.net.scoreworks.rectification.DocumentRectification">
-    <configuration name="net.scoreworks.rectification.DocumentRectification" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.DocumentRectification">
+    <configuration name="DocumentRectification" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.scoreworks.rectification.DocumentRectification" />
-      <module name="OpticalMusicRecognition.main" />
+      <module name="MusicalDocumentRectification.main" />
       <option name="VM_PARAMETERS" value="-Djava.library.path=openCV" />
       <extension name="coverage">
         <pattern>
@@ -261,30 +167,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="ArpackTest" type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;net.scoreworks.omr.parsing.ArpackTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" value="-Djava.library.path=openCV" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
     </configuration>
     <configuration name="EigenvalueDecompositionTests" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
@@ -407,8 +289,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.net.scoreworks.rectification.DocumentRectification" />
-      <item itemvalue="Gradle.ArpackTest" />
+      <item itemvalue="Application.DocumentRectification" />
       <item itemvalue="Gradle.EigenvalueDecompositionTests" />
       <item itemvalue="Gradle.ParsingTest" />
       <item itemvalue="Gradle.ParsingTest.testBellaCiao" />
@@ -417,7 +298,7 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.net.scoreworks.rectification.DocumentRectification" />
+        <item itemvalue="Application.DocumentRectification" />
         <item itemvalue="Gradle.ParsingTest.testBellaCiao" />
         <item itemvalue="Gradle.ParsingTest.interpret" />
         <item itemvalue="Gradle.ParsingTest" />
@@ -538,7 +419,8 @@
       <workItem from="1716920269069" duration="1351000" />
       <workItem from="1717084425425" duration="338000" />
       <workItem from="1717337775970" duration="23000" />
-      <workItem from="1733072386722" duration="1157000" />
+      <workItem from="1733072386722" duration="1861000" />
+      <workItem from="1733074293849" duration="7072000" />
     </task>
     <task id="LOCAL-00178" summary="removed unfavoured approaches (classes)">
       <created>1688994797834</created>

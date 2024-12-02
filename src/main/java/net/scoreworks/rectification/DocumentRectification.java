@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import static net.scoreworks.rectification.utils.LightingCorrection.betterGrayscaleAdaptiveThresholding;
+import static net.scoreworks.rectification.stages.LightingCorrection.betterGrayscaleAdaptiveThresholding;
 import static net.scoreworks.rectification.utils.Utils.nearestOddNumber;
 
 /**
