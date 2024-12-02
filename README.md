@@ -23,8 +23,6 @@ accurately model the page's geometry and correct its distortions.
   <img src="/results/20221202_145451.jpg" width="394" />
 </p>
 
-<img src="results/staff_detection/20221202_145451.jpg" alt="Image 1" style="display:inline-block; width:40%;"/> <img src="results/20221202_145451.jpg" alt="Image 1" style="display:inline-block; width:39.35%;"/>
-
 ## Project Overview
 
 The problem of rectifying a musical document is broken down into several stages:
