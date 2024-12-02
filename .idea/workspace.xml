@@ -9,8 +9,71 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="traing to get images side by side in README.md">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="4e99d2f2-fe3d-424e-bad9-ea759a1e061d" name="Changes" comment="cleanup in README.md">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_125247.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145347.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145425.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145451.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145510.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145530.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145552.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145609.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145634.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145702.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145719.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221202_145739.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102117.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102144.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102215.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102225.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102242.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102250.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102415.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102453.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102541.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102616.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102655.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102931.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_102950.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_103245.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_103258.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_103311.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/20221210_103322.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_125247.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145347.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145425.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145451.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145510.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145530.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145552.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145609.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145634.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145702.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145719.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221202_145739.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102117.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102144.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102215.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102225.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102242.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102250.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102415.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102453.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102541.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102616.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102655.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102931.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_102950.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_103245.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_103258.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_103311.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/staff_detection/20221210_103322.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/DocumentRectification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/DocumentRectification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/StegerPointDetection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/StegerPointDetection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/SurfaceReconstruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/stages/SurfaceReconstruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/LinePoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/scoreworks/rectification/utils/LinePoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/net/scoreworks/omr/parsing/SolverComparisonArpackOpenCV.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,12 +129,12 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Daniel63656/OpticalMusicRecognition.git",
-    "accountId": "52c1b8da-eefe-4094-8d01-f8ee8ebae476"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Daniel63656/OpticalMusicRecognition.git&quot;,
+    &quot;accountId&quot;: &quot;52c1b8da-eefe-4094-8d01-f8ee8ebae476&quot;
   }
-}]]></component>
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -103,7 +166,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Daniel/AppDevelopment/ArpackJ",
+    "last_opened_file_path": "C:/Users/Daniel/AppDevelopment/scoreworks/MusicalDocumentRectification",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -411,6 +474,7 @@
       <workItem from="1717337775970" duration="23000" />
       <workItem from="1733072386722" duration="1861000" />
       <workItem from="1733074293849" duration="7593000" />
+      <workItem from="1733153173908" duration="521000" />
     </task>
     <task id="LOCAL-00178" summary="removed unfavoured approaches (classes)">
       <created>1688994797834</created>

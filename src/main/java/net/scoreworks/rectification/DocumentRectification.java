@@ -31,19 +31,18 @@ public class DocumentRectification {
 
     public static void main(String[] args) {
         //test on dataset
-        File src_dir = new File("src/main/resources/");
-        String dst_dir = "results/";
-
-        for (File file : src_dir.listFiles()) {
+        File srcDir = new File("src/main/resources");
+        String dstDir = "results/";
+        for (File file : srcDir.listFiles()) {
             System.out.println("Doing file "+file.getName());
             DocumentRectification rect = new DocumentRectification(Imgcodecs.imread(file.toString(), Imgcodecs.IMREAD_COLOR));
             Core.bitwise_not(rect.rectified, rect.rectified); //convert back to "normal" contrast
-            Imgcodecs.imwrite(dst_dir+file.getName(), rect.rectified);
-            Imgcodecs.imwrite(dst_dir+"staff_detection/"+file.getName(), rect.img);
+            Imgcodecs.imwrite(dstDir+file.getName(), rect.rectified);
+            Imgcodecs.imwrite(dstDir+"staff_detection/"+file.getName(), rect.img);
         }
 
         //test with a single file
-       /* DocumentRectification rect = new DocumentRectification(Imgcodecs.imread("src/main/resources/test.jpg", Imgcodecs.IMREAD_COLOR));
+        /*DocumentRectification rect = new DocumentRectification(Imgcodecs.imread("src/main/resources/test.jpg", Imgcodecs.IMREAD_COLOR));
         Imgcodecs.imwrite("out.jpg", rect.img);
         Core.bitwise_not(rect.rectified, rect.rectified); //convert back to "normal" contrast
         Imgcodecs.imwrite("transformed.jpg", rect.rectified);*/
@@ -71,7 +70,7 @@ public class DocumentRectification {
                 nearestOddNumber(0.75*iss), nearestOddNumber(2.5*iss), 15, 60));
 
         //detect curvilinear points
-        float sigma = 3f*LineModel.getLowerSigma(lineModel.getStaffLineThickness());
+        float sigma = LineModel.getLowerSigma(lineModel.getStaffLineThickness());
         float threshold = 0.4f * LineModel.getUpperThreshold(sigma, lineModel.getStaffLineThickness(), lineModel.getStaffLineContrast());
         StegerPointDetection stegerPointDetection = new StegerPointDetection(grayscale, sigma);
         timestamps.add(System.currentTimeMillis());
@@ -105,7 +104,7 @@ public class DocumentRectification {
         timestamps.add(System.currentTimeMillis());
 
         //draw results from stages onto images for debugging/visualizations
-        //stegerPointDetection.visualize(img, threshold, threshold, new Scalar(0,255,0), new Scalar(255, 0, 0), 2);
+        //stegerPointDetection.visualize(img, 0.18f*upperThreshold, 0.18f*upperThreshold, new Scalar(0,255,0), new Scalar(255, 0, 0), 2);
         staffDetection.visualize(img, new Scalar(0, 0, 255));
         //ld.visualize(img, new Scalar(255, 0, 0));
 

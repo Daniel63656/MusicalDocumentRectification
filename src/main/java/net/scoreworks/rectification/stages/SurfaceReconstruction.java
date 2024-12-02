@@ -1,5 +1,6 @@
 package net.scoreworks.rectification.stages;
 
+
 import net.scoreworks.arpackj.eig.SymmetricArpackSolver;
 import org.la4j.Matrix;
 import org.la4j.matrix.sparse.CRSMatrix;
@@ -145,7 +146,7 @@ public class SurfaceReconstruction {
 
         // Compute A^T*A
         Matrix AtA = A_t.multiplyByItsTranspose();
-        SymmetricArpackSolver solver = eigsh_shiftInvert(AtA, null,  1, "LM", 0, null, 500, 1e-9);
+        SymmetricArpackSolver solver = eigsh_shiftInvert(AtA, null, 1, "LM", 0, null, 500, 1e-9);
         solver.solve();
         return solver.getEigenvectors();
     }
